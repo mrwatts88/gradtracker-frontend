@@ -1,0 +1,17 @@
+
+header {
+  display: flex;
+  height: 6em;
+  background-color: #3cc;
+  align-items: center;
+  nav {
+    display: flex;
+    align-items: center;
+    height: 3em;
+    margin-left: 2em;
+    a {
+    margin-right: 2em;
+    text-decoration: none;
+    }
+  }
+}

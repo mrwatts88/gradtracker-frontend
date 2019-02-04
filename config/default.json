@@ -1,0 +1,7 @@
+{
+    "serviceUrl": "http://localhost:8333/capstone-service",
+    "serviceHost": "http://localhost:8333",
+    "serviceUri": "/capstone-service",
+    "httpListenerPort": 4000,
+    "httpsListenerPort": 8443
+}
