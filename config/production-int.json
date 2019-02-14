@@ -1,7 +1,7 @@
 {
-    "serviceUrl": "https://service.uwm-nm-te-capstone.com/capstone-service",
+    "serviceUrl": "https://service.uwm-nm-te-capstone.com/backend-example",
     "serviceHost": "https://service.uwm-nm-te-capstone.com",
-    "serviceUri": "/capstone-service",
+    "serviceUri": "/backend-example",
     "httpListenerPort": 4000,
     "httpsListenerPort": 8443
 }
