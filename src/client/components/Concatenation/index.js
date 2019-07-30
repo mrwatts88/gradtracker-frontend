@@ -11,7 +11,7 @@ export class Concatenation extends React.Component {
         const { val1, val2 } = this.state;
         const { concatValue } = this.props;
         return (
-            <div className="card">
+            <div id="concatenation" className="card">
                 <h3>Concatenation:</h3>
                 <div className="card-body">
                     <div className="input-group">
@@ -19,7 +19,7 @@ export class Concatenation extends React.Component {
                         <input type="text" id="value1" value={val1} onChange={e => this.setState({ val1: e.target.value })} />
                     </div>
                     <div className="input-group">
-                        <label forhtml="value1">Value 1</label>
+                        <label forhtml="value2">Value 2</label>
                         <input type="text" id="value2" value={val2} onChange={e => this.setState({ val2: e.target.value })} />
                     </div>
                     <div className="submit-button">
