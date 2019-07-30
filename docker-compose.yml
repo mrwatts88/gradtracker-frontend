@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    mysql:
+        image: mysql:5.7.25
+        container_name: mysql
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+            MYSQL_DATABASE: 'capstone'
+
+    backend:
+        image: backend-example
+        container_name: backend-example
+        ports:
+            - '8333:8333'
+        environment:
+            SPRING_PROFILES: localdocker

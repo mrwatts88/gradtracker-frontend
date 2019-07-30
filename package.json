@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "infra:up": "docker-compose up -d",
+    "infra:down": "docker-compose down",
     "start": "node ./src/server/app.js",
     "start:dev": "nodemon --exec npm run build:dev",
     "build": "webpack --config ./config/webpack.config.js",
