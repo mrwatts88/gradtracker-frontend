@@ -6,7 +6,7 @@ export class Header extends React.Component {
             <header>
                 <nav>
                     <a href="#" target="_self">Home</a>
-                    <a href="#" target="_self">Caculator</a>
+                    <a href="#" target="_self">Calculator</a>
                     <a href="#" target="_self">About</a>
                 </nav>
             </header>

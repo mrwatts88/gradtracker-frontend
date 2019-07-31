@@ -11,7 +11,7 @@ export class Palindrome extends React.Component {
         const { val } = this.state;
         const { isPalindrome } = this.props;
         return (
-            <div className="card">
+            <div id="palindrome" className="card">
                 <h3>Palindrome:</h3>
                 <div className="card-body">
                     <div className="input-group">
