@@ -11,7 +11,7 @@ class HomeScreen extends Component {
     render() {
         return (
             <main>
-                <h1>Home Screen example</h1>
+                <h1>Let's Mess With Words</h1>
                 <section>
                     <h3>What is happening here?</h3>
                     <p style={{whiteSpace: 'pre-line', paddingBottom: '1em'}}>{DESCRIPTION}</p>

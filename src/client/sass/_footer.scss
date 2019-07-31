@@ -1,10 +1,17 @@
 footer {
     height: 4em;
-    background-color: #3cc;
+    color: #E9B245;
+    background-color: #003C71;
     display: flex;
+    font-size: 150%;
     justify-content: flex-end;
     align-items: center;
     a {
         margin-right: 3em;
+        color: ghostwhite;
+        font-family: "Nanum Gothic";
+    }
+    a:hover{
+        color: #FFB800;
     }
 }

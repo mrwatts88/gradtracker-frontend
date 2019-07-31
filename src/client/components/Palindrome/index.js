@@ -11,7 +11,7 @@ export class Palindrome extends React.Component {
         const { val } = this.state;
         const { isPalindrome } = this.props;
         return (
-            <div id="palindrome" className="card">
+            <div className="card">
                 <h3>Palindrome:</h3>
                 <div className="card-body">
                     <div className="input-group">
@@ -20,7 +20,7 @@ export class Palindrome extends React.Component {
                     </div>
                     <div className="input-group" />
                     <div className="submit-button">
-                        <button className="button" disabled={!val} onClick={() => this.props.checkPalindrome(val)}>CheckPalindrome</button>
+                        <button className="button" disabled={!val} onClick={() => this.props.checkPalindrome(val)}>Check Palindrome</button>
                     </div>
                 </div>
                 <div className="result-container">
