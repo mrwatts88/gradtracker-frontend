@@ -1,4 +1,6 @@
-FROM docker.nmcapstone.com/general/node-docker:latest
+ARG DOCKER_REGISTRY
+
+FROM $DOCKER_REGISTRY/general/node-docker:latest
 
 # Create app directory
 WORKDIR /app
