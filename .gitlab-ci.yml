@@ -36,6 +36,8 @@ Build:
     only:
         - master
     when: on_success
+    after_script:
+        - 'echo "Image SHA Tag : $CI_COMMIT_SHA"'
 # endregion Build #############################################################
 
 # region Deploy ###############################################################
