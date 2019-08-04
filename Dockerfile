@@ -1,5 +1,6 @@
-# FROM registry.uwm-nm-te-capstone.com:8083/general/node-docker:latest
-FROM node:10.16.0-alpine
+ARG DOCKER_REGISTRY
+
+FROM $DOCKER_REGISTRY/general/node-docker:latest
 
 # Create app directory
 WORKDIR /app

@@ -11,7 +11,7 @@ services:
             MYSQL_DATABASE: 'capstone'
 
     backend:
-        image: backend-example
+        image: docker.nmcapstone.com/nm-capstone-cookbooks/nm-capstone-backend-cookbooks/backend-example:latest
         container_name: backend-example
         ports:
             - '8333:8333'
