@@ -4,9 +4,6 @@ stages:
     - Deploy
 
 # region global_settings ######################################################
-# before_script:
-#     - docker info
-# image: registry.uwm-nm-te-capstone.com:8083/general/node-docker:latest
 cache:
     paths:
         - node_modules/
