@@ -15,7 +15,7 @@ cache:
 # region job_templates ########################################################
 .pre_build_base:
     stage: Pre-Build
-    image: node:10.16.0-alpine
+    image: $DOCKER_REGISTRY/general/node-docker:latest
     before_script:
         - npm install
     when: on_success
