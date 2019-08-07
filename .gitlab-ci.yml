@@ -1,6 +1,7 @@
 stages:
     - Pre-Build
     - Build
+    - Post-Build
     - Deploy
 
 # region global_settings ######################################################
@@ -23,6 +24,11 @@ Test:
     extends: .pre_build_base
     script:
         - npm test
+    artifacts:
+        paths:
+            - ./coverage/lcov.info
+        expire_in: 1d
+
 # endregion Pre-Build #########################################################
 
 # region Build ################################################################
@@ -42,6 +48,26 @@ Build:
     after_script:
         - 'echo "Image SHA Tag : $CI_COMMIT_SHA"'
 # endregion Build #############################################################
+
+# region Post-Build ###########################################################
+SonarQube Analyze:
+    stage: Pre-Build
+    image: $DOCKER_REGISTRY/general/sonar-scanner:latest
+    script:
+        - export PACKAGE_VERSION=$(node -pe 'require("./package.json").version')
+        - export PROJECT_KEY="$(echo $CI_PROJECT_PATH | tr '/' ':')"
+        - echo "Analyzing $PROJECT_KEY"
+        - sonar-scanner
+          -Dsonar.analysis.mode=publish
+          -Dsonar.projectKey="${PROJECT_KEY}"
+          -Dsonar.projectName="${CI_PROJECT_NAME}"
+          -Dsonar.projectVersion="${PACKAGE_VERSION}"
+    #   only:
+    #     - master
+    dependencies:
+        - Test
+    when: on_success
+# endregion Post-Build ########################################################
 
 # region Deploy ###############################################################
 .Deploy:
