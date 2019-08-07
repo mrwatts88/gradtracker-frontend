@@ -51,7 +51,7 @@ Build:
 
 # region Post-Build ###########################################################
 SonarQube Analyze:
-    stage: Pre-Build
+    stage: Post-Build
     image: $DOCKER_REGISTRY/general/sonar-scanner:latest
     script:
         - export PACKAGE_VERSION=$(node -pe 'require("./package.json").version')
