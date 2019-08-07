@@ -1,18 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux'
+import { executeSubtraction } from '../../redux/actions/mathematics_actions'
 
 class SubtractComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { val1: '', val2: '', result: undefined};
-    }
-    async subtractingService() {
-        const res = await axios.get(`/api/mathematics/subtract/${this.state.val1}/${this.state.val2}`);
-        this.setState({result: res.data.value})
+        this.state = { val1: '', val2: ''};
     }
     render() {
-        const { val1, val2, result } = this.state;
-        const { isPalindrome } = this.props;
+        const { val1, val2} = this.state;
+        const { subtractResult } = this.props;
         return (
             <div id="subtraction" className="card">
                 <h3>Subtraction:</h3>
@@ -29,17 +26,21 @@ class SubtractComponent extends React.Component {
                     </div>
                     <div className="input-group" />
                     <div className="submit-button">
-                        <button className="button" disabled={!val1 || !val2} onClick={() => this.subtractingService()}>-</button>
+                        <button className="button" disabled={!val1 || !val2} onClick={() => this.props.executeSubtraction(val1, val2)}>-</button>
                     </div>
                 </div>
                 <div className="result-container">
-                    {result && <p> {val1} - {val2} = {result}</p>}
+                    {subtractResult && <p> {val1} - {val2} = {subtractResult.value}</p>}
                 </div>
             </div>
         )
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        subtractResult: state.mathematicsReducer.subtractResult
+    };
+}
 
-
-export default SubtractComponent;
+export default connect(mapStateToProps, { executeSubtraction })(SubtractComponent);

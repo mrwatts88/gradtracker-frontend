@@ -1,18 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux'
+import { executeDivision } from "../../redux/actions/mathematics_actions"
 
 class DivideComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { val1: '', val2: '', result: undefined};
-    }
-    async dividingService() {
-        const res = await axios.get(`/api/mathematics/divide/${this.state.val1}/${this.state.val2}`);
-        this.setState({result: res.data.value})
+        this.state = { val1: '', val2: ''};
     }
     render() {
-        const { val1, val2, result } = this.state;
-        const { isPalindrome } = this.props;
+        const { val1, val2} = this.state;
+        const { divideResult } = this.props;
         return (
             <div id="multiplication" className="card">
                 <h3>Division:</h3>
@@ -29,17 +26,21 @@ class DivideComponent extends React.Component {
                     </div>
                     <div className="input-group" />
                     <div className="submit-button">
-                        <button className="button" disabled={!val1 || !val2} onClick={() => this.dividingService()}>÷</button>
+                        <button className="button" disabled={!val1 || !val2} onClick={() => this.props.executeDivision(val1, val2)}>÷</button>
                     </div>
                 </div>
                 <div className="result-container">
-                    {result && <p> {val1} ÷ {val2} = {result}</p>}
+                    {divideResult && <p> {val1} ÷ {val2} = {divideResult.value}</p>}
                 </div>
             </div>
         )
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        divideResult: state.mathematicsReducer.divideResult
+    };
+}
 
-
-export default DivideComponent;
+export default connect(mapStateToProps, { executeDivision })(DivideComponent);

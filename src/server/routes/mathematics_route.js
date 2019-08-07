@@ -29,8 +29,8 @@ router.get('/divide/:value1/:value2', async (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.get('/squareRoot/:value1/:value2', async (req, res, next) => {
-    return  axios.get(`${serviceUrl}/mathematics/squareRoot/${req.params.value1}/${req.params.value2}`)
+router.get('/squareRoot/:value1', async (req, res, next) => {
+    return  axios.get(`${serviceUrl}/mathematics/squareRoot/${req.params.value1}`)
     .then(response => res.status(200).send({value: response.data}))
     .catch(err => next(err));
 });
