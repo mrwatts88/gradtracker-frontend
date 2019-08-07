@@ -3,7 +3,7 @@
     "name": "client-test",
     "rootDir": "../../",
     "testURL": "http://localhost/",
-    "setupTestFrameworkScriptFile": "<rootDir>/jestSetup/enzyme.js",
+    "setupFilesAfterEnv": ["<rootDir>/jestSetup/enzyme.js"],
     "coveragePathIgnorePatterns": [
         "/node_modules/",
         "/jestSetup/"

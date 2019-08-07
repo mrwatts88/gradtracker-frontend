@@ -23,7 +23,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
-                    presets: ['react', 'env']
+                    presets: ['@babel/preset-react', '@babel/preset-env']
                 }
             }, {
                 test: /\.(scss|sass)$/,

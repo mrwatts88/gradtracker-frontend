@@ -7,6 +7,7 @@ export class Concatenation extends React.Component {
         super(props);
         this.state = { val1: '', val2: '' };
     }
+
     render() {
         const { val1, val2 } = this.state;
         const { concatValue } = this.props;
@@ -32,7 +33,7 @@ export class Concatenation extends React.Component {
             </div>
         );
     }
-};
+}
 
 const mapStateToProps = state => {
     return {

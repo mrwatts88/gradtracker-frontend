@@ -7,6 +7,7 @@ export class Palindrome extends React.Component {
         super(props);
         this.state = { val: '' };
     }
+
     render() {
         const { val } = this.state;
         const { isPalindrome } = this.props;
@@ -29,7 +30,7 @@ export class Palindrome extends React.Component {
             </div>
         );
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
