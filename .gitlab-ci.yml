@@ -62,8 +62,8 @@ SonarQube Analyze:
           -Dsonar.projectKey="${PROJECT_KEY}"
           -Dsonar.projectName="${CI_PROJECT_NAME}"
           -Dsonar.projectVersion="${PACKAGE_VERSION}"
-    #   only:
-    #     - master
+    only:
+        - master
     dependencies:
         - Test
     when: on_success
