@@ -64,6 +64,7 @@ SonarQube Analyze:
           -Dsonar.projectVersion="${PACKAGE_VERSION}"
     only:
         - master
+        - resolve-sonar-issues
     dependencies:
         - Test
     when: on_success
