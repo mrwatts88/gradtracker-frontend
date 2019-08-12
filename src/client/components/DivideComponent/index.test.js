@@ -27,8 +27,9 @@ describe('DivideComponent', () => {
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;
-        component.setState({val1, val2});
-        component.find('button').simulate('click');
+        component.find('input').at(0).simulate('change', { target: { value: val1 } });
+        component.find('input').at(1).simulate('change', { target: { value: val2 } });
+        component.find('button').simulate('click')
         expect(props.executeDivision).toBeCalledWith(val1, val2);
     });
 });

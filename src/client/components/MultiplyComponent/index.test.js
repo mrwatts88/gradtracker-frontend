@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MultiplyComponent } from './';
+import { SSL_OP_NO_TLSv1_1, SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
-describe('AddComponent', () => {
+describe('MultiplyComponent', () => {
     const props = { executeMultiplication: jest.fn(), multiplyResult: { value: 'test' }};
     let component;
 
@@ -27,7 +28,8 @@ describe('AddComponent', () => {
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;
-        component.setState({val1, val2});
+        component.find('input').at(0).simulate('change', { target: { value: val1 } });
+        component.find('input').at(1).simulate('change', { target: { value: val2 } });
         component.find('button').simulate('click');
         expect(props.executeMultiplication).toBeCalledWith(val1, val2);
     });

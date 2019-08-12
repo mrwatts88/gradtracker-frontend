@@ -1,38 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { executeAddition } from '../../redux/actions/mathematics_actions';
+import { executeAddition } from '../../redux/actions/mathematics_actions'
 
-export class AddComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { val1: '', val2: ''};
-    }
-    render() {
-        const { val1, val2} = this.state;
-        const { addResult } = this.props;
+export const AddComponent = ({ addResult, executeAddition }) => {
+    const [val1, setVal1] = useState('');
+    const [val2, setVal2] = useState('');
         return (
-            <div id="addition" className="card">
+            <div id="Addition" className="card">
                 <h3>Addition:</h3>
                 <div className="card-body">
                     <div className="input-group-2">
                         <div className="input-group-2">
-                            <input placeholder="Value 1" type="number" id="value1" value={val1} onChange={e => this.setState({ val1: e.target.value })} />
+                            <input placeholder="Value 1" type="number" id="value1" value={val1} onChange={e => setVal1(e.target.value)} />
                         </div>
                         <div className="input-group-2">
-                            <input placeholder="Value 2" type="number" id="value2" value={val2} onChange={e => this.setState({ val2: e.target.value })} />
+                            <input placeholder="Value 2" type="number" id="value2" value={val2} onChange={e => setVal2(e.target.value)} />
                         </div>
                     </div>
                     <div className="input-group" />
                     <div>
-                        <button className="calc-button" disabled={!val1 || !val2} onClick={() => this.props.executeAddition(val1, val2)}>+</button>
+                        <button className="calc-button" disabled={!val1 || !val2} onClick={() => executeAddition(val1, val2)}>x</button>
                     </div>
                 </div>
                 <div className="result-container">
-                    {addResult && <p> {val1} + {val2} = {addResult.value}</p>}
+                    {addResult && <p> {val1} x {val2} = {addResult.value}</p>}
                 </div>
             </div>
         )
-    }
 }
 
 const mapStateToProps = state => {

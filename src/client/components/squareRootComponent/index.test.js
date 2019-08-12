@@ -20,7 +20,7 @@ describe('SquareComponent', () => {
         expect(component.find('button').props().disabled).toBeTruthy();
     });
 
-    it('should render two inputs and a button', () => {
+    it('should render one input and a button', () => {
         expect(component.find('input').length).toEqual(1);
         expect(component.find('button').length).toEqual(1);
     });

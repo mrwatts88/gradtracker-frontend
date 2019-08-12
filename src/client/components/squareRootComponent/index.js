@@ -6,9 +6,8 @@ import { executeSquare } from '../../redux/actions/mathematics_actions'
 //     const { squareResult, executeSquare } = props;
 export const SquareComponent = ({ squareResult, executeSquare }) => {
     const [val1, setVal1] = useState('');
-    const x = 1;
     return (
-        <div id="multiplication" className="card">
+        <div id="squareRoot" className="card">
             <h3>Square Root:</h3>
             <div className="card-body">
                 <div className="input-group">
