@@ -1,36 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { executeSquare } from '../../redux/actions/mathematics_actions'
 
-class SquareComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { val1: ''};
-    }
-    render() {
-        const { val1 } = this.state;
-        const { squareResult } = this.props;
-        return (
-            <div id="multiplication" className="card">
-                <h3>Square Root:</h3>
-                <div className="card-body">
-                    <div className="input-group">
-                        <div className="input-group">
-                        <label forhtml="value1">Value 1</label>
-                        <input type="number" id="value1" value={val1} onChange={e => this.setState({ val1: e.target.value })} />
-                    </div>
-                    </div>
-                    <div className="input-group" />
-                    <div className="submit-button">
-                        <button className="button" disabled={!val1} onClick={() => this.props.executeSquare(val1)}>Square Root</button>
-                    </div>
+// const SquareComponent = (props) => {
+//     const { squareResult, executeSquare } = props;
+export const SquareComponent = ({ squareResult, executeSquare }) => {
+    const [val1, setVal1] = useState('');
+    const x = 1;
+    return (
+        <div id="multiplication" className="card">
+            <h3>Square Root:</h3>
+            <div className="card-body">
+                <div className="input-group">
+                    <div className="input-group-2">
+                    <input type="number" placeholder="Value" id="value1" value={val1} onChange={e => setVal1(e.target.value)} />
                 </div>
-                <div className="result-container">
-                    {squareResult && <p> The square root of {val1} = {squareResult.value}</p>}
+                </div>
+                <div className="input-group" />
+                <div>
+                    <button className="calc-button" disabled={!val1} onClick={() => executeSquare(val1)}>√</button>
                 </div>
             </div>
-        )
-    }
+            <div className="result-container">
+                {squareResult && <p> The square root of {val1} = {squareResult.value}</p>}
+            </div>
+        </div>
+    )
 }
 
 
