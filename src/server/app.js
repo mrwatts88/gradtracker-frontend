@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const server = require('./');
 
+const contextRoot = config.get('contextRoot');
+
 let httpServer = null;
 let httpsServer = null;
 
@@ -27,13 +29,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // prepend '/api' to URIs
-app.use('/api', server);
+app.use(`${contextRoot}/api`, server);
 
 // serve static files from public
-app.use(express.static(resolve(__dirname, '..', '..', 'www')));
+app.use(contextRoot, express.static(resolve(__dirname, '..', '..', 'www')));
 
 // request any page and receive index.html
-app.get('*', (req, res) => res.sendFile(resolve(__dirname, '..', '..', 'www/index.html')));
+app.get(`${contextRoot}*`, (req, res) => res.sendFile(resolve(__dirname, '..', '..', 'www/index.html')));
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production') {
     try {
