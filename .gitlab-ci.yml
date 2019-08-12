@@ -44,6 +44,7 @@ Build:
         - docker push $DOCKER_REGISTRY/$CI_PROJECT_PATH:latest
     only:
         - master
+        - context-root
     when: on_success
     after_script:
         - 'echo "Image SHA Tag : $CI_COMMIT_SHA"'
