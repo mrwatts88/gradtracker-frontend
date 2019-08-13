@@ -6,7 +6,6 @@ export const DivideComponent = ({ divideResult, executeDivision }) => {
     const [val1, setVal1] = useState('');
     const [val2, setVal2] = useState('');
     const [showResult, setShowResult] = useState(false);
-    const [canCalculate, setCalculate] = useState(true);
     return (
         <div id="division" className="card">
             <h3>Division:</h3>
