@@ -20,10 +20,15 @@ describe('SquareComponent', () => {
         expect(component.find('button').props().disabled).toBeTruthy();
     });
 
+    it('should by default disable the submit button but not the inputs', () => {
+        expect(component.find('button').not('input').props().disabled).toBeTruthy();
+    });
+
     it('should render one input and a button', () => {
         expect(component.find('input').length).toEqual(1);
         expect(component.find('button').length).toEqual(1);
     });
+
     it('should call the action when submitting', () => {
         const val = 3;
         component.find('input').simulate('change', { target: { value: val } });

@@ -20,10 +20,15 @@ describe('SubtractComponent', () => {
         expect(component.find('button').props().disabled).toBeTruthy();
     });
 
-    it('should render two inputs and a button', () => {
-        expect(component.find('input').length).toEqual(2);
-        expect(component.find('button').length).toEqual(1);
+    it('should by default disable the submit button but not the inputs', () => {
+        expect(component.find('button').not('input').props().disabled).toBeTruthy();
     });
+
+    it('should render two inputs and a button', () => {
+        expect(component.find('input').not('button').length).toEqual(2);
+        expect(component.find('button').not('input').length).toEqual(1);
+    });
+
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;
