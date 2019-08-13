@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const PALINDROME_RESULT = 'PALINDROME_RESULT';
-export const API_PALINDROME = '/api/palindrome';
+export const API_PALINDROME = `${CONTEXT_ROOT}/api/palindrome`;
 
 export const checkPalindrome = (val) =>
     async dispatch => {

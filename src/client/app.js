@@ -11,7 +11,7 @@ import './sass/main.scss';
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={CONTEXT_ROOT}>
             <Routes />
         </BrowserRouter>
     </Provider>,

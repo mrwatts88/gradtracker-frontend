@@ -38,6 +38,7 @@ Build:
         - docker login $DOCKER_REGISTRY --username $DOCKER_REPO_USER --password $DOCKER_REPO_PASS
         - docker build
           --build-arg DOCKER_REGISTRY
+          --build-arg ENVIRONMENT=deployed
           -t $DOCKER_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA
           -t $DOCKER_REGISTRY/$CI_PROJECT_PATH:latest .
         - docker push $DOCKER_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA
@@ -64,7 +65,6 @@ SonarQube Analyze:
           -Dsonar.projectVersion="${PACKAGE_VERSION}"
     only:
         - master
-        - resolve-sonar-issues
     dependencies:
         - Test
     when: on_success

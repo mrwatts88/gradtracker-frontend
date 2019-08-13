@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const CONCATENATION_RESULT = 'CONCATENATION_RESULT';
-export const API_CONCAT = '/api/concatenate';
+export const API_CONCAT = `${CONTEXT_ROOT}/api/concatenate`;
 
 export const createConcatenation = (val1, val2) =>
     async dispatch => {

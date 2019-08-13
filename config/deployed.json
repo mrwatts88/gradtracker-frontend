@@ -3,5 +3,6 @@
     "serviceHost": "http://example.uwm-nm-te-capstone.com:8333",
     "serviceUri": "/backend-example",
     "httpListenerPort": 4000,
-    "httpsListenerPort": 8443
+    "httpsListenerPort": 8443,
+    "contextRoot": "/frontend"
 }
