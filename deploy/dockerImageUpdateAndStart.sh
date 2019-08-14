@@ -47,8 +47,9 @@ if [[ ! "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
 fi
 
 # Pull the requested docker image
-echo "Pulling $FULL_IMAGE_REF"
+echo "Logging into $DOCKER_REGISTRY"
 docker login $DOCKER_REGISTRY --username $DOCKER_REPO_USER --password $DOCKER_REPO_PASS
+echo "Pulling $FULL_IMAGE_REF"
 docker pull $IMAGE_NAME:$IMAGE_TAG
 
 # Run the docker image
