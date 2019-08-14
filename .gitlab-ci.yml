@@ -73,6 +73,7 @@ SonarQube Analyze:
 # region Deploy ###############################################################
 Deploy:
     stage: Deploy
+    image: $DOCKER_REGISTRY/general/node-docker:latest
     script:
         - bash deploy/deploy.sh
     only:
