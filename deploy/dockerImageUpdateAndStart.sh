@@ -18,7 +18,7 @@ DOCKER_REPO_USER=$4
 DOCKER_REPO_PASS=$5
 
 # Helper variables
-DOCKER_REGISTRY="registry.uwm-nm-te-capstone.com:8083"
+DOCKER_REGISTRY="docker.nmcapstone.com"
 IMAGE_NAME="$DOCKER_REGISTRY/$CI_PROJECT_PATH"
 IMAGE_TAG=$CI_COMMIT_SHA
 FULL_IMAGE_REF="$IMAGE_NAME:$IMAGE_TAG"
@@ -36,9 +36,11 @@ if [[ ! "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
     docker rmi -f $(docker images -q $IMAGE_NAME)
 fi
 
-# Pull the requested docker image
-echo "Pulling $FULL_IMAGE_REF"
+# Login to docker registry and Pull the requested docker image
+echo "Login to $DOCKER_REGISTRY"
 docker login $DOCKER_REGISTRY --username $DOCKER_REPO_USER --password $DOCKER_REPO_PASS
+
+echo "Pulling $FULL_IMAGE_REF"
 docker pull $IMAGE_NAME:$IMAGE_TAG
 
 # Run the docker image
