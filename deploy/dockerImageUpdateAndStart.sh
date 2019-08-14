@@ -41,8 +41,8 @@ if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
     docker rm -f $CONTAINER_NAME
 fi
 
-echo "Removing existing docker images for $IMAGE_NAME ..."
 if [[ ! "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
+    echo "Removing existing docker images for $IMAGE_NAME ..."
     docker rmi -f $(docker images -q $IMAGE_NAME)
 fi
 
@@ -53,7 +53,7 @@ echo "Pulling $FULL_IMAGE_REF"
 docker pull $IMAGE_NAME:$IMAGE_TAG
 
 # Run the docker image
-echo "Running '$CONTAINER_NAME' on port $CONTAINER_PORT from '$FULL_IMAGE_REF'"
+echo "Running '$CONTAINER_NAME' on port $HOST_PORT from '$FULL_IMAGE_REF'"
 docker run -d \
     -p $HOST_PORT:$CONTAINER_PORT \
     --name $CONTAINER_NAME \
