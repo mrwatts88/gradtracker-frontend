@@ -71,7 +71,7 @@ SonarQube Analyze:
 # endregion Post-Build ########################################################
 
 # region Deploy ###############################################################
-.Deploy:
+Deploy:
     stage: Deploy
     script:
         - bash deploy/deploy.sh
