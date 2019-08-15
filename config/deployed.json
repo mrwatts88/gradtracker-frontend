@@ -1,4 +1,5 @@
 {
+    "appEnv": "deployed",
     "serviceUrl": "http://example.uwm-nm-te-capstone.com:8333/backend-example",
     "serviceHost": "http://example.uwm-nm-te-capstone.com:8333",
     "serviceUri": "/backend-example",
