@@ -1,4 +1,5 @@
 {
+    "appEnv": "local",
     "serviceUrl": "http://localhost:8333/backend-example",
     "serviceHost": "http://localhost:8333",
     "serviceUri": "/backend-example",

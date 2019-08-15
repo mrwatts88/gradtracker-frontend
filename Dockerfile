@@ -2,8 +2,6 @@ ARG DOCKER_REGISTRY
 
 FROM $DOCKER_REGISTRY/general/node-docker:latest
 
-ARG ENVIRONMENT
-
 # Create app directory
 WORKDIR /app
 
@@ -13,7 +11,8 @@ ADD . /app
 # Install dependencies and build the app
 RUN npm install \
     && npm rebuild node-sass \
-    && NODE_ENV=${ENVIRONMENT} npm run build
+    && npm run build:local-docker \
+    && npm run build:deployed
 
 # Set entrypoint
 CMD ["npm", "start"]

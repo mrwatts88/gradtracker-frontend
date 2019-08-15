@@ -6,9 +6,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+const appEnv = config.get('appEnv');
 const contextRoot = config.get('contextRoot');
-const outputPath = path.resolve(__dirname, '..', 'www');
 const contextPath = path.resolve(__dirname, '..', 'src', 'client');
+const outputPath = path.resolve(__dirname, '..', `www-${appEnv}`);
 
 console.log('========================================');
 console.log(JSON.stringify({ contextRoot }, null, 4));
