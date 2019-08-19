@@ -58,6 +58,8 @@ SonarQube Analyze:
         - echo "Analyzing $PROJECT_KEY"
         - sonar-scanner
           -Dsonar.analysis.mode=publish
+          -Dsonar.login="${SONARQUBE_USERNAME}"
+          -Dsonar.password="${SONARQUBE_PASSWORD}"
           -Dsonar.projectKey="${PROJECT_KEY}"
           -Dsonar.projectName="${CI_PROJECT_NAME}"
           -Dsonar.projectVersion="${PACKAGE_VERSION}"
