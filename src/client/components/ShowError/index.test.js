@@ -4,7 +4,13 @@ import { ShowError } from './';
 
 describe('ShowError', () => {
     const props = { error: 'test', deleteError: jest.fn() };
-    const component = shallow(<ShowError {...props} />);
+    let component;
+
+    // resetting the component here, to make sure that we always have a fresh state.
+    // see the concatenation for a different way to do this.
+    beforeEach(() => {
+        component = shallow(<ShowError {...props} />);
+    });
 
     it('should render component', () => {
         expect(component.find('h1').length).toEqual(1);
