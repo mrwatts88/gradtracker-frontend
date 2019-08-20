@@ -46,7 +46,9 @@ NPM scripts are custom commands that simplify common project tasks, such as:
 -   Building and starting the application
 -   Running code quality tools like ESLint
 
-These scripts are defined `scripts` block of the `package.json` file, and can be run in a terminal using the basic structure `npm run <script-name> <optional arguments>`. See below for the included commands and examples
+These scripts are defined `scripts` block of the `package.json` file, and can be run in a terminal using `npm run <script-name>`.  
+If the script requires additional arguments, use the format `npm run <script-name> -- <arguments...>`.  
+See below for the included commands and examples
 
 This project includes a base set of commands:
 
