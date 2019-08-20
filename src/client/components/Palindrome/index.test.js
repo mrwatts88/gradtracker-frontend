@@ -27,7 +27,7 @@ describe('Palindrome', () => {
 
     it('should call the action when submitting', () => {
         const val = 'test';
-        component.setState({val});
+        component.setState({ val });
         component.find('button').simulate('click');
         expect(props.checkPalindrome).toBeCalledWith(val);
     });
