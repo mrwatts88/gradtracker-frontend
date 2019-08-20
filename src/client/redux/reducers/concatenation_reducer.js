@@ -5,7 +5,7 @@ const initialState = {};
 const concatenationReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONCATENATION_RESULT:
-            return {...state, concatValue: action.concatValue};
+            return { ...state, concatValue: action.concatValue };
         default:
             return state;
     }
