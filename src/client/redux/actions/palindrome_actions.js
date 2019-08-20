@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setError } from './error_actions';
 export const PALINDROME_RESULT = 'PALINDROME_RESULT';
 export const API_PALINDROME = `${CONTEXT_ROOT}/api/palindrome`;
 
@@ -14,7 +15,7 @@ export const checkPalindrome = (val) =>
                 });
             }
         } catch (err) {
-            // TODO: show the user what went wrong rather than logging it to the console.
+            dispatch(setError(err));
             // for testing purposes:
             dispatch({
                 type: PALINDROME_RESULT,
