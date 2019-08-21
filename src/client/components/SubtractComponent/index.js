@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { executeSubtraction } from '../../redux/actions/mathematics_actions'
 
-export const SubtractComponent = ({ subtractResult, executeSubtraction }) => {
+export const SubtractComponent = ({ subtractResult, executeSubtraction, name }) => {
     const [val1, setVal1] = useState('');
     const [val2, setVal2] = useState('');
     const [showResult, setShowResult] = useState(false);
         return (
             <div id="subtraction" className="card">
-                <h3>Subtraction:</h3>
+                <h3>Subtraction: {name}</h3>
                 <div className="card-body">
                     <div className="input-group-2">
                         <div className="input-group-2">
@@ -41,6 +41,7 @@ export const SubtractComponent = ({ subtractResult, executeSubtraction }) => {
             </div>
         )
 }
+// Mapping Redux state to local props
 const mapStateToProps = state => {
     return {
         subtractResult: state.mathematicsReducer.subtractResult
