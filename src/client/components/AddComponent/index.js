@@ -36,7 +36,7 @@ export const AddComponent = ({ addResult, executeAddition }) => {
                     </div>
                 </div>
                 <div className="result-container">
-                    {addResult && showResult && <p> {val1} x {val2} = {addResult.value}</p>}
+                    {addResult && showResult && <p> {val1} + {val2} = {addResult.value}</p>}
                 </div>
             </div>
         )
