@@ -7,6 +7,6 @@ describe('Palindrome Reducer', () => {
     });
 
     it('should set the isPalindrom value', () => {
-        expect(palindromeReducer({}, {type: PALINDROME_RESULT, isPalindrome: true})).toEqual({isPalindrome: 'true'});
+        expect(palindromeReducer({}, { type: PALINDROME_RESULT, isPalindrome: true })).toEqual({ isPalindrome: 'true' });
     });
 });

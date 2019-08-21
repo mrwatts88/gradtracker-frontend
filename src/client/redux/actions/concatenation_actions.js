@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setError } from './error_actions';
 export const CONCATENATION_RESULT = 'CONCATENATION_RESULT';
 export const API_CONCAT = `${CONTEXT_ROOT}/api/concatenate`;
 
@@ -15,6 +16,6 @@ export const createConcatenation = (val1, val2) =>
                 });
             }
         } catch (err) {
-            // TODO: show the user what went wrong rather than logging it to the console.
+            dispatch(setError(err));
         }
     };
