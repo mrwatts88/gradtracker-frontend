@@ -21,6 +21,6 @@ const CalculatorScreen = () => {
             <p style={{ whiteSpace: 'pre-line', paddingBottom: '1em' }}></p>
         </main>
     );
-}
+};
 
 export default CalculatorScreen;

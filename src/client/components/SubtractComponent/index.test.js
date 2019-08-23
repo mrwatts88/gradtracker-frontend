@@ -3,17 +3,17 @@ import { shallow } from 'enzyme';
 import { SubtractComponent } from './';
 
 describe('SubtractComponent', () => {
-    const props = { executeSubtraction: jest.fn(), subtractResult: { value: 'test' }};
+    const props = { executeSubtraction: jest.fn(), subtractResult: { value: 'test' } };
     let component;
 
     // resetting the component here, to make sure that we always have a fresh state.
     // see the concatenation for a different way to do this.
     beforeEach(() => {
-        component = shallow(< SubtractComponent {...props} />);
+        component = shallow(<SubtractComponent {...props} />);
     });
 
     it('should render the component without crashing', () => {
-        expect(component.find('h3').text()).toEqual('Subtraction:');
+        expect(component.find('h3').text()).toEqual('Subtraction: ');
     });
 
     it('should by default disable the submit button', () => {
