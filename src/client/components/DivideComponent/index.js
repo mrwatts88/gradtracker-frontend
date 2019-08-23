@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { executeDivision } from '../../redux/actions/mathematics_actions'
+import { executeDivision } from '../../redux/actions/mathematics_actions';
 
 export const DivideComponent = ({ divideResult, executeDivision }) => {
     const [val1, setVal1] = useState('');
@@ -27,7 +27,7 @@ export const DivideComponent = ({ divideResult, executeDivision }) => {
                 <div className="input-group" />
                 <div>
                     <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
-                        if (val2 != 0) {
+                        if (val2 !== 0) {
                             executeDivision(val1, val2);
                             setShowResult(true);
                         }
@@ -39,12 +39,13 @@ export const DivideComponent = ({ divideResult, executeDivision }) => {
                 {divideResult && showResult && <p> {val1} ÷ {val2} = {divideResult.value}</p>}
             </div>
         </div>
-    )
-}
+    );
+};
+
 const mapStateToProps = state => {
     return {
         divideResult: state.mathematicsReducer.divideResult
     };
-}
+};
 
 export default connect(mapStateToProps, { executeDivision })(DivideComponent);
