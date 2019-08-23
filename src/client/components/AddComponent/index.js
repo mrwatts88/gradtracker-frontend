@@ -6,6 +6,7 @@ export const AddComponent = ({ addResult, executeAddition }) => {
     const [val1, setVal1] = useState('');
     const [val2, setVal2] = useState('');
     const [showResult, setShowResult] = useState(false);
+
     return (
         <div id="Addition" className="card">
             <h3>Addition:</h3>

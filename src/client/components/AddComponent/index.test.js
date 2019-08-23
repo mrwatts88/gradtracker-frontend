@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { AddComponent } from './';
 
 describe('AddComponent', () => {
-    const props = { executeAddition: jest.fn(), addResult: { value: 'test' }};
+    const props = { executeAddition: jest.fn(), addResult: { value: '5' } };
     let component;
 
     // resetting the component here, to make sure that we always have a fresh state.
@@ -28,7 +28,7 @@ describe('AddComponent', () => {
         expect(component.find('input').not('button').length).toEqual(2);
         expect(component.find('button').not('input').length).toEqual(1);
     });
-    
+
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;

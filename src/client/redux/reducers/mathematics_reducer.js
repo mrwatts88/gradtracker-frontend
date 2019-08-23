@@ -1,6 +1,7 @@
 import { ADDITION_RESULT, SUBTRACTION_RESULT, MULTIPLICATION_RESULT, DIVISION_RESULT, SQUARE_RESULT } from '../actions/mathematics_actions';
 
 const initialState = {};
+
 const mathematicsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADDITION_RESULT:
@@ -17,4 +18,5 @@ const mathematicsReducer = (state = initialState, action) => {
             return state;
     }
 };
+
 export default mathematicsReducer;
