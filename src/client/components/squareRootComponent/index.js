@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { executeSquare } from '../../redux/actions/mathematics_actions'
+import { connect } from 'react-redux';
+import { executeSquare } from '../../redux/actions/mathematics_actions';
 
 // const SquareComponent = (props) => {
 //     const { squareResult, executeSquare } = props;
@@ -34,14 +34,13 @@ export const SquareComponent = ({ squareResult, executeSquare }) => {
                 {squareResult && showResult && <p> The square root of {val1} = {squareResult.value}</p>}
             </div>
         </div>
-    )
-}
-
+    );
+};
 
 const mapStateToProps = state => {
     return {
         squareResult: state.mathematicsReducer.squareResult
     };
-}
+};
 
 export default connect(mapStateToProps, { executeSquare })(SquareComponent);
