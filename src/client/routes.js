@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Header, Footer, ShowError } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen } from './containers/';
+import { HomeScreen, CalculatorScreen } from './containers/';
 
 const routes = props => (
     <React.Fragment>
@@ -10,6 +10,7 @@ const routes = props => (
         <ShowError {...props} />
         <Switch>
             <Route exact path="/" component={HomeScreen} />
+            <Route exact path="/calculator" component={CalculatorScreen} />
         </Switch>
         <Footer />
     </React.Fragment>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Palindrome, Concatenation } from '../../components';
+import { Palindrome, Concatenation, AddComponent } from '../../components';
 
 const DESCRIPTION = `The two "cards" below demonstrate the use of redux in an application.
 Checking the palindrome and concatenating fire off an action that sends a GET to the backend service.
