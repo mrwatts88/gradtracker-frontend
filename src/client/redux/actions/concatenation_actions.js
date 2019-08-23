@@ -8,11 +8,11 @@ export const createConcatenation = (val1, val2) =>
         try {
             const value1 = encodeURI(val1);
             const value2 = encodeURI(val2);
-            const result = await axios.get(`${API_CONCAT}/${value1}/${value2}`);
-            if (result.data) {
+            const { data } = await axios.get(`${API_CONCAT}/${value1}/${value2}`);
+            if (data.result) {
                 dispatch({
                     type: CONCATENATION_RESULT,
-                    concatValue: result.data
+                    concatValue: data.result
                 });
             }
         } catch (err) {
