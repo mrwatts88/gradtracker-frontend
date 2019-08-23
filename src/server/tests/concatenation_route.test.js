@@ -20,7 +20,7 @@ describe('Concatenation Route', () => {
 
         return request(app).get(`/${val1}/${val2}`)
             .expect(200)
-            .then(res => expect(res.text).toEqual(`${val1}${val2}`));
+            .then(res => expect(res.text).toEqual(JSON.stringify({ result: `${val1}${val2}` })));
     });
 
     // We are getting a 400 back, but since we are passing the errors down with next

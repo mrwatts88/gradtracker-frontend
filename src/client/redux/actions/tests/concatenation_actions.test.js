@@ -19,7 +19,7 @@ describe('Concatenation actions', () => {
     describe('createConcatenation', () => {
         it('should handle success', async () => {
             const value = 'test';
-            mock.onGet(`${actions.API_CONCAT}/${value}/${value}`).reply(200, `${value}${value}`);
+            mock.onGet(`${actions.API_CONCAT}/${value}/${value}`).reply(200, JSON.stringify({ result: `${value}${value}` }));
             const expectedActions = [
                 { concatValue: `${value}${value}`, type: actions.CONCATENATION_RESULT }
             ];
