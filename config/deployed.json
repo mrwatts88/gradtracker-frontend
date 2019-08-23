@@ -1,7 +1,9 @@
 {
-    "serviceUrl": "http://example.uwm-nm-te-capstone.com:8333/backend-example",
-    "serviceHost": "http://example.uwm-nm-te-capstone.com:8333",
+    "appEnv": "deployed",
+    "serviceUrl": "https://nmexample.nmcapstone.com/backend-example",
+    "serviceHost": "https://nmexample.nmcapstone.com",
     "serviceUri": "/backend-example",
     "httpListenerPort": 4000,
-    "httpsListenerPort": 8443
+    "httpsListenerPort": 443,
+    "contextRoot": "/frontend"
 }

@@ -8,6 +8,6 @@ describe('Concatenation Reducer', () => {
 
     it('should return the concatenated value', () => {
         const testVal = 'testConcat';
-        expect(concatenationReducer({}, {type: CONCATENATION_RESULT, concatValue: testVal})).toEqual({concatValue: testVal});
+        expect(concatenationReducer({}, { type: CONCATENATION_RESULT, concatValue: testVal })).toEqual({ concatValue: testVal });
     });
 });

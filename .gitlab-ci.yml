@@ -28,14 +28,13 @@ Test:
         paths:
             - ./coverage/lcov.info
         expire_in: 1d
-
 # endregion Pre-Build #########################################################
 
 # region Build ################################################################
 Build:
     stage: Build
     script:
-        - docker login $DOCKER_REGISTRY --username $DOCKER_USER --password $DOCKER_PASS
+        - docker login $DOCKER_REGISTRY --username $DOCKER_REPO_USER --password $DOCKER_REPO_PASS
         - docker build
           --build-arg DOCKER_REGISTRY
           -t $DOCKER_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA
@@ -59,20 +58,22 @@ SonarQube Analyze:
         - echo "Analyzing $PROJECT_KEY"
         - sonar-scanner
           -Dsonar.analysis.mode=publish
+          -Dsonar.login="${SONARQUBE_USERNAME}"
+          -Dsonar.password="${SONARQUBE_PASSWORD}"
           -Dsonar.projectKey="${PROJECT_KEY}"
           -Dsonar.projectName="${CI_PROJECT_NAME}"
           -Dsonar.projectVersion="${PACKAGE_VERSION}"
     only:
         - master
-        - resolve-sonar-issues
     dependencies:
         - Test
     when: on_success
 # endregion Post-Build ########################################################
 
 # region Deploy ###############################################################
-.Deploy:
+Deploy:
     stage: Deploy
+    image: $DOCKER_REGISTRY/general/node-docker:latest
     script:
         - bash deploy/deploy.sh
     only:

@@ -1,7 +1,9 @@
 {
+    "appEnv": "local",
     "serviceUrl": "http://localhost:8333/backend-example",
     "serviceHost": "http://localhost:8333",
     "serviceUri": "/backend-example",
     "httpListenerPort": 4000,
-    "httpsListenerPort": 8443
+    "httpsListenerPort": 8443,
+    "contextRoot": ""
 }

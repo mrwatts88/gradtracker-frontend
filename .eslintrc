@@ -5,6 +5,7 @@
         "sourceType": "module"
     },
     "globals": {
+        "CONTEXT_ROOT": false,
         "workbox": false
     },
     "env": {

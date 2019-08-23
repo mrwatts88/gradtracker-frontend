@@ -5,7 +5,7 @@ const palindromeReducer = (state = initialState, action) => {
     console.log(action)
     switch (action.type) {
         case PALINDROME_RESULT:
-            return {...state, isPalindrome: `${action.isPalindrome}`};
+            return { ...state, isPalindrome: `${action.isPalindrome}` };
         default:
             return state;
     }
