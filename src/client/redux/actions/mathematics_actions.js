@@ -5,7 +5,7 @@ export const SUBTRACTION_RESULT = 'SUBTRACTION_RESULT';
 export const DIVISION_RESULT = 'DIVISION_RESULT';
 export const MULTIPLICATION_RESULT = 'MULTIPLICATION_RESULT';
 export const SQUARE_RESULT = 'SQUARE_RESULT';
-export const API_MATHEMATICS = '/api/mathematics';
+export const API_MATHEMATICS = `${CONTEXT_ROOT}/api/mathematics`;
 
 export const executeAddition = (val1, val2) =>
     async dispatch => {
