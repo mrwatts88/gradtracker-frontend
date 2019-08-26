@@ -8,6 +8,8 @@ stages:
 cache:
     paths:
         - node_modules/
+variables:
+    DOCKER_DRIVER: overlay
 # endregion global_settings ###################################################
 
 # region job_templates ########################################################
