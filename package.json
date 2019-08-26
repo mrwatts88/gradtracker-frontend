@@ -11,7 +11,7 @@
         "build:local-docker": "NODE_ENV=local-docker npm run build",
         "build:deployed": "NODE_ENV=deployed npm run build",
         "start": "node ./src/server/app.js",
-        "start:dev": "nodemon --exec 'npm run build && npm start'"
+        "start:dev": "nodemon --exec \"npm run build && npm start\""
     },
     "keywords": [
         "react",
