@@ -4,6 +4,6 @@
     "serviceHost": "https://nmexample.nmcapstone.com",
     "serviceUri": "/backend-example",
     "httpListenerPort": 4000,
-    "httpsListenerPort": 8443,
+    "httpsListenerPort": 443,
     "contextRoot": "/frontend"
 }

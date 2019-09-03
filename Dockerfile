@@ -1,6 +1,6 @@
 ARG DOCKER_REGISTRY
 
-FROM $DOCKER_REGISTRY/general/node-docker:latest
+FROM $DOCKER_REGISTRY/general/docker-images/node-docker:latest
 
 # Create app directory
 WORKDIR /app

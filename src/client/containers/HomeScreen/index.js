@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Palindrome, Concatenation } from '../../components';
+import { Palindrome, Concatenation, AddComponent } from '../../components';
 
 const DESCRIPTION = `The two "cards" below demonstrate the use of redux in an application.
 Checking the palindrome and concatenating fire off an action that sends a GET to the backend service.
@@ -11,10 +11,10 @@ class HomeScreen extends Component {
     render() {
         return (
             <main>
-                <h1>Let's Mess With Words</h1>
+                <h1>{`Let's Mess With Words`}</h1>
                 <section>
                     <h3>What is happening here?</h3>
-                    <p style={{whiteSpace: 'pre-line', paddingBottom: '1em'}}>{DESCRIPTION}</p>
+                    <p style={{ whiteSpace: 'pre-line', paddingBottom: '1em' }}>{DESCRIPTION}</p>
                 </section>
                 <Palindrome />
                 <Concatenation />

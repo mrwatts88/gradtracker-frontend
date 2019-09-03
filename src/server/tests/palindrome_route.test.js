@@ -19,7 +19,7 @@ describe('Concatenation Route', () => {
 
         return request(app).get(`/palindrome/${val}`)
             .expect(200)
-            .then(res => expect(res.text).toEqual(JSON.stringify({result: true})));
+            .then(res => expect(res.text).toEqual(JSON.stringify({ result: true })));
     });
 
     // We are getting a 400 back, but since we are passing the errors down with next

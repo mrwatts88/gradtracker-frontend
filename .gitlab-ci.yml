@@ -8,12 +8,14 @@ stages:
 cache:
     paths:
         - node_modules/
+variables:
+    DOCKER_DRIVER: overlay
 # endregion global_settings ###################################################
 
 # region job_templates ########################################################
 .pre_build_base:
     stage: Pre-Build
-    image: $DOCKER_REGISTRY/general/node-docker:latest
+    image: $DOCKER_REGISTRY/general/docker-images/node-docker:latest
     before_script:
         - npm install
     when: on_success
@@ -51,7 +53,7 @@ Build:
 # region Post-Build ###########################################################
 SonarQube Analyze:
     stage: Post-Build
-    image: $DOCKER_REGISTRY/general/sonar-scanner:latest
+    image: $DOCKER_REGISTRY/general/docker-images/sonar-scanner:latest
     script:
         - export PACKAGE_VERSION=$(node -pe 'require("./package.json").version')
         - export PROJECT_KEY="$(echo $CI_PROJECT_PATH | tr '/' ':')"
@@ -73,7 +75,7 @@ SonarQube Analyze:
 # region Deploy ###############################################################
 Deploy:
     stage: Deploy
-    image: $DOCKER_REGISTRY/general/node-docker:latest
+    image: $DOCKER_REGISTRY/general/docker-images/node-docker:latest
     script:
         - bash deploy/deploy.sh
     only:

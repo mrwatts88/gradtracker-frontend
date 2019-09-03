@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { ITEM_HAS_ERRORED } from '../error_actions';
 import * as actions from '../concatenation_actions';
 
 describe('Concatenation actions', () => {
@@ -18,9 +19,9 @@ describe('Concatenation actions', () => {
     describe('createConcatenation', () => {
         it('should handle success', async () => {
             const value = 'test';
-            mock.onGet(`${actions.API_CONCAT}/${value}/${value}`).reply(200, `${value}${value}`);
+            mock.onGet(`${actions.API_CONCAT}/${value}/${value}`).reply(200, JSON.stringify({ result: `${value}${value}` }));
             const expectedActions = [
-                {concatValue: `${value}${value}`, type: actions.CONCATENATION_RESULT}
+                { concatValue: `${value}${value}`, type: actions.CONCATENATION_RESULT }
             ];
 
             await store.dispatch(actions.createConcatenation(value, value));
@@ -31,7 +32,7 @@ describe('Concatenation actions', () => {
             mock.onGet(`${actions.API_CONCAT}/test`).reply(404);
 
             await store.dispatch(actions.createConcatenation());
-            expect(store.getActions()).toEqual([]);
+            expect(store.getActions()[0].type).toEqual(ITEM_HAS_ERRORED);
         });
     });
 });

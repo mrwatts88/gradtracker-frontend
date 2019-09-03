@@ -1,16 +1,24 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { Header, Footer } from './components';
-import { HomeScreen } from './containers/';
+import { Header, Footer, ShowError } from './components';
+import { connect } from 'react-redux';
+import { HomeScreen, CalculatorScreen, About } from './containers/';
 
-const routes = () => (
+const routes = props => (
     <React.Fragment>
         <Header />
+        <ShowError {...props} />
         <Switch>
             <Route exact path="/" component={HomeScreen} />
+            <Route exact path="/calculator" component={CalculatorScreen} />
+            <Route exact path="/about" component={About} />
         </Switch>
         <Footer />
     </React.Fragment>
 );
 
-export default withRouter(routes);
+const mapStateToProps = state => ({
+    error: state.errorReducer.error
+});
+
+export default withRouter(connect(mapStateToProps)(routes));

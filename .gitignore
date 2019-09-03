@@ -5,3 +5,4 @@ www*
 junit.xml
 coverage
 .vscode
+ignore/
