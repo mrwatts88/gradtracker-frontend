@@ -78,10 +78,6 @@ If you only want to run a single test, use the command format `npm run test -- p
 If you want the tests to automatically re-run when you make changes, use the command format `npm run test -- --watchAll`.  
 You can also watch a single test with the command format `npm run test -- --watchAll path/to/your/file.js`.
 
-#### View the application
-
-follow me: [app on local host](http://localhost:4000)
-
 ## Issues
 
 ### Encountering issues installing locally, or with Docker?
