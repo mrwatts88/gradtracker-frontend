@@ -1,50 +1,85 @@
-## **How to use me:**
+# frontend-example cookbook
 
-### <u>Suggested Node & NPM version</u>
-Node ^v10.9.0  
-NPM ^v6.2.0
+This project is intended as both an example to be referenced, and a cookbook to kickstart new app development.
 
----
+## Prerequisites
 
-### <u>your package.json file</u>
+### Software:
 
-The following npm scripts are available:
+**Required**
 
-```
-"start": "node ./src/server/app.js",
-"start:dev": "nodemon --ignore 'www/' --exec npm run build:dev",
-"build": "webpack --config ./config/webpack.config.js",
-"build:dev": "webpack --config ./config/webpack.config.js && node ./src/server/app.js",
-"test": "jest --forceExit"
-```  
----
+1. [Git](https://git-scm.com/)
+2. [Node.js](https://nodejs.org/en/download/) version >= 10.16.0
+3. An IDE ([VSCode](https://code.visualstudio.com/) preferred)
 
-#### <u>building and running the application</u>
-run `npm run build` first or simply start with `npm run start:dev`
+**Optional**
 
-After the initial build a www folder is created. 
-Now a `npm start` will work too.
+1. Docker - used to quickly and easily run the backend and database locally. If you prefer, you can directly run the Java jar and MySQL workbench instead.
+2. VSCode extension "ESLint" - Quality-of-life extension that will run ESLint against code in real-time
 
-running tests (jest) `npm test` or `npm test -- --watch`
+### Knowledge
 
-#### View the application
-follow me: [app on local host](http://localhost:4000)
+1. Node.js/JavaScript ([high-level video](https://www.youtube.com/watch?v=RjBxeb9erQk) and [interactive walkthrough](https://nodejs.dev/))
+2. [React](https://reactjs.org/tutorial/tutorial.html)
+3. [Redux](https://redux.js.org/basics/basic-tutorial)
 
----
-## <u>issues</u>
-#### Problems installing locally?
-Should you see any issues running `npm i` feel free to remove the .npmrc file.
-This file is used in companies to point to a secure registry so that the company can provide npm modules
-without making these publicly available. 
+<!-- ==================================================================================================== -->
 
-This project is not using any proprietary modules and I assume that the capstone project will not either.
-We will continue to work on this and hopefully you will not see issues with this in the near future.
+## Getting set up
 
+1. `git clone https://gitlab.nmcapstone.com/nm-capstone-cookbooks/frontend-example.git`
+2. `cd frontend-example`
+3. `npm install`
+4. Start up the backend
+    - If you are using Docker, simply follow these steps:
+        1. `docker login docker.nmcapstone.com`
+        2. `npm run infra:up`
+    - If you are not using Docker, then please refer to the [project docs](https://gitlab.nmcapstone.com/nm-capstone-cookbooks/nm-capstone-backend-cookbooks/backend-example#using-this-project).
 
-### Problems installing with Docker?
-Please let us know **asap**. 
-#### current issues:
-```
-We are currently still working on a docker image that allows the node-sass building.
-As soon as we have updated the image this message will be removed
-```
+## Build and run on your local machine
+
+### NPM Scripts
+
+NPM scripts are custom commands that simplify common project tasks, such as:
+
+-   Running tests
+-   Building and starting the application
+-   Running code quality tools like ESLint
+
+These scripts are defined `scripts` block of the `package.json` file, and can be run in a terminal using `npm run <script-name>`.  
+If the script requires additional arguments, use the format `npm run <script-name> -- <arguments...>`.  
+See below for the included commands and examples
+
+This project includes a base set of commands:
+
+| Script               | Examples                     | Purpose                                                                 |
+| -------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| `infra:up`           | `npm run infra:up`           | Used to start up the backend via Docker and Docker-Compose              |
+| `infra:down`         | `npm run infra:down`         | Used to tear down the backend via Docker and Docker-Compose             |
+| `test`               | `npm run test`               | Used to execute unit and integration tests                              |
+| `build`              | `npm run build`              | Used to build the static WebApp bundle                                  |
+| `build:local-docker` | `npm run build:local-docker` | Same as `build`, but specifically for running the app locally in Docker |
+| `build:deployed`     | `npm run build:deployed`     | Same as `build`, but specifically for running the app in AWS            |
+| `start`              | `npm run start`              | Used to start up the app and serve the static bundle from `build`       |
+| `start:dev`          | `npm run start:dev`          | Used to both build and start the app locally (use this when developing) |
+
+### Start up the app
+
+Once you are all set up, with the backend already running, you can start the webapp simply by:
+
+1. Run the command `npm run start:dev`
+2. Open a browser
+3. Navigate to `http://localhost:4000`
+
+### Running Tests
+
+You can execute all unit and integration tests by running `npm run test`.  
+If you only want to run a single test, use the command format `npm run test -- path/to/your/file.js`.  
+If you want the tests to automatically re-run when you make changes, use the command format `npm run test -- --watchAll`.  
+You can also watch a single test with the command format `npm run test -- --watchAll path/to/your/file.js`.
+
+## Issues
+
+### Encountering issues installing locally, or with Docker?
+
+Please let us know **asap**.
