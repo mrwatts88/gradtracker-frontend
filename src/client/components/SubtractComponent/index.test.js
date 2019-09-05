@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { SubtractComponent } from './';
 
 describe('SubtractComponent', () => {
@@ -13,7 +13,7 @@ describe('SubtractComponent', () => {
     });
 
     it('should render the component without crashing', () => {
-        expect(component.find('h3').text()).toEqual('Subtraction: ');
+        expect(component.find('h3').text()).toEqual('Subtraction:');
     });
 
     it('should by default disable the submit button', () => {
@@ -25,6 +25,7 @@ describe('SubtractComponent', () => {
     });
 
     it('should render two inputs and a button', () => {
+        const component = mount(<SubtractComponent {...props} />);
         expect(component.find('input').not('button').length).toEqual(2);
         expect(component.find('button').not('input').length).toEqual(1);
     });
@@ -32,6 +33,7 @@ describe('SubtractComponent', () => {
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;
+        const component = mount(<SubtractComponent {...props} />);
         component.find('input').at(0).simulate('change', { target: { value: val1 } });
         component.find('input').at(1).simulate('change', { target: { value: val2 } });
         component.find('button').simulate('click');
