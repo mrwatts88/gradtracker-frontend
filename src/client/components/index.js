@@ -4,7 +4,7 @@ export { default as AddComponent } from './AddComponent';
 export { default as MultiplyComponent } from './MultiplyComponent';
 export { default as SubtractComponent } from './SubtractComponent';
 export { default as DivideComponent } from './DivideComponent';
-export { default as SquareRootComponent } from './SquareRootComponent';
+export { default as SquareRootComponent } from './squareRootComponent';
 export { Header } from './Header';
 export { Footer } from './Footer';
 export { default as ShowError } from './ShowError';
