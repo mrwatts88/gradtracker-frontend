@@ -33,12 +33,19 @@ button {
 }
 
 .calc-button {
-  padding: 4px 20px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 300%;
-  text-align: center;
+//   padding: 4px 20px;
+//   border-radius: 4px;
+//   font-weight: 700;
+//   font-size: 300%;
+//   text-align: center;
+    margin-top: 0.25em;
+    padding: 3px 15px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 200%;
+    text-align: center;
 }
+
 
 .submit-button {
   display: flex;
