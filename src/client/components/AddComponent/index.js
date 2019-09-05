@@ -12,16 +12,7 @@ export const AddComponent = props => {
         <div id="Addition" className="card">
             <h3>Addition:</h3>
             <div className="card-body">
-                {/* <div className="input-group-2">
-                    <input placeholder="Value 1" type="number" id="value1" value={val1} onChange={(e) => {
-                        setVal1(e.target.value);
-                    }} />
-                    <input placeholder="Value 2" type="number" id="value2" value={val2} onChange={(e) => {
-                        setVal2(e.target.value);
-                    }} />
-                </div> */}
                 <CalculationInputFields val1={val1} val2={val2} setVal1={setVal1} setVal2={setVal2} />
-                {/* <div className="input-group" /> */}
                 <div>
                     <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
                         if (val2 !== 0) {

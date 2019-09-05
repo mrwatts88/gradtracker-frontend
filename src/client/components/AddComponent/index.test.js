@@ -4,7 +4,7 @@ import { AddComponent } from './';
 
 describe('AddComponent', () => {
     const props = { executeAddition: jest.fn(), addResult: { value: '5' } };
-    const component = shallow(< AddComponent {...props} />);
+    const component = shallow(<AddComponent {...props} />);
 
     it('should render the component without crashing', () => {
         expect(component.find('h3').text()).toEqual('Addition:');
