@@ -13,11 +13,7 @@ export const SubtractComponent = ({ subtractResult, executeSubtraction }) => {
             <div className="card-body">
                 <CalculationInputFields val1={val1} val2={val2} setVal1={setVal1} setVal2={setVal2} />
                 <div className="input-group" />
-                <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
-                    if (val2 !== 0) {
-                        executeSubtraction(val1, val2);
-                    }
-                }}
+                <button className="calc-button" disabled={!val1 || !val2} onClick={() => executeSubtraction(val1, val2)}
                 >-</button>
             </div>
             <div className="result-container">
