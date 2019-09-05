@@ -13,7 +13,7 @@ export const MultiplyComponent = ({ multiplyResult, executeMultiplication }) => 
             <div className="card-body">
                 <CalculationInputFields val1={val1} val2={val2} setVal1={setVal1} setVal2={setVal2} />
                 <div className="input-group" />
-                <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
+                <button className="calc-button multiply" disabled={!val1 || !val2} onClick={() => {
                     if (val2 !== 0) {
                         executeMultiplication(val1, val2);
                     }
