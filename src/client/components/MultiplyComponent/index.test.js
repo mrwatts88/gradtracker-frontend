@@ -1,10 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { MultiplyComponent } from './';
-import { SSL_OP_NO_TLSv1_1, SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 describe('MultiplyComponent', () => {
-    const props = { executeMultiplication: jest.fn(), multiplyResult: { value: 'test' }};
+    const props = { executeMultiplication: jest.fn(), multiplyResult: { value: 'test' } };
     let component;
 
     // resetting the component here, to make sure that we always have a fresh state.
@@ -21,19 +20,20 @@ describe('MultiplyComponent', () => {
         expect(component.find('button').props().disabled).toBeTruthy();
     });
 
-    
     it('should by default disable the submit button but not the inputs', () => {
         expect(component.find('button').not('input').props().disabled).toBeTruthy();
     });
 
     it('should render two inputs and a button', () => {
+        const component = mount(<MultiplyComponent {...props} />);
         expect(component.find('input').not('button').length).toEqual(2);
         expect(component.find('button').not('input').length).toEqual(1);
     });
-    
+
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;
+        const component = mount(<MultiplyComponent {...props} />);
         component.find('input').at(0).simulate('change', { target: { value: val1 } });
         component.find('input').at(1).simulate('change', { target: { value: val2 } });
         component.find('button').simulate('click');

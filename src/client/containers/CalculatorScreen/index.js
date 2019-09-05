@@ -3,7 +3,7 @@ import { AddComponent } from '../../components';
 import SubtractComponent from '../../components/SubtractComponent';
 import MultiplyComponent from '../../components/MultiplyComponent';
 import DivideComponent from '../../components/DivideComponent';
-import SquareComponent from '../../components/squareRootComponent';
+import SquareRootComponent from '../../components/SquareRootComponent';
 
 const CalculatorScreen = () => {
     return (
@@ -17,7 +17,7 @@ const CalculatorScreen = () => {
             <SubtractComponent />
             <MultiplyComponent />
             <DivideComponent />
-            <SquareComponent />
+            <SquareRootComponent />
             <p style={{ whiteSpace: 'pre-line', paddingBottom: '1em' }}></p>
         </main>
     );

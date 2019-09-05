@@ -13,14 +13,13 @@ export const AddComponent = props => {
             <h3>Addition:</h3>
             <div className="card-body">
                 <CalculationInputFields val1={val1} val2={val2} setVal1={setVal1} setVal2={setVal2} />
-                <div>
-                    <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
-                        if (val2 !== 0) {
-                            props.executeAddition(val1, val2);
-                        }
-                    }}
-                    >+</button>
-                </div>
+                <div className="input-group" />
+                <button className="calc-button" disabled={!val1 || !val2} onClick={() => {
+                    if (val2 !== 0) {
+                        props.executeAddition(val1, val2);
+                    }
+                }}
+                >+</button>
             </div>
             <div className="result-container">
                 {addResult && <p> {val1} + {val2} = {addResult.value}</p>}

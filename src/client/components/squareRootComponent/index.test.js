@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SquareComponent } from './';
+import { SquareRootComponent } from './';
 
-describe('SquareComponent', () => {
-    const props = { executeSquare: jest.fn(), squareResult: { value: 'test' }};
+describe('SquareRootComponent', () => {
+    const props = { executeSquare: jest.fn(), squareResult: { value: 'test' } };
     let component;
 
     // resetting the component here, to make sure that we always have a fresh state.
     // see the concatenation for a different way to do this.
     beforeEach(() => {
-        component = shallow(< SquareComponent {...props} />);
+        component = shallow(<SquareRootComponent {...props} />);
     });
 
     it('should render the component without crashing', () => {
