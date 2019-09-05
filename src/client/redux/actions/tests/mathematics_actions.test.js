@@ -98,8 +98,8 @@ describe('Mathematics actions', () => {
 
     describe('executeSquare', () => {
         it('should handle success', async () => {
-            const value1 = '6';
-            const response = { value: '36' };
+            const value1 = '4';
+            const response = { value: '2' };
             mock.onGet(`${actions.API_MATHEMATICS}/squareRoot/${value1}`).reply(200, JSON.stringify(response));
             const expectedActions = [{ type: actions.SQUARE_RESULT, squareResult: response }];
 
