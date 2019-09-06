@@ -14,6 +14,8 @@ export const createConcatenation = (val1, val2) =>
                     type: CONCATENATION_RESULT,
                     concatValue: data.result
                 });
+            } else {
+                dispatch(setError('Result was not found'));
             }
         } catch (err) {
             dispatch(setError(err));
