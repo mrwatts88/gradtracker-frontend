@@ -29,6 +29,13 @@ describe('SquareRootComponent', () => {
         expect(component.find('button').length).toEqual(1);
     });
 
+    it('should not call the action if value is negative', () => {
+        const val = -3;
+        component.find('input').simulate('change', { target: { value: val } });
+        component.find('button').simulate('click');
+        expect(props.executeSquare).not.toHaveBeenCalled();
+    });
+
     it('should call the action when submitting', () => {
         const val = 3;
         component.find('input').simulate('change', { target: { value: val } });

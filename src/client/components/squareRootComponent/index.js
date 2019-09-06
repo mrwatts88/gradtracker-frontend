@@ -4,7 +4,7 @@ import { executeSquare } from '../../redux/actions/mathematics_actions';
 
 export const SquareRootComponent = props => {
     const [val1, setVal1] = useState('');
-    const { squareResult, executeSquare } = props;
+    const { squareResult } = props;
 
     return (
         <div id="squareRoot" className="card">
@@ -18,7 +18,7 @@ export const SquareRootComponent = props => {
                 <div className="input-group" />
                 <button className="calc-button" disabled={!val1} onClick={() => {
                     if (val1 >= 0) {
-                        executeSquare(val1);
+                        props.executeSquare(val1);
                     }
                 }}
                 >√</button>
