@@ -44,6 +44,8 @@ export const executeMultiplication = (val1, val2) =>
                     type: MULTIPLICATION_RESULT,
                     multiplyResult: data
                 });
+            } else {
+                dispatch(setError('Value is missing!'));
             }
         } catch (err) {
             dispatch(setError());

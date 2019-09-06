@@ -30,6 +30,16 @@ describe('MultiplyComponent', () => {
         expect(component.find('button').not('input').length).toEqual(1);
     });
 
+    it('should not call the action if val2 is 0', () => {
+        const val1 = 3;
+        const val2 = 0;
+        const component = mount(<MultiplyComponent {...props} />);
+        component.find('input').at(0).simulate('change', { target: { value: val1 } });
+        component.find('input').at(1).simulate('change', { target: { value: val2 } });
+        component.find('button').simulate('click');
+        expect(props.executeMultiplication).not.toHaveBeenCalled();
+    });
+
     it('should call the action when submitting', () => {
         const val1 = 3;
         const val2 = 4;

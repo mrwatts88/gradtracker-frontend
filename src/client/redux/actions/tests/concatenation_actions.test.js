@@ -28,6 +28,14 @@ describe('Concatenation actions', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
+        it('should handle missing result value', async () => {
+            const value = 'test';
+            mock.onGet(`${actions.API_CONCAT}/${value}/${value}`).reply(200, JSON.stringify({ value: `${value}${value}` }));
+
+            await store.dispatch(actions.createConcatenation(value, value));
+            expect(store.getActions()[0].type).toEqual(ITEM_HAS_ERRORED);
+        });
+
         it('should handle errors', async () => {
             mock.onGet(`${actions.API_CONCAT}/test`).reply(404);
 

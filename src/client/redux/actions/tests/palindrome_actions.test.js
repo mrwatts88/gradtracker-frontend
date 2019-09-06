@@ -39,6 +39,14 @@ describe('Palindrome actions', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
+        it('should handle missing response', async () => {
+            const value = 'test';
+            mock.onGet(`${actions.API_PALINDROME}/${value}`).reply(200);
+
+            await store.dispatch(actions.checkPalindrome(value));
+            expect(store.getActions()).toEqual([]);
+        });
+
         it('should handle errors', async () => {
             mock.onGet(`${actions.API_PALINDROME}/test`).reply(404, { result: false });
 

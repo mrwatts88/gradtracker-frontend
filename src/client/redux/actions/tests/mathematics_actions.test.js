@@ -28,6 +28,16 @@ describe('Mathematics actions', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
+        it('should handle missing value', async () => {
+            const value1 = '1';
+            const value2 = '3';
+            const response = { result: '4' };
+            mock.onGet(`${actions.API_MATHEMATICS}/add/${value1}/${value2}`).reply(200, JSON.stringify(response));
+
+            await store.dispatch(actions.executeAddition(value1, value2));
+            expect(store.getActions()).toEqual([]);
+        });
+
         it('should handle errors', async () => {
             mock.onGet(`${actions.API_MATHEMATICS}/add`).reply(404);
 
@@ -46,6 +56,16 @@ describe('Mathematics actions', () => {
 
             await store.dispatch(actions.executeSubtraction(value1, value2));
             expect(store.getActions()).toEqual(expectedActions);
+        });
+
+        it('should handle missing value', async () => {
+            const value1 = '5';
+            const value2 = '2';
+            const response = { result: '3' };
+            mock.onGet(`${actions.API_MATHEMATICS}/subtract/${value1}/${value2}`).reply(200, JSON.stringify(response));
+
+            await store.dispatch(actions.executeSubtraction(value1, value2));
+            expect(store.getActions()).toEqual([]);
         });
 
         it('should handle errors', async () => {
@@ -68,6 +88,16 @@ describe('Mathematics actions', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
+        it('should handle missing value', async () => {
+            const value1 = '5';
+            const value2 = '2';
+            const response = { result: '10' };
+            mock.onGet(`${actions.API_MATHEMATICS}/multiply/${value1}/${value2}`).reply(200, JSON.stringify(response));
+
+            await store.dispatch(actions.executeMultiplication(value1, value2));
+            expect(store.getActions()[0].type).toEqual(ITEM_HAS_ERRORED);
+        });
+
         it('should handle errors', async () => {
             mock.onGet(`${actions.API_MATHEMATICS}/multiply`).reply(404);
 
@@ -88,6 +118,16 @@ describe('Mathematics actions', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
+        it('should handle missing value', async () => {
+            const value1 = '6';
+            const value2 = '2';
+            const response = { result: '3' };
+            mock.onGet(`${actions.API_MATHEMATICS}/divide/${value1}/${value2}`).reply(200, JSON.stringify(response));
+
+            await store.dispatch(actions.executeDivision(value1, value2));
+            expect(store.getActions()).toEqual([]);
+        });
+
         it('should handle errors', async () => {
             mock.onGet(`${actions.API_MATHEMATICS}/divide`).reply(404);
 
@@ -105,6 +145,15 @@ describe('Mathematics actions', () => {
 
             await store.dispatch(actions.executeSquare(value1));
             expect(store.getActions()).toEqual(expectedActions);
+        });
+
+        it('should handle missing value', async () => {
+            const value1 = '4';
+            const response = { result: '2' };
+            mock.onGet(`${actions.API_MATHEMATICS}/squareRoot/${value1}`).reply(200, JSON.stringify(response));
+
+            await store.dispatch(actions.executeSquare(value1));
+            expect(store.getActions()).toEqual([]);
         });
 
         it('should handle errors', async () => {
