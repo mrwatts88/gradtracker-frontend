@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Palindrome, Concatenation, AddComponent } from '../../components';
+import { Palindrome, Concatenation } from '../../components';
 
 const DESCRIPTION = `The two "cards" below demonstrate the use of redux in an application.
 Checking the palindrome and concatenating fire off an action that sends a GET to the backend service.
 The response is handled and using a reducer we are setting the global state.
 This is picked up in the "connected" component and triggers the rerender for that element`;
 
-class HomeScreen extends Component {
+export class HomeScreen extends Component {
     render() {
         return (
             <main>
