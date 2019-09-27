@@ -15,7 +15,12 @@ describe('AddComponent', () => {
     });
 
     it('should by default disable the submit button but not the inputs', () => {
-        expect(component.find('button').not('input').props().disabled).toBeTruthy();
+        expect(
+            component
+                .find('button')
+                .not('input')
+                .props().disabled
+        ).toBeTruthy();
     });
 
     it('should render two inputs and a button', () => {

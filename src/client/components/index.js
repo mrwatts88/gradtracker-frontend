@@ -7,5 +7,6 @@ export { default as DivideComponent } from './DivideComponent';
 export { default as SquareRootComponent } from './squareRootComponent';
 export { Header } from './Header';
 export { Footer } from './Footer';
+export { PrivateRoute } from './PrivateRoute';
 export { default as ShowError } from './ShowError';
 export { CalculationInputFields } from './CalculationInputFields';
