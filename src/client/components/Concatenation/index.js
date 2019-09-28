@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { createConcatenation } from '../../redux/actions/concatenation_actions';
 
 export class Concatenation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { val1: '', val2: '' };
-    }
+    state = { val1: '', val2: '' };
 
     render() {
         const { val1, val2 } = this.state;

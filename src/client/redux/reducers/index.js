@@ -5,12 +5,14 @@ import { connectRouter } from 'connected-react-router';
 import concatenationReducer from './concatenation_reducer';
 import mathematicsReducer from './mathematics_reducer';
 import errorReducer from './error_reducer';
+import userReducer from './userReducer';
 
 const createRootReducer = history => combineReducers({
     router: connectRouter(history),
     concatenationReducer,
     mathematicsReducer,
-    errorReducer
+    errorReducer,
+    userReducer
 });
 
 export default createRootReducer;

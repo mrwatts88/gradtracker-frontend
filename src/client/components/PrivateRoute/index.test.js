@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { Provider } from 'react-redux';
 import { PrivateRoute } from './';
+import { PrivateRoute as ConnectedPrivateRoute } from '../../components';
 import { Route, MemoryRouter } from 'react-router-dom';
-import { authenticationService } from '../../services';
+import configureMockStore from 'redux-mock-store';
 
 describe('PrivateRoute', () => {
     const PrivateComponent = () => null;
@@ -15,11 +17,9 @@ describe('PrivateRoute', () => {
     });
 
     it('should render the component passed as a prop if there is a token in local storage', () => {
-        authenticationService.getCurrentUser = jest.fn(() => 'testuser');
-
         const wrapper = mount(
             <MemoryRouter initialEntries={['/private']}>
-                <PrivateRoute {...props} />
+                <PrivateRoute {...props} currentUser={true} />
             </MemoryRouter>
         );
 
@@ -27,8 +27,6 @@ describe('PrivateRoute', () => {
     });
 
     it('should render a Redirect passed as a prop if there is a NOT token in local storage', () => {
-        authenticationService.getCurrentUser = jest.fn(() => undefined);
-
         const wrapper = mount(
             <MemoryRouter initialEntries={['/private']}>
                 <PrivateRoute {...props} />
