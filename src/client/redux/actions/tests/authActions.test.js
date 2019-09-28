@@ -2,8 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import * as actions from '../../actions/userActions';
-import { userService } from '../../../services';
+import * as actions from '../../actions/authActions';
+import { authService } from '../../../services';
 
 describe('User actions', () => {
     const mock = new MockAdapter(axios);
@@ -18,7 +18,7 @@ describe('User actions', () => {
 
     describe('signIn', () => {
         it('should handle success', async () => {
-            userService.signIn = jest.fn(() => {
+            authService.signIn = jest.fn(() => {
                 return Promise.resolve({ data: { user: { username: 'username' }, token: 'token.role' } });
             });
 
@@ -31,7 +31,7 @@ describe('User actions', () => {
         });
 
         it('should handle errors', async () => {
-            userService.signIn = jest.fn(() => {
+            authService.signIn = jest.fn(() => {
                 return Promise.reject(new Error('error'));
             });
 

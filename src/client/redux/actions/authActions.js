@@ -1,4 +1,4 @@
-import { userService } from '../../services/UserService/userService';
+import { authService } from '../../services/AuthService/authService';
 import { push } from 'connected-react-router';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const UNAUTHENTICATE = 'UNAUTHENTICATE';
@@ -8,7 +8,7 @@ export const API_SIGNIN = `${CONTEXT_ROOT}/api/signin`;
 export function signIn({ email, password }) {
     return async (dispatch) => {
         try {
-            const { data } = await userService.signIn({ email, password });
+            const { data } = await authService.signIn({ email, password });
             dispatch({ type: AUTHENTICATE, payload: data.user });
             localStorage.setItem('userToken', data.token);
             dispatch(push('/dashboard'));

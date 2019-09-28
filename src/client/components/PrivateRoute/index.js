@@ -11,7 +11,7 @@ export const PrivateRoute = ({ component: Component, currentUser, ...rest }) => 
     )} />
 );
 
-const mapStateToProps = state => ({ currentUser: state.userReducer.currentUser });
+const mapStateToProps = state => ({ currentUser: state.authReducer.currentUser });
 export default connect(mapStateToProps)(PrivateRoute);
 
 PrivateRoute.propTypes = {

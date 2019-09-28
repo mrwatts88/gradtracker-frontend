@@ -1,10 +1,10 @@
-import { AUTHENTICATE, UNAUTHENTICATE, AUTHENTICATION_ERROR } from '../actions/userActions';
+import { AUTHENTICATE, UNAUTHENTICATE, AUTHENTICATION_ERROR } from '../actions/authActions';
 
 const initialState = {
-    currentUser: { username: undefined }
+    currentUser: { username: 'username' }
 };
 
-const userReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTHENTICATE:
             return { ...state, currentUser: action.payload };
@@ -17,4 +17,4 @@ const userReducer = (state = initialState, action) => {
     }
 };
 
-export default userReducer;
+export default authReducer;

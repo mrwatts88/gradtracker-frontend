@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { userService, API_SIGNIN } from './userService';
+import { authService, API_SIGNIN } from './authService';
 
-describe('userService', () => {
+describe('authService', () => {
     const mock = new MockAdapter(axios);
 
     beforeEach(() => {
@@ -22,7 +22,7 @@ describe('userService', () => {
                 }
             }));
 
-            await userService.signIn(reqBody);
+            await authService.signIn(reqBody);
             expect(mock.history.post.length).toEqual(1);
             expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
             expect(mock.history.post[0].url).toEqual(API_SIGNIN);

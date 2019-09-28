@@ -1,1 +1,1 @@
-export { userService } from './UserService/userService';
+export { authService } from './AuthService/authService';
