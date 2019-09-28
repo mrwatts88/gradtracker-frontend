@@ -19,10 +19,6 @@ describe('HomeScreen', () => {
         expect(component.find('p').length).toEqual(1);
     });
 
-    it('should render Palindrome component', () => {
-        expect(component.find('Connect(Palindrome)').length).toEqual(1);
-    });
-
     it('should render Concatenation component', () => {
         expect(component.find('Connect(Concatenation)').length).toEqual(1);
     });

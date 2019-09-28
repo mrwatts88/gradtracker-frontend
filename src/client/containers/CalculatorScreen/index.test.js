@@ -15,9 +15,5 @@ describe('CalculatorScreen', () => {
 
     it('should render CalculationComponents', () => {
         expect(component.find('Connect(AddComponent)').length).toEqual(1);
-        expect(component.find('Connect(SubtractComponent)').length).toEqual(1);
-        expect(component.find('Connect(MultiplyComponent)').length).toEqual(1);
-        expect(component.find('Connect(DivideComponent)').length).toEqual(1);
-        expect(component.find('Connect(SquareRootComponent)').length).toEqual(1);
     });
 });

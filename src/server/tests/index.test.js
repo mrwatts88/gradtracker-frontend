@@ -1,6 +1,6 @@
 import router from '../index';
 
-const routes = ['palindrome', 'concatenate', 'mathematics'];
+const routes = ['concatenate', 'mathematics'];
 
 describe('Index file', () => {
     const stacks = router.stack.map(el => el.regexp.toString().match(/\w+/)[0]);
