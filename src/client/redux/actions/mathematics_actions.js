@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setError } from './error_actions';
+import { push } from 'connected-react-router';
 export const ADDITION_RESULT = 'ADDITION_RESULT';
 export const SUBTRACTION_RESULT = 'SUBTRACTION_RESULT';
 export const DIVISION_RESULT = 'DIVISION_RESULT';
@@ -17,6 +18,7 @@ export const executeAddition = (val1, val2) =>
                     addResult: data
                 });
             }
+            dispatch(push('/'));
         } catch (err) {
             dispatch(setError());
         }

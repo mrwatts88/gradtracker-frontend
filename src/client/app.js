@@ -3,17 +3,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import store from './store.js';
+import { ConnectedRouter } from 'connected-react-router';
 import Routes from './routes.js';
+import configureStore, { history } from './store';
 
 import './sass/main.scss';
 
+const store = configureStore();
+
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter basename={CONTEXT_ROOT}>
+        <ConnectedRouter history={history}>
             <Routes />
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('origin')
 );

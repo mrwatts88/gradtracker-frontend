@@ -22,10 +22,11 @@ describe('Mathematics actions', () => {
             const value2 = '3';
             const response = { value: '4' };
             mock.onGet(`${actions.API_MATHEMATICS}/add/${value1}/${value2}`).reply(200, JSON.stringify(response));
-            const expectedActions = [{ type: actions.ADDITION_RESULT, addResult: response }];
+            const expectedAction = { type: actions.ADDITION_RESULT, addResult: response };
 
             await store.dispatch(actions.executeAddition(value1, value2));
-            expect(store.getActions()).toEqual(expectedActions);
+            expect(store.getActions()[0]).toEqual(expectedAction);
+            expect(store.getActions()[1].type).toEqual('@@router/CALL_HISTORY_METHOD');
         });
 
         it('should handle missing value', async () => {
@@ -35,7 +36,7 @@ describe('Mathematics actions', () => {
             mock.onGet(`${actions.API_MATHEMATICS}/add/${value1}/${value2}`).reply(200, JSON.stringify(response));
 
             await store.dispatch(actions.executeAddition(value1, value2));
-            expect(store.getActions()).toEqual([]);
+            expect(store.getActions()[0].type).toEqual('@@router/CALL_HISTORY_METHOD');
         });
 
         it('should handle errors', async () => {
