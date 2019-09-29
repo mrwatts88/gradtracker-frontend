@@ -9,6 +9,7 @@ export class Header extends React.Component {
                     <Link to="/">Wordplay</Link>
                     <Link to="/calculator">Calculator</Link>
                     <Link to="/about">About</Link>
+                    <Link to="/signin">Sign In</Link>
                 </nav>
             </header>
         );

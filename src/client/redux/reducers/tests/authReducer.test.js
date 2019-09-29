@@ -4,7 +4,7 @@ import { AUTHENTICATE, UNAUTHENTICATE, AUTHENTICATION_ERROR } from '../../action
 describe('mathematicsReducer', () => {
     it('should return the initial state', () => {
         expect(authReducer(undefined, {})).toEqual({
-            currentUser: { username: undefined }
+            currentUser: { username: 'username' }
         });
     });
 

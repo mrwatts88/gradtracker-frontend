@@ -1,10 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Provider } from 'react-redux';
 import { PrivateRoute } from './';
-import { PrivateRoute as ConnectedPrivateRoute } from '../../components';
 import { Route, MemoryRouter } from 'react-router-dom';
-import configureMockStore from 'redux-mock-store';
 
 describe('PrivateRoute', () => {
     const PrivateComponent = () => null;
@@ -34,6 +31,6 @@ describe('PrivateRoute', () => {
         );
 
         expect(wrapper.find(PrivateComponent).length).toEqual(0);
-        expect(wrapper.find('Router').prop('history').location.pathname).toEqual('/login');
+        expect(wrapper.find('Router').prop('history').location.pathname).toEqual('/signin');
     });
 });

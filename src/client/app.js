@@ -8,6 +8,7 @@ import Routes from './routes.js';
 import configureStore, { history } from './store';
 
 import './sass/main.scss';
+import 'antd/dist/antd.css';
 
 const store = configureStore();
 

@@ -11,7 +11,7 @@ export function signIn({ email, password }) {
             const { data } = await authService.signIn({ email, password });
             dispatch({ type: AUTHENTICATE, payload: data.user });
             localStorage.setItem('userToken', data.token);
-            dispatch(push('/dashboard'));
+            dispatch(push('/'));
         } catch (error) {
             dispatch({
                 type: AUTHENTICATION_ERROR,
