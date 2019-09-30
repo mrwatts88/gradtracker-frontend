@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { authService, API_SIGNIN } from './authService';
+import { authService, API_LOGIN } from './authService';
 
 describe('authService', () => {
     const mock = new MockAdapter(axios);
@@ -9,11 +9,11 @@ describe('authService', () => {
         mock.reset();
     });
 
-    describe('sign in', () => {
-        it('makes a post to the API_SIGNIN url', async () => {
+    describe('log in', () => {
+        it('makes a post to the API_LOGIN url', async () => {
             const reqBody = { email: 'email', password: 'password' };
 
-            mock.onPost(API_SIGNIN).reply(200, JSON.stringify({
+            mock.onPost(API_LOGIN).reply(200, JSON.stringify({
                 data: {
                     user: {
                         name: 'username'
@@ -22,10 +22,10 @@ describe('authService', () => {
                 }
             }));
 
-            await authService.signIn(reqBody);
+            await authService.logIn(reqBody);
             expect(mock.history.post.length).toEqual(1);
             expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
-            expect(mock.history.post[0].url).toEqual(API_SIGNIN);
+            expect(mock.history.post[0].url).toEqual(API_LOGIN);
         });
     });
 });

@@ -16,22 +16,22 @@ describe('User actions', () => {
         store = mockStore();
     });
 
-    describe('signIn', () => {
+    describe('logIn', () => {
         it('should handle success', async () => {
-            authService.signIn = jest.fn(() => {
+            authService.logIn = jest.fn(() => {
                 return Promise.resolve({ data: { user: { username: 'username' }, token: 'token.role' } });
             });
 
             const expectedAction = { type: actions.AUTHENTICATE, payload: { username: 'username' } };
 
-            await store.dispatch(actions.signIn({ email: 'email', password: 'password' }));
+            await store.dispatch(actions.logIn({ email: 'email', password: 'password' }));
             expect(store.getActions().length).toEqual(2);
             expect(store.getActions()[0]).toEqual(expectedAction);
             expect(store.getActions()[1].type).toEqual('@@router/CALL_HISTORY_METHOD');
         });
 
         it('should handle errors', async () => {
-            authService.signIn = jest.fn(() => {
+            authService.logIn = jest.fn(() => {
                 return Promise.reject(new Error('error'));
             });
 
@@ -40,7 +40,7 @@ describe('User actions', () => {
                 payload: 'Invalid email or password'
             };
 
-            await store.dispatch(actions.signIn({ email: 'email', password: 'password' }));
+            await store.dispatch(actions.logIn({ email: 'email', password: 'password' }));
             expect(store.getActions()[0]).toEqual(expectedAction);
         });
     });

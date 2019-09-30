@@ -31,6 +31,6 @@ describe('PrivateRoute', () => {
         );
 
         expect(wrapper.find(PrivateComponent).length).toEqual(0);
-        expect(wrapper.find('Router').prop('history').location.pathname).toEqual('/signin');
+        expect(wrapper.find('Router').prop('history').location.pathname).toEqual('/login');
     });
 });

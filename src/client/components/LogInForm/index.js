@@ -1,22 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signIn } from '../../redux/actions/authActions';
+import { logIn } from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
 
-export class SignIn extends React.Component {
+export class L extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, { email, password }) => {
-            if (!err) {
-                this.props.signIn(email, password);
-            }
+            this.validateEmailPassword(err, email, password);
         });
     };
+
+    validateEmailPassword = (err, email, password) => {
+        if (!err) {
+            this.props.logIn(email, password);
+        }
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form onSubmit={this.handleSubmit} className="signin-form">
+            <Form onSubmit={this.handleSubmit} className="login-form">
                 <Form.Item>
                     {getFieldDecorator('email', {
                         rules: [{ required: true, message: 'Please input your email.' }],
@@ -39,7 +43,7 @@ export class SignIn extends React.Component {
                     )}
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="signin-form__button">
+                    <Button type="primary" htmlType="submit" className="login-form__button">
                         Log in
                     </Button>
                 </Form.Item>
@@ -48,6 +52,6 @@ export class SignIn extends React.Component {
     }
 }
 
-export const WrappedSignIn = Form.create({ name: 'sign_in' })(SignIn);
+export const LogInForm = Form.create({ name: 'sign_in' })(L);
 
-export default connect(null, { signIn })(WrappedSignIn);
+export default connect(null, { logIn })(LogInForm);

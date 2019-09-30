@@ -1,7 +1,7 @@
 import { AUTHENTICATE, UNAUTHENTICATE, AUTHENTICATION_ERROR } from '../actions/authActions';
 
 const initialState = {
-    currentUser: { username: 'username' }
+    currentUser: undefined
 };
 
 const authReducer = (state = initialState, action) => {

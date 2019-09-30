@@ -1,6 +1,6 @@
 import axios from 'axios';
-export const API_SIGNIN = `${CONTEXT_ROOT}/api/signin`;
+export const API_LOGIN = `${CONTEXT_ROOT}/api/login`;
 
 export const authService = {
-    signIn: ({ email, password }) => axios.post(API_SIGNIN, { email, password })
+    logIn: ({ email, password }) => axios.post(API_LOGIN, { email, password })
 };
