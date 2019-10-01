@@ -1,8 +1,8 @@
 {
     "appEnv": "deployed",
-    "serviceUrl": "https://nmexample.nmcapstone.com/backend-example",
+    "serviceUrl": "https://nmexample.nmcapstone.com/api",
     "serviceHost": "https://nmexample.nmcapstone.com",
-    "serviceUri": "/backend-example",
+    "serviceUri": "/api",
     "httpListenerPort": 4000,
     "httpsListenerPort": 443,
     "contextRoot": "/frontend"

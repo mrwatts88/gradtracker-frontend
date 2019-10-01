@@ -3,12 +3,11 @@ import { push } from 'connected-react-router';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const UNAUTHENTICATE = 'UNAUTHENTICATE';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
-export const API_LOGIN = `${CONTEXT_ROOT}/api/login`;
 
-export function logIn({ email, password }) {
+export function logIn(email, password) {
     return async (dispatch) => {
         try {
-            const { data } = await authService.logIn({ email, password });
+            const { data } = await authService.logIn(email, password);
             dispatch({ type: AUTHENTICATE, payload: data.user });
             localStorage.setItem('userToken', data.token);
             dispatch(push('/'));

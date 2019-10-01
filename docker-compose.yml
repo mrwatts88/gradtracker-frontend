@@ -10,7 +10,7 @@ services:
             MYSQL_DATABASE: 'capstone'
 
     backend:
-        image: docker.nmcapstone.com/nm-capstone-cookbooks/nm-capstone-backend-cookbooks/backend-example:latest
+        image: docker.nmcapstone.com/uwm-2019-fall/uwm-cs595-nm-backend:latest 
         ports:
             - '8333:8333'
         environment:

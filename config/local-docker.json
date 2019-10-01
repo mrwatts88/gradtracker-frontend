@@ -1,8 +1,8 @@
 {
     "appEnv": "local-docker",
-    "serviceUrl": "http://backend:8333/backend-example",
+    "serviceUrl": "http://backend:8333/api",
     "serviceHost": "http://backend:8333",
-    "serviceUri": "/backend-example",
+    "serviceUri": "/api",
     "httpListenerPort": 4000,
     "httpsListenerPort": 8443
 }
