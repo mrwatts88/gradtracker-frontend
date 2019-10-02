@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Header, Footer, ShowError, PrivateRoute } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen, CalculatorScreen, About, LogInPage } from './containers';
+import { HomeScreen, FormsPage, About, LogInPage } from './containers';
 
 const routes = props => (
     <React.Fragment>
@@ -10,7 +10,7 @@ const routes = props => (
         <ShowError {...props} />
         <Switch>
             <Route exact path="/" component={HomeScreen} />
-            <Route exact path="/calculator" component={CalculatorScreen} />
+            <Route exact path="/forms" component={FormsPage} />
             <Route exact path="/login" component={LogInPage} />
             <PrivateRoute exact path="/about" component={About} />
         </Switch>

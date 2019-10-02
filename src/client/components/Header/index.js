@@ -7,7 +7,7 @@ export class Header extends React.Component {
             <header>
                 <nav>
                     <Link to="/">Wordplay</Link>
-                    <Link to="/calculator">Calculator</Link>
+                    <Link to="/forms">Forms</Link>
                     <Link to="/about">About</Link>
                     <Link to="/login">Log In</Link>
                 </nav>

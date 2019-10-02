@@ -52,6 +52,6 @@ export class L extends React.Component {
     }
 }
 
-export const LogInForm = Form.create({ name: 'sign_in' })(L);
+export const LogInForm = Form.create({ name: 'login_form' })(L);
 
 export default connect(null, { logIn })(LogInForm);
