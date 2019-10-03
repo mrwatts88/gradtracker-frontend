@@ -28,6 +28,7 @@ describe('User actions', () => {
             expect(store.getActions().length).toEqual(2);
             expect(store.getActions()[0]).toEqual(expectedAction);
             expect(store.getActions()[1].type).toEqual('@@router/CALL_HISTORY_METHOD');
+            expect(authService.logIn).toBeCalled();
         });
 
         it('should handle errors', async () => {
