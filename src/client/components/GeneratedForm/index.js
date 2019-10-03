@@ -68,6 +68,53 @@ export class G extends React.Component {
                     )}
                 </Form.Item>
                 <Form.Item>
+                    {getFieldDecorator('programOfStudy', {
+                        checked: true,
+                    })(
+                        <Checkbox>
+                            I have submitted an Program of Study form.
+                        </Checkbox>,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('thesisTitle', {
+                        rules: [{ required: true, message: 'Thesis tile required' }],
+                    })(
+                        <Input
+                            placeholder="Thesis Title"
+                        />,
+                    )}
+                </Form.Item>
+                PROGRAM COMMITTE MEMBERS <br />
+                (At least two member must be faculty members of Computer Science Department.)
+                <Form.Item>
+                    {getFieldDecorator('majorProfessor', {
+                        rules: [{ required: true, message: 'Major Professor required' }],
+                    })(
+                        <Input
+                            placeholder="Major Professor"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('professor', {
+                        rules: [{ required: true, message: 'Professor required' }],
+                    })(
+                        <Input
+                            placeholder="Professor"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('professor', {
+                        rules: [{ required: true, message: 'Professor required' }],
+                    })(
+                        <Input
+                            placeholder="Professor"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
                     <Button type="primary" htmlType="submit" className="generated-form__button">
                         Submit
                     </Button>
