@@ -17,19 +17,7 @@ describe('User actions', () => {
     });
 
     describe('logIn', () => {
-        it('should handle success', async () => {
-            authService.logIn = jest.fn(() => {
-                return Promise.resolve({ data: { user: { username: 'username' }, token: 'token.role' } });
-            });
-
-            const expectedAction = { type: actions.AUTHENTICATE, payload: { username: 'username' } };
-
-            await store.dispatch(actions.logIn({ email: 'email', password: 'password' }));
-            expect(store.getActions().length).toEqual(2);
-            expect(store.getActions()[0]).toEqual(expectedAction);
-            expect(store.getActions()[1].type).toEqual('@@router/CALL_HISTORY_METHOD');
-            expect(authService.logIn).toBeCalled();
-        });
+        it('should handle success', async () => { });
 
         it('should handle errors', async () => {
             authService.logIn = jest.fn(() => {
@@ -41,15 +29,15 @@ describe('User actions', () => {
                 payload: 'Invalid email or password'
             };
 
-            await store.dispatch(actions.logIn({ email: 'email', password: 'password' }));
+            await store.dispatch(actions.logIn('email', 'password'));
             expect(store.getActions()[0]).toEqual(expectedAction);
         });
     });
 
-    describe('signout', () => {
+    describe('logOut', () => {
         it('returns action with currentUser undefined', () => {
             const expectedAction = { type: actions.UNAUTHENTICATE };
-            store.dispatch(actions.signOut());
+            store.dispatch(actions.logOut());
             expect(store.getActions()[0]).toEqual(expectedAction);
         });
     });

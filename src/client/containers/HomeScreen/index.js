@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Button } from 'antd';
 import { connect } from 'react-redux';
-import { Concatenation } from '../../components';
+import { logOut } from '../../redux/actions/authActions';
 
 const DESCRIPTION = `The two "cards" below demonstrate the use of redux in an application.
 Concatenating fires off an action that sends a GET to the backend service.
@@ -15,11 +16,11 @@ export class HomeScreen extends Component {
                 <section>
                     <h3>What is happening here?</h3>
                     <p style={{ whiteSpace: 'pre-line', paddingBottom: '1em' }}>{DESCRIPTION}</p>
+                    <Button onClick={() => this.props.logOut()}>Log out</Button>
                 </section>
-                <Concatenation />
             </main>
         );
     }
 }
 
-export default connect()(HomeScreen);
+export default connect(undefined, { logOut })(HomeScreen);

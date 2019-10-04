@@ -6,9 +6,7 @@ export class Header extends React.Component {
         return (
             <header>
                 <nav>
-                    <Link to="/">Wordplay</Link>
-                    <Link to="/calculator">Calculator</Link>
-                    <Link to="/about">About</Link>
+                    <Link to="/">Home</Link>
                     <Link to="/login">Log In</Link>
                 </nav>
             </header>

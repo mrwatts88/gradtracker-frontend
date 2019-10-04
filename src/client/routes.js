@@ -2,17 +2,15 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Header, Footer, ShowError, PrivateRoute } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen, CalculatorScreen, About, LogInPage } from './containers';
+import { HomeScreen, LogInPage } from './containers';
 
 const routes = props => (
     <React.Fragment>
         <Header />
         <ShowError {...props} />
         <Switch>
-            <Route exact path="/" component={HomeScreen} />
-            <Route exact path="/calculator" component={CalculatorScreen} />
+            <PrivateRoute exact path="/" component={HomeScreen} />
             <Route exact path="/login" component={LogInPage} />
-            <PrivateRoute exact path="/about" component={About} />
         </Switch>
         <Footer />
     </React.Fragment>

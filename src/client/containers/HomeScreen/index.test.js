@@ -18,8 +18,4 @@ describe('HomeScreen', () => {
         expect(component.find('h3').length).toEqual(1);
         expect(component.find('p').length).toEqual(1);
     });
-
-    it('should render Concatenation component', () => {
-        expect(component.find('Connect(Concatenation)').length).toEqual(1);
-    });
 });
