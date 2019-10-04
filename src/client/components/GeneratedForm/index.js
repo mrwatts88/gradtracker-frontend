@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../../redux/actions/authActions';
+import { submitForm } from '../../redux/actions/formActions';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 export class G extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, { email, password }) => {
-            this.validateEmailPassword(err, email, password);
+        this.props.form.validateFields((err, form) => {
+            this.validateFields(err, form);
         });
     };
 
-    validateEmailPassword = (err, email, password) => {
+    validateFields = (err, form) => {
         if (!err) {
-            this.props.logIn(email, password);
+            this.props.submitForm(form);
         }
     }
 
@@ -85,7 +85,7 @@ export class G extends React.Component {
                         />,
                     )}
                 </Form.Item>
-                PROGRAM COMMITTE MEMBERS <br />
+                PROGRAM COMMITTE MEMBERS: <br />
                 (At least two member must be faculty members of Computer Science Department.)
                 <Form.Item>
                     {getFieldDecorator('majorProfessor', {
@@ -114,6 +114,54 @@ export class G extends React.Component {
                         />,
                     )}
                 </Form.Item>
+                EXAMINATION SCHEDULE:
+                <Form.Item>
+                    {getFieldDecorator('date', {
+                        rules: [{ required: true, message: 'Date required' }],
+                    })(
+                        <Input
+                            placeholder="Date"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('time', {
+                        rules: [{ required: true, message: 'Time required' }],
+                    })(
+                        <Input
+                            placeholder="Time"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('location', {
+                        rules: [{ required: true, message: 'Location required' }],
+                    })(
+                        <Input
+                            placeholder="Location"
+                        />,
+                    )}
+                </Form.Item>
+                APPROVALS(Signature/Date):
+                <Form.Item>
+                    {getFieldDecorator('majorProfessor', {
+                        rules: [{ required: true, message: 'Major Professor required' }],
+                    })(
+                        <Input
+                            placeholder="Major Professor"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('gradProgramRep', {
+                        rules: [{ required: true, message: 'Graduate Program Representative required' }],
+                    })(
+                        <Input
+                            placeholder="Graduate Program Representative"
+                        />,
+                    )}
+                </Form.Item>
+
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="generated-form__button">
                         Submit
@@ -126,4 +174,4 @@ export class G extends React.Component {
 
 export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
-export default connect(null, { logIn })(GeneratedForm);
+export default connect(null, { submitForm })(GeneratedForm);
