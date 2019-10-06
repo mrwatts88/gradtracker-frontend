@@ -6,7 +6,6 @@ const config = require('config');
 const serviceUrl = config.get('serviceUrl');
 
 router.post('/login', (req, res, next) => {
-    console.log(`${serviceUrl}/login`);
     return axios.post(`${serviceUrl}/login`, req.body)
         .then(response => res.send({ token: response.headers.authorization })).catch(err => next(err));
 });
