@@ -15,10 +15,12 @@ export function logIn(email, password) {
             localStorage.setItem('userToken', data.token);
             dispatch(push('/'));
         } catch (error) {
+            dispatch(logOut());
             dispatch({
                 type: AUTHENTICATION_ERROR,
                 payload: 'Invalid email or password'
             });
+            location.reload();
         }
     };
 }

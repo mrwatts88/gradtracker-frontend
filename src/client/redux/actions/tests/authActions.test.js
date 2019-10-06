@@ -30,7 +30,8 @@ describe('User actions', () => {
             };
 
             await store.dispatch(actions.logIn('email', 'password'));
-            expect(store.getActions()[0]).toEqual(expectedAction);
+            expect(store.getActions()[0]).toEqual({ type: actions.UNAUTHENTICATE });
+            expect(store.getActions()[1]).toEqual(expectedAction);
         });
     });
 
