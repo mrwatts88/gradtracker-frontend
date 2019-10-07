@@ -20,7 +20,6 @@ export function logIn(email, password) {
                 type: AUTHENTICATION_ERROR,
                 payload: 'Invalid email or password'
             });
-            location.reload();
         }
     };
 }

@@ -9,9 +9,6 @@ import configureStore, { history } from './store';
 import { AUTHENTICATE } from './redux/actions/authActions';
 import * as JWT from 'jwt-decode';
 
-import './sass/main.scss';
-import 'antd/dist/antd.css';
-
 const store = configureStore();
 
 const userToken = localStorage.getItem('userToken');

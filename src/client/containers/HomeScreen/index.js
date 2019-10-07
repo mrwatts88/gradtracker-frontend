@@ -11,14 +11,14 @@ This is picked up in the "connected" component and triggers the rerender for tha
 export class HomeScreen extends Component {
     render() {
         return (
-            <main>
+            <React.Fragment>
                 <h1>{`Let's Mess With Words`}</h1>
                 <section>
                     <h3>What is happening here?</h3>
                     <p style={{ whiteSpace: 'pre-line', paddingBottom: '1em' }}>{DESCRIPTION}</p>
                     <Button onClick={() => this.props.logOut()}>Log out</Button>
                 </section>
-            </main>
+            </React.Fragment>
         );
     }
 }
