@@ -35,13 +35,24 @@ module.exports = {
                     presets: ['@babel/preset-react', '@babel/preset-env']
                 }
             },
+
             {
-                test: /\.(scss|sass)$/,
-                loader: [
-                    'style-loader', // creates style nodes from JS strings
-                    'css-loader', // translates CSS into CommonJS
-                    'sass-loader' // compiles Sass to CSS
-                ]
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+
+                    }]
             },
             {
                 test: /\.css$/,

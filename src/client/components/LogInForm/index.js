@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logIn } from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
+import authReducer from '../../redux/reducers/authReducer';
 
 export class L extends React.Component {
     handleSubmit = e => {
@@ -42,11 +43,12 @@ export class L extends React.Component {
                         />,
                     )}
                 </Form.Item>
-                <Form.Item>
+                <Form.Item style={{ marginBottom: '0' }}>
                     <Button type="primary" htmlType="submit" className="login-form__button">
                         Log in
                     </Button>
                 </Form.Item>
+                {this.props.authError && <div>{this.props.authError}</div>}
             </Form>
         );
     }
@@ -54,4 +56,8 @@ export class L extends React.Component {
 
 export const LogInForm = Form.create({ name: 'login_form' })(L);
 
-export default connect(null, { logIn })(LogInForm);
+const mapStateToProps = ({ authReducer }) => ({
+    authError: authReducer.error
+});
+
+export default connect(mapStateToProps, { logIn })(LogInForm);

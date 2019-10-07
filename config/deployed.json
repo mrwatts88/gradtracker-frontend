@@ -1,7 +1,7 @@
 {
     "appEnv": "deployed",
-    "serviceUrl": "https://nmexample.nmcapstone.com/api",
-    "serviceHost": "https://nmexample.nmcapstone.com",
+    "serviceUrl": "https://uwm.nmcapstone.com/api",
+    "serviceHost": "https://uwm.nmcapstone.com",
     "serviceUri": "/api",
     "httpListenerPort": 4000,
     "httpsListenerPort": 443,

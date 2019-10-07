@@ -3,19 +3,17 @@ import { AUTHENTICATE, UNAUTHENTICATE, AUTHENTICATION_ERROR } from '../../action
 
 describe('mathematicsReducer', () => {
     it('should return the initial state', () => {
-        expect(authReducer(undefined, {})).toEqual({
-            currentUser: undefined
-        });
+        expect(authReducer(undefined, {})).toEqual({});
     });
 
     it('should return the current user', () => {
         expect(authReducer({}, { type: AUTHENTICATE, payload: { username: 'username' } }))
-            .toEqual({ currentUser: { username: 'username' } });
+            .toEqual({ currentUser: { username: 'username' }, error: '' });
     });
 
     it('should return undefined current user', () => {
         expect(authReducer({}, { type: UNAUTHENTICATE }))
-            .toEqual({ currentUser: undefined });
+            .toEqual({ currentUser: undefined, error: '' });
     });
 
     it('should return an error', () => {

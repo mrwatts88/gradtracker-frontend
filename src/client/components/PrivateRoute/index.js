@@ -15,5 +15,5 @@ const mapStateToProps = state => ({ currentUser: state.authReducer.currentUser }
 export default connect(mapStateToProps)(PrivateRoute);
 
 PrivateRoute.propTypes = {
-    component: PropTypes.func.isRequired,
+    component: PropTypes.elementType.isRequired,
 };
