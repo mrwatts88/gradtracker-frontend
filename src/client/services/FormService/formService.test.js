@@ -12,7 +12,7 @@ describe('formService', () => {
     describe('submit form', () => {
         it('makes a post to the API_FORM url', async () => {
             //TODO: change reqBody
-            const reqBody = {  };
+            const reqBody = { form };
 
             mock.onPost(`${API_AUTH}`).reply(200, JSON.stringify({
                 /*TODO: Change this data
@@ -29,7 +29,7 @@ describe('formService', () => {
             expect(mock.history.post.length).toEqual(1);
             expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
             //TODO: change url
-            expect(mock.history.post[0].url).toEqual(`${API_AUTH}/login/`);
+            expect(mock.history.post[0].url).toEqual(`${API_AUTH}/form/`);
         });
     });
 });
