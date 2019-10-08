@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, withRouter, Link } from 'react-router-dom';
 import { ShowError, PrivateRoute } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen, LogInPage, CreateFormPage } from './containers';
+import { HomeScreen, LogInPage, CreateFormPage, FormsPage } from './containers';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import 'antd/dist/antd.css';
 import './less/main.less';
@@ -27,6 +27,9 @@ const routes = props => (
                     <Menu.Item key="/createform">
                         <Link to="/createform" >CREATE FORM</Link>
                     </Menu.Item>
+                    <Menu.Item key="/forms">
+                        <Link to="/forms" >FORMS</Link>
+                    </Menu.Item>
                     <Menu.Item style={{ float: 'right' }} key="/login">
                         <Link to="/login" >LOG IN</Link>
                     </Menu.Item>
@@ -41,6 +44,7 @@ const routes = props => (
                 <Switch>
                     <Route exact path="/" component={HomeScreen} />
                     <PrivateRoute exact path="/createform" component={CreateFormPage} />
+                    <Route exact path="/forms" component={FormsPage} />
                     <Route exact path="/login" component={LogInPage} />
                 </Switch>
             </div>
