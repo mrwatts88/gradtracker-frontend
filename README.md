@@ -27,8 +27,8 @@ This project is intended as both an example to be referenced, and a cookbook to 
 
 ## Getting set up
 
-1. `git clone https://gitlab.nmcapstone.com/nm-capstone-cookbooks/frontend-example.git`
-2. `cd frontend-example`
+1. `git clone https://gitlab.nmcapstone.com/nm-capstone-cookbooks/uwm-cs-595-cs-frontend.git`
+2. `cd uwm-cs-595-nm-frontend`
 3. `npm install`
 4. Start up the backend
     - If you are using Docker, simply follow these steps:
@@ -67,7 +67,8 @@ This project includes a base set of commands:
 
 Once you are all set up, with the backend already running, you can start the webapp simply by:
 
-1. Run the command `npm run start:dev`
+1. Run the command `npm run start` (Runs the node server)
+2. In another terminal `npm run start:dev` (Builds and watches the client side code)
 2. Open a browser
 3. Navigate to `http://localhost:4000`
 
@@ -77,9 +78,3 @@ You can execute all unit and integration tests by running `npm run test`.
 If you only want to run a single test, use the command format `npm run test -- path/to/your/file.js`.  
 If you want the tests to automatically re-run when you make changes, use the command format `npm run test -- --watchAll`.  
 You can also watch a single test with the command format `npm run test -- --watchAll path/to/your/file.js`.
-
-## Issues
-
-### Encountering issues installing locally, or with Docker?
-
-Please let us know **asap**.

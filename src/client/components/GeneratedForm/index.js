@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { submitForm } from '../../redux/actions/formActions';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
 
 export class G extends React.Component {
     handleSubmit = e => {
@@ -88,20 +88,11 @@ export class G extends React.Component {
                 PROGRAM COMMITTE MEMBERS: <br />
                 (At least two member must be faculty members of Computer Science Department.)
                 <Form.Item>
-                    {getFieldDecorator('majorProfessor', {
+                    {getFieldDecorator('majorProfessorComm', {
                         rules: [{ required: true, message: 'Major Professor required' }],
                     })(
                         <Input
                             placeholder="Major Professor"
-                        />,
-                    )}
-                </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('professor', {
-                        rules: [{ required: true, message: 'Professor required' }],
-                    })(
-                        <Input
-                            placeholder="Professor"
                         />,
                     )}
                 </Form.Item>
@@ -144,7 +135,7 @@ export class G extends React.Component {
                 </Form.Item>
                 APPROVALS(Signature/Date):
                 <Form.Item>
-                    {getFieldDecorator('majorProfessor', {
+                    {getFieldDecorator('majorProfessorAppr', {
                         rules: [{ required: true, message: 'Major Professor required' }],
                     })(
                         <Input
@@ -167,6 +158,7 @@ export class G extends React.Component {
                         Submit
                     </Button>
                 </Form.Item>
+                {this.props.formError && <div>{this.props.formError}</div>}
             </Form>
         );
     }
@@ -174,4 +166,6 @@ export class G extends React.Component {
 
 export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
-export default connect(null, { submitForm })(GeneratedForm);
+const mapStateToProps = ({ formReducer }) => ({ formError: formReducer.error });
+
+export default connect(mapStateToProps, { submitForm })(GeneratedForm);
