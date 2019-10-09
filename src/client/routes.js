@@ -1,50 +1,26 @@
 import React from 'react';
-import { Route, Switch, withRouter, Link } from 'react-router-dom';
-import { ShowError, PrivateRoute } from './components';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { ShowError, PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
 import { HomeScreen, LogInPage, CreateFormPage, FormsPage } from './containers';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 import 'antd/dist/antd.css';
 import './less/main.less';
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 const routes = props => (
     <Layout style={{ minHeight: '100vh' }}>
-        <Header>
-            <div className="logo" />
-            <span id="nav">
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['/']}
-                    selectedKeys={[location.pathname]}
-                    style={{ lineHeight: '64px' }}
-                >
-                    <Menu.Item key="/">
-                        <Link to="/" >HOME</Link>
-                    </Menu.Item>
-                    <Menu.Item key="/createform">
-                        <Link to="/createform" >CREATE FORM</Link>
-                    </Menu.Item>
-                    <Menu.Item key="/forms">
-                        <Link to="/forms" >FORMS</Link>
-                    </Menu.Item>
-                    <Menu.Item style={{ float: 'right' }} key="/login">
-                        <Link to="/login" >LOG IN</Link>
-                    </Menu.Item>
-                </Menu>
-            </span>
-        </Header>
+        {props.location.pathname !== '/login' && <Header path={props.location.pathname} />}
         <Content style={{ padding: '0 50px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
             </Breadcrumb>
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                 <ShowError {...props} />
                 <Switch>
-                    <Route exact path="/" component={HomeScreen} />
+                    <PrivateRoute exact path="/" component={HomeScreen} />
                     <PrivateRoute exact path="/createform" component={CreateFormPage} />
-                    <Route exact path="/forms" component={FormsPage} />
+                    <PrivateRoute exact path="/forms" component={FormsPage} />
                     <Route exact path="/login" component={LogInPage} />
                 </Switch>
             </div>

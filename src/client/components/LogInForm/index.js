@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logIn } from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
-import authReducer from '../../redux/reducers/authReducer';
 
 export class L extends React.Component {
     handleSubmit = e => {
