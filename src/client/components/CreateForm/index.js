@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { submitFormDefinition } from '../../redux/actions/formActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
@@ -22,6 +24,12 @@ class CreateForm extends Component {
       nextListId: this.state.nextListId + 1,
     });
   };
+
+  submitFormDefinition = e => {
+    e.preventDefault();
+    const fields = this.state.fields.map(field => ({ fieldName: field.fieldName, dataType: 'string' }))
+    this.props.submitFormDefinition({ fields });
+  }
 
   deleteField = id => {
     const fields = [...this.state.fields];
@@ -53,9 +61,9 @@ class CreateForm extends Component {
             md={{ offset: 3, span: 18 }}
             lg={{ offset: 6, span: 12 }}
           >
-            <Row gutter={16}>
-              <Form onSubmit={this.addField}>
-                <Col xs={24} md={18}>
+            <Form onSubmit={this.addField}>
+              <Row>
+                <Col xs={24}>
                   <Input
                     onChange={this.onTextInputChange}
                     name="fieldName"
@@ -64,7 +72,9 @@ class CreateForm extends Component {
                     value={this.state.fieldName}
                   ></Input>
                 </Col>
-                <Col xs={24} md={6}>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24} md={12}>
                   <Button
                     style={{ width: '100%' }}
                     type="primary"
@@ -73,8 +83,19 @@ class CreateForm extends Component {
                     Add Field
                   </Button>
                 </Col>
-              </Form>
-            </Row>
+                <Col xs={24} md={12}>
+                  <Button
+                    style={{ width: '100%' }}
+                    type="primary"
+                    htmlType="button"
+                    onClick={this.submitFormDefinition}
+                  >
+                    Create Form
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+            {this.props.formDefError}
           </Col>
         </Row>
         <Row>
@@ -95,7 +116,9 @@ class CreateForm extends Component {
   }
 }
 
-export default CreateForm;
+const mapStateToProps = ({ formReducer }) => ({ formDefError: formReducer.error })
+
+export default connect(mapStateToProps, { submitFormDefinition })(CreateForm);
 
 class Field extends Component {
   render() {
