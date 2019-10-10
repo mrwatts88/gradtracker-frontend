@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Row, Col, Form } from 'antd';
+import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
 class CreateForm extends Component {
@@ -21,6 +21,14 @@ class CreateForm extends Component {
       fieldName: '',
       nextListId: this.state.nextListId + 1,
     });
+  };
+
+  deleteField = id => {
+    const fields = [...this.state.fields];
+
+    this.setState({
+      fields: fields.filter(field => field.id !== id)
+    })
   };
 
   onTextInputChange = e => {
@@ -77,7 +85,7 @@ class CreateForm extends Component {
           >
             <RLDD
               items={this.state.fields}
-              itemRenderer={item => <Field field={item} />}
+              itemRenderer={item => <Field field={item} deleteField={this.deleteField} />}
               onChange={this.handleRLDDChange}
             />
           </Col>
@@ -90,20 +98,21 @@ class CreateForm extends Component {
 export default CreateForm;
 
 class Field extends Component {
-  deleteField = id => {
-    console.log(id);
-  };
   render() {
     return (
-      <div>
-        {this.props.field.fieldName}
-        <span
-          onClick={() => this.deleteField(this.props.field.id)}
-          style={{ float: 'right' }}
-        >
-          X
-        </span>
-      </div>
+      <div style={{ display: 'flex' }}>
+        <Input disabled value={this.props.field.fieldName} />
+        <Icon type="close-circle"
+          onClick={() => this.props.deleteField(this.props.field.id)}
+          style={{
+            float: 'right',
+            lineHeight: 2.7,
+            fontSize: '19px',
+            color: 'red',
+            marginLeft: '21px'
+          }}
+        />
+      </div >
     );
   }
 }
