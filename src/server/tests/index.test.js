@@ -1,6 +1,6 @@
 import router from '../index';
 
-const routes = ['auth', 'form'];
+const routes = ['auth', 'form', 'formDef'];
 
 describe('Index file', () => {
     const stacks = router.stack.map(el => el.regexp.toString().match(/\w+/)[0]);
