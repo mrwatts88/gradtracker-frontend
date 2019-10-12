@@ -7,36 +7,46 @@ import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 class CreateForm extends Component {
   state = {
     fields: [],
-    fieldName: '',
+    label: '',
     nextListId: 0,
   };
 
   addField = e => {
     e.preventDefault();
-    if (!this.state.fieldName) return;
+    if (!this.state.label) return;
 
     this.setState({
       fields: [
         ...this.state.fields,
-        { fieldName: this.state.fieldName, id: this.state.nextListId },
+        {
+          label: this.state.label,
+          id: this.state.nextListId,
+          inputType: 'text',
+          dataType: 'string',
+        },
       ],
-      fieldName: '',
+      label: '',
       nextListId: this.state.nextListId + 1,
     });
   };
 
   submitFormDefinition = e => {
     e.preventDefault();
-    const fields = this.state.fields.map(field => ({ fieldName: field.fieldName, dataType: 'string' }))
-    this.props.submitFormDefinition({ fields });
-  }
+    const fields = this.state.fields.map((field, position) => {
+      const f = { ...field, position };
+      delete f.id;
+      return f;
+    });
+
+    this.props.submitFormDefinition({ name: this.state.formName, fields });
+  };
 
   deleteField = id => {
     const fields = [...this.state.fields];
 
     this.setState({
-      fields: fields.filter(field => field.id !== id)
-    })
+      fields: fields.filter(field => field.id !== id),
+    });
   };
 
   onTextInputChange = e => {
@@ -66,10 +76,17 @@ class CreateForm extends Component {
                 <Col xs={24}>
                   <Input
                     onChange={this.onTextInputChange}
-                    name="fieldName"
+                    name="formName"
+                    type="text"
+                    placeholder="Form Name"
+                    value={this.state.formName}
+                  ></Input>
+                  <Input
+                    onChange={this.onTextInputChange}
+                    name="label"
                     type="text"
                     placeholder="Field Name"
-                    value={this.state.fieldName}
+                    value={this.state.label}
                   ></Input>
                 </Col>
               </Row>
@@ -106,7 +123,9 @@ class CreateForm extends Component {
           >
             <RLDD
               items={this.state.fields}
-              itemRenderer={item => <Field field={item} deleteField={this.deleteField} />}
+              itemRenderer={item => (
+                <Field field={item} deleteField={this.deleteField} />
+              )}
               onChange={this.handleRLDDChange}
             />
           </Col>
@@ -116,26 +135,32 @@ class CreateForm extends Component {
   }
 }
 
-const mapStateToProps = ({ formReducer }) => ({ formDefError: formReducer.error })
+const mapStateToProps = ({ formReducer }) => ({
+  formDefError: formReducer.error,
+});
 
-export default connect(mapStateToProps, { submitFormDefinition })(CreateForm);
+export default connect(
+  mapStateToProps,
+  { submitFormDefinition }
+)(CreateForm);
 
 class Field extends Component {
   render() {
     return (
       <div style={{ display: 'flex' }}>
-        <Input disabled value={this.props.field.fieldName} />
-        <Icon type="close-circle"
+        <Input disabled value={this.props.field.label} />
+        <Icon
+          type="close-circle"
           onClick={() => this.props.deleteField(this.props.field.id)}
           style={{
             float: 'right',
             lineHeight: 2.7,
             fontSize: '19px',
             color: 'red',
-            marginLeft: '21px'
+            marginLeft: '21px',
           }}
         />
-      </div >
+      </div>
     );
   }
 }
