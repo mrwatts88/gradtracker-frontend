@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { submitFormDefinition } from '../../redux/actions/formActions';
+import { submitFormDef } from '../../redux/actions/formDefActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
 class CreateForm extends Component {
   state = {
-    fields: [],
+    fieldDefs: [],
     label: '',
     nextListId: 0,
   };
@@ -16,8 +16,8 @@ class CreateForm extends Component {
     if (!this.state.label) return;
 
     this.setState({
-      fields: [
-        ...this.state.fields,
+      fieldDefs: [
+        ...this.state.fieldDefs,
         {
           label: this.state.label,
           id: this.state.nextListId,
@@ -30,22 +30,22 @@ class CreateForm extends Component {
     });
   };
 
-  submitFormDefinition = e => {
+  submitFormDef = e => {
     e.preventDefault();
-    const fields = this.state.fields.map((field, position) => {
-      const f = { ...field, position };
+    const fieldDefs = this.state.fieldDefs.map((field, fieldIndex) => {
+      const f = { ...field, fieldIndex };
       delete f.id;
       return f;
     });
 
-    this.props.submitFormDefinition({ name: this.state.formName, fields });
+    this.props.submitFormDef({ name: this.state.formName, fieldDefs });
   };
 
   deleteField = id => {
-    const fields = [...this.state.fields];
+    const fieldDefs = [...this.state.fieldDefs];
 
     this.setState({
-      fields: fields.filter(field => field.id !== id),
+      fieldDefs: fieldDefs.filter(field => field.id !== id),
     });
   };
 
@@ -53,8 +53,8 @@ class CreateForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleRLDDChange = newFields => {
-    this.setState({ fields: newFields });
+  handleRLDDChange = newfieldDefs => {
+    this.setState({ fieldDefs: newfieldDefs });
   };
 
   render() {
@@ -105,7 +105,7 @@ class CreateForm extends Component {
                     style={{ width: '100%' }}
                     type="primary"
                     htmlType="button"
-                    onClick={this.submitFormDefinition}
+                    onClick={this.submitFormDef}
                   >
                     Create Form
                   </Button>
@@ -122,7 +122,7 @@ class CreateForm extends Component {
             lg={{ offset: 6, span: 12 }}
           >
             <RLDD
-              items={this.state.fields}
+              items={this.state.fieldDefs}
               itemRenderer={item => (
                 <Field field={item} deleteField={this.deleteField} />
               )}
@@ -141,7 +141,7 @@ const mapStateToProps = ({ formReducer }) => ({
 
 export default connect(
   mapStateToProps,
-  { submitFormDefinition }
+  { submitFormDef }
 )(CreateForm);
 
 class Field extends Component {
