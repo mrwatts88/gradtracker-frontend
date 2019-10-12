@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GeneratedForm } from '../../components';
 import {
-  changeForm,
-  fetchFormDefinitions,
-} from '../../redux/actions/formActions';
+  fetchFormDef,
+  fetchAllFormDefs,
+} from '../../redux/actions/formDefActions';
 import { Row, Col, Select } from 'antd';
 
 const { Option } = Select;
 
 export class FormsPage extends Component {
   handleChange = value => {
-    this.props.changeForm(value);
+    this.props.fetchFormDef(value);
   };
 
   componentDidMount = () => {
-    this.props.fetchFormDefinitions();
+    this.props.fetchAllFormDefs();
   };
 
   render() {
     return (
       <div>
-        {this.props.formDefinitions && (
+        {this.props.formDefs && (
           <Row>
             <Col
               xs={{ offset: 0, span: 24 }}
@@ -33,7 +33,7 @@ export class FormsPage extends Component {
                 placeholder="Select a form"
                 onChange={this.handleChange}
               >
-                {this.props.formDefinitions.map(fd => (
+                {this.props.formDefs.map(fd => (
                   <Option key={fd.id} value={fd.id}>
                     {fd.name}
                   </Option>
@@ -48,11 +48,11 @@ export class FormsPage extends Component {
   }
 }
 
-const mapStateToProps = ({ formReducer }) => ({
-  formDefinitions: formReducer.formDefinitions,
+const mapStateToProps = ({ formDefReducer }) => ({
+  formDefs: formDefReducer.formDefs,
 });
 
 export default connect(
   mapStateToProps,
-  { changeForm, fetchFormDefinitions }
+  { fetchFormDef, fetchAllFormDefs }
 )(FormsPage);

@@ -2,7 +2,7 @@ import * as actions from '../actions/formDefActions';
 
 const initialState = {};
 
-const formReducer = (state = initialState, action) => {
+const formDefReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.FORM_DEF_SUBMITTING:
       return { ...state, submitting: true };

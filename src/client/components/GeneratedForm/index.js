@@ -21,9 +21,9 @@ export class G extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        {this.props.formDefinition && (
+        {this.props.formDef && (
           <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.formDefinition.fields.map(field => {
+            {this.props.formDef.fields.map(field => {
               return (
                 <Form.Item key={field.propertyName}>
                   {getFieldDecorator(field.propertyName, {
@@ -54,9 +54,8 @@ export class G extends React.Component {
 
 export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
-const mapStateToProps = ({ formReducer }) => ({
-  formError: formReducer.error,
-  formDefinition: formReducer.currentFormDefinition,
+const mapStateToProps = ({ formDefReducer }) => ({
+  formDef: formDefReducer.currentFormDef,
 });
 
 export default connect(
