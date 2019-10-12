@@ -6,69 +6,39 @@ export const FORM_DEF_FETCH_ALL_SUCCESS = 'FORM_DEF_FETCH_ALL_SUCCESS';
 export const FORM_DEF_FETCH_SUCCESS = 'FORM_DEF_FETCH_SUCCESS';
 export const FORM_DEF_FETCHING = 'FORM_DEF_FETCHING';
 
-export function submitForm(form) {
-    return async dispatch => {
-        try {
-            dispatch({ type: FORM_SUBMITTING });
-            await formService.submitForm(form);
-            dispatch({ type: FORM_SUBMIT_SUCCESS });
-        } catch (error) {
-            dispatch({
-                type: FORM_SUBMIT_ERROR,
-                payload: 'Error Submitting Form!',
-            });
-        }
-    };
-}
-
-export function submitFormDefinition(formDefinition) {
+export function submitFormDef(formDef) {
     return async dispatch => {
         try {
             dispatch({ type: FORM_DEF_SUBMITTING });
-            await formService.submitForm(formDefinition);
-            dispatch({ type: FORM_DEF_SUBMIT_SUCCESS });
+            await formDefService.submitFormDef(formDef);
+            dispatch({ type: FORM_DEF_SUCCESS });
         } catch (error) {
-            dispatch({
-                type: FORM_DEF_SUBMIT_ERROR,
-                payload: 'Error Submitting Form Definition!',
-            });
+            console.log('error submitting form definition');
         }
     };
 }
 
-export function changeForm(formId) {
+export function fetchFormDef(id) {
     return async dispatch => {
         try {
             dispatch({
-                type: CHANGE_FORM,
-                payload: {
-                    name: 'test form 2',
-                    id: 2,
-                    fields: [
-                        {
-                            label: 'Major',
-                            propertyName: 'major',
-                        },
-                        {
-                            label: 'Class Standing',
-                            propertyName: 'classStanding',
-                        },
-                    ],
-                },
+                type: FORM_DEF_FETCHING,
             });
+            const { data } = await formDefService.fetchFormDef(id);
+            dispatch({ type: FORM_DEF_FETCH_SUCCESS, payload: data });
         } catch (error) {
             console.log('error changing form');
         }
     };
 }
 
-export function fetchFormDefinitions() {
+export function fetchAllFormDefs() {
     return async dispatch => {
         try {
-            dispatch({ type: FETCHING_FORM_DEFINITIONS });
-            const { data } = formService.fetchFormDefinitions();
+            dispatch({ type: FORM_DEF_FETCHING_ALL });
+            const { data } = formService.fetchAllFormDefs();
             dispatch({
-                type: FETCH_FORM_DEFINITIONS_COMPLETE,
+                type: FORM_DEF_FETCH_ALL_SUCCESS,
                 payload: data,
             });
         } catch (error) {

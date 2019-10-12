@@ -5,9 +5,9 @@ const initialState = {};
 const formReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.FORM_SUBMITTING:
-      return { ...state, isFormSubmitting: true };
+      return { ...state, submitting: true };
     case actions.FORM_SUBMIT_SUCCESS:
-      return { ...state, isFormSubmitting: false };
+      return { ...state, submitting: false };
     default:
       return state;
   }
