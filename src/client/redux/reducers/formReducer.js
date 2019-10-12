@@ -1,4 +1,5 @@
 import * as actions from '../actions/formActions';
+import { stat } from 'fs';
 
 const initialState = {};
 
@@ -16,6 +17,14 @@ const formReducer = (state = initialState, action) => {
       return { ...state, isFormDefSubmitting: false, error: '' };
     case actions.FORM_DEF_SUBMIT_ERROR:
       return { ...state, isFormDefSubmitting: false, error: action.payload };
+    case actions.FETCHING_FORM_DEFINITIONS:
+      return { ...state, isFormDefSubmitting: true };
+    case actions.FETCH_FORM_DEFINITIONS_COMPLETE:
+      return {
+        ...state,
+        formDefinitions: action.payload,
+        isFormDefSubmitting: false,
+      };
     case actions.CHANGE_FORM:
       return { ...state, currentFormDefinition: action.payload };
     case actions.FETCH_FORM_DEFINITIONS:
