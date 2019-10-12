@@ -16,11 +16,11 @@ const formDefReducer = (state = initialState, action) => {
     case actions.FORM_DEF_FETCH_ALL_SUCCESS:
       return {
         ...state,
-        formDefinitions: action.payload,
-        submitting: false
+        formDefs: action.payload,
+        submitting: false,
       };
     case actions.FORM_DEF_FETCH_SUCCESS:
-      return { ...state, currentFormDefinition: action.payload };
+      return { ...state, currentFormDef: action.payload };
     case action.FORM_DEF_FETCHING:
       return { ...state, submitting: true };
     default:

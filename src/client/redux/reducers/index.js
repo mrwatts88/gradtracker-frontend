@@ -6,11 +6,13 @@ import authReducer from './authReducer';
 import formReducer from './formReducer';
 import formDefReducer from './formDefReducer';
 
-const createRootReducer = history => combineReducers({
+const createRootReducer = history =>
+  combineReducers({
     router: connectRouter(history),
     errorReducer,
     authReducer,
-    formReducer
-});
+    formReducer,
+    formDefReducer,
+  });
 
 export default createRootReducer;
