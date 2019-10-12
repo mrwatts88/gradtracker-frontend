@@ -31,4 +31,27 @@ describe('authService', () => {
       expect(mock.history.post[0].url).toEqual(`${API_AUTH}/auth`);
     });
   });
+
+  describe('register user'), () => {
+    it('makes a post to the API_REGISTRATION url', async () => {
+      const reqBody = { email: 'email', password: 'password' };
+
+      mock.onPost(`${API_AUTH}/auth`).reply(
+        200,
+        JSON.stringify({
+          data: {
+            user: {
+              name: 'username',
+            },
+            token: 'jwt.token.role',
+          },
+        })
+      );
+
+      await authService.logIn(reqBody.email, reqBody.password);
+      expect(mock.history.post.length).toEqual(1);
+      expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
+      expect(mock.history.post[0].url).toEqual(`${API_AUTH}/auth`);
+    });
+  });
 });
