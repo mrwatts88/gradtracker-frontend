@@ -5,6 +5,18 @@ const config = require('config');
 
 const serviceUrl = config.get('serviceUrl');
 
+router.get('/:id', (req, res, next) => {
+  console.log('SELECTING SPECIFIC FORM');
+  return axios
+    .get(`${serviceUrl}/formDef/${req.params.id}`, req.body)
+    .then(response => {
+      return res.send(response.data);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 router.get('/', (req, res, next) => {
   console.log('in get all forms');
   return axios
@@ -27,4 +39,5 @@ router.post('/', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 module.exports = router;

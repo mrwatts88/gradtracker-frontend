@@ -23,12 +23,12 @@ export class G extends React.Component {
       <div>
         {this.props.formDef && (
           <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.formDef.fields.map(field => {
+            {this.props.formDef.fieldDefs.map(field => {
               let fieldDecorator = field.label.split(' ');
               fieldDecorator[0] = fieldDecorator[0].toLowerCase();
               fieldDecorator = fieldDecorator.join('');
               return (
-                <Form.Item key={field.propertyName}>
+                <Form.Item key={fieldDecorator}>
                   {getFieldDecorator(fieldDecorator, {
                     rules: [
                       { required: true, message: `${field.label} required.` },
