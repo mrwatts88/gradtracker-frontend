@@ -1,12 +1,12 @@
-import { ITEM_HAS_ERRORED, REMOVE_ERROR } from '../actions/error_actions';
+import * as actions from '../actions/error_actions';
 
 const initialState = {};
 
 const errorReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ITEM_HAS_ERRORED:
+        case actions.ITEM_HAS_ERRORED:
             return { ...state, error: action.error };
-        case REMOVE_ERROR:
+        case actions.REMOVE_ERROR:
             return { initialState };
         default:
             return state;
