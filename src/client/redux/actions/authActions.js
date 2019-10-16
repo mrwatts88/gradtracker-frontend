@@ -35,8 +35,23 @@ export function authenticate(email, password) {
 }
 
 export function logOut() {
+<<<<<<< Updated upstream
   localStorage.clear();
   return {
     type: UNAUTHENTICATE,
   };
+=======
+    localStorage.clear();
+    return {
+        type: UNAUTHENTICATE
+    };
+};
+
+export function register(email, password) {
+    return async (dispatch) => {
+        try {
+        } catch (error) {
+        }
+    };
+>>>>>>> Stashed changes
 }

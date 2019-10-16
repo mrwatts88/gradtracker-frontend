@@ -26,6 +26,9 @@ const Header = (props) => (
                 <Menu.Item key="/forms">
                     <Link to="/forms" >FORMS</Link>
                 </Menu.Item>
+                <Menu.Item key="/registration">
+                    <Link to="/registration" >REGISTER A USER</Link>
+                </Menu.Item>
                 <Menu.Item style={{ float: 'right' }} key="/login">
                     <div onClick={props.logOut} >LOG OUT</div>
                 </Menu.Item>

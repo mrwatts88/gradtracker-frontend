@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen, LogInPage, CreateFormPage, FormsPage } from './containers';
+import { HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage } from './containers';
 import { clearErrors } from './redux/actions/commonActions';
 import { Layout, Breadcrumb } from 'antd';
 import 'antd/dist/antd.css';
@@ -26,6 +26,7 @@ class Routes extends Component {
               <PrivateRoute exact path="/" component={HomeScreen} />
               <PrivateRoute exact path="/createform" component={CreateFormPage} />
               <PrivateRoute exact path="/forms" component={FormsPage} />
+              <PrivateRoute exact path="/registration" component={RegistrationPage} />
               <Route exact path="/login" component={LogInPage} />
             </Switch>
           </div>
