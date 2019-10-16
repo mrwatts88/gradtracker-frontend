@@ -35,23 +35,14 @@ export function authenticate(email, password) {
 }
 
 export function logOut() {
-<<<<<<< Updated upstream
   localStorage.clear();
   return {
     type: UNAUTHENTICATE,
   };
-=======
-    localStorage.clear();
-    return {
-        type: UNAUTHENTICATE
-    };
-};
+}
 
-export function register(email, password) {
-    return async (dispatch) => {
-        try {
-        } catch (error) {
-        }
+export function register() {
+    return async dispatch => {
+        console.log('TODO register');
     };
->>>>>>> Stashed changes
 }
