@@ -42,4 +42,35 @@ describe('User actions', () => {
             expect(store.getActions()[0]).toEqual(expectedAction);
         });
     });
+
+    describe('register', () => {
+        it('should handle success', async () => {
+            authService.register = jest.fn(() => {
+                return Promise.resolve({});
+            });
+
+            await store.dispatch(actions.register({}));
+            expect(store.getActions().length).toEqual(2);
+            expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
+            expect(store.getActions()[1]).toEqual({ type: actions.REGISTER_SUCCESS });
+            expect(authService.register).toBeCalled();
+        });
+
+        it('should handle errors', async () => {
+            authService.register = jest.fn(() => {
+                return Promise.reject(new Error('error'));
+            });
+
+            const expectedAction = {
+                type: actions.REGISTER_ERROR,
+                payload: 'Error registering user.'
+            };
+
+            await store.dispatch(actions.register({}));
+            expect(store.getActions().length).toEqual(2);
+            expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
+            expect(store.getActions()[1]).toEqual(expectedAction);
+            expect(authService.register).toBeCalled();
+        });
+    });
 });

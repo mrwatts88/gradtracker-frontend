@@ -7,6 +7,10 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS';
 export const AUTHENTICATE_CLEAR_ERROR = 'AUTHENTICATE_CLEAR_ERROR';
 
+export const REGISTER = 'REGISTER';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+
 export const UNAUTHENTICATE = 'UNAUTHENTICATE';
 
 export function authenticate(email, password) {
@@ -41,8 +45,14 @@ export function logOut() {
   };
 }
 
-export function register() {
-    return async dispatch => {
-        console.log('TODO register');
-    };
+export function register(email) {
+  return async dispatch => {
+    try {
+      dispatch({ type: REGISTER });
+      await authService.register(email);
+      dispatch({ type: REGISTER_SUCCESS });
+    } catch (error) {
+      dispatch({ type: REGISTER_ERROR, payload: 'Error registering user.' });
+    }
+  };
 }
