@@ -1,13 +1,13 @@
 import React from 'react';
-import { LogInPage } from '../../containers';
+import { RegistrationPage } from '../../containers';
 import { shallow } from 'enzyme';
-import { LogIn } from '../../components';
+import { Registration } from '../../components';
 
-describe('LogInPage', () => {
+describe('RegistrationPage', () => {
     let wrapper;
 
     it('renders without crashing', () => {
-        wrapper = shallow(<LogInPage />);
-        expect(wrapper.find(LogIn).length).toEqual(1);
+        wrapper = shallow(<RegistrationPage />);
+        expect(wrapper.find(Registration).length).toEqual(1);
     });
 });

@@ -5,7 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 import * as actions from '../../actions/formActions';
 import { formService } from '../../../services';
 
-describe('User actions', () => {
+describe('Form actions', () => {
     const mock = new MockAdapter(axios);
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
@@ -16,34 +16,38 @@ describe('User actions', () => {
         store = mockStore();
     });
 
-    describe('submitForm', () => {
+    describe('postForm', () => {
         it('should handle success', async () => {
-            formService.submitForm = jest.fn(() => {
+            formService.postForm = jest.fn(() => {
                 return Promise.resolve({});
             });
 
-            await store.dispatch(actions.submitForm({}));
-            expect(store.getActions().length).toEqual(2);
-            expect(store.getActions()[0]).toEqual({ type: actions.FORM_SUBMITTING });
-            expect(store.getActions()[1]).toEqual({ type: actions.FORM_SUBMIT_SUCCESS });
-            expect(formService.submitForm).toBeCalled();
+            await store.dispatch(actions.postForm({}));
+
+            expect(store.getActions().length).toEqual(3);
+            expect(store.getActions()[0]).toEqual({ type: actions.POST_FORM_CLEAR_ERROR });
+            expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
+            expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_SUCCESS });
+            expect(formService.postForm).toBeCalled();
         });
 
         it('should handle errors', async () => {
-            formService.submitForm = jest.fn(() => {
+            formService.postForm = jest.fn(() => {
                 return Promise.reject(new Error('error'));
             });
 
             const expectedAction = {
-                type: actions.FORM_SUBMIT_ERROR,
-                payload: 'Error Submitting Form!'
+                type: actions.POST_FORM_ERROR,
+                payload: 'Error submitting form.'
             };
 
-            await store.dispatch(actions.submitForm({}));
-            expect(store.getActions().length).toEqual(2);
-            expect(store.getActions()[0]).toEqual({ type: actions.FORM_SUBMITTING });
-            expect(store.getActions()[1]).toEqual(expectedAction);
-            expect(formService.submitForm).toBeCalled();
+            await store.dispatch(actions.postForm({}));
+
+            expect(store.getActions().length).toEqual(3);
+            expect(store.getActions()[0]).toEqual({ type: actions.POST_FORM_CLEAR_ERROR });
+            expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
+            expect(store.getActions()[2]).toEqual(expectedAction);
+            expect(formService.postForm).toBeCalled();
         });
     });
 });

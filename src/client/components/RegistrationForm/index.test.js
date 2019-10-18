@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogInForm, L } from '.';
+import { RegistrationForm, R } from '.';
 import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
 
@@ -7,49 +7,58 @@ describe('LogInForm', () => {
     let wrapper;
 
     const props = {
-        logIn: jest.fn()
+        register: jest.fn()
     };
 
     it('renders without crashing', () => {
-        wrapper = shallow(<LogInForm {...props} />);
+        wrapper = shallow(<RegistrationForm {...props} />);
     });
 
     describe('form onSubmit', () => {
-        it('calls calls validateFields', () => {
+        it('calls validateFields', () => {
             const mockValidateFields = jest.fn();
             const event = { preventDefault: jest.fn() };
-            wrapper = shallow(<LogInForm />);
+            wrapper = shallow(<RegistrationForm />);
 
             wrapper.props().form.validateFields = mockValidateFields;
-            wrapper.dive().find(Form).prop('onSubmit')(event);
+            wrapper
+                .dive()
+                .find(Form)
+                .prop('onSubmit')(event);
             expect(event.preventDefault).toBeCalled();
             expect(mockValidateFields).toBeCalled();
         });
 
-        it('calls calls validateEmailPassword', () => {
-            const mockValidateEmailPassword = jest.fn();
+        it('calls validate', () => {
+            const mockValidate = jest.fn();
             const event = { preventDefault: jest.fn() };
-            wrapper = mount(<LogInForm />);
+            wrapper = mount(<RegistrationForm />);
 
-            const component = wrapper.find(L);
-            component.instance().validateEmailPassword = mockValidateEmailPassword;
+            const component = wrapper.find(R);
+            component.instance().validate = mockValidate;
             component.find(Form).prop('onSubmit')(event);
             expect(event.preventDefault).toBeCalled();
-            expect(mockValidateEmailPassword).toBeCalled();
+            expect(mockValidate).toBeCalled();
         });
     });
 
-    describe('validateEmailPassword', () => {
-        it('calls logIn', () => {
-            wrapper = shallow(<LogInForm {...props} />);
-            wrapper.dive().instance().validateEmailPassword(undefined, 'test_email@gmail.com', 'test_password');
-            expect(props.logIn).toBeCalled();
+    describe('validate', () => {
+        it('calls register', () => {
+            wrapper = shallow(<RegistrationForm {...props} />);
+            wrapper
+                .dive()
+                .instance()
+                .validate(undefined, 'test_email@gmail.com');
+            expect(props.register).toBeCalled();
         });
 
-        it('doesnt call login if there is an error', () => {
-            wrapper = shallow(<LogInForm {...props} />);
-            wrapper.dive().instance().validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
-            expect(props.logIn).toBeCalled();
+        it('doesnt call register if there is an error', () => {
+            wrapper = shallow(<RegistrationForm {...props} />);
+            wrapper
+                .dive()
+                .instance()
+                .validate('error', 'test_email@gmail.com');
+            expect(props.register).toBeCalled();
         });
     });
 });

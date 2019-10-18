@@ -17,7 +17,9 @@ describe('User actions', () => {
     });
 
     describe('logIn', () => {
-        it('should handle success', async () => { });
+        it('should handle success', async () => {
+            // TODO: mock jwt successfully
+        });
 
         it('should handle errors', async () => {
             authService.logIn = jest.fn(() => {
@@ -26,12 +28,14 @@ describe('User actions', () => {
 
             const expectedAction = {
                 type: actions.AUTHENTICATION_ERROR,
-                payload: 'Invalid email or password'
+                payload: 'Invalid email or password.'
             };
 
-            await store.dispatch(actions.logIn('email', 'password'));
-            expect(store.getActions()[0]).toEqual({ type: actions.UNAUTHENTICATE });
-            expect(store.getActions()[1]).toEqual(expectedAction);
+            await store.dispatch(actions.authenticate('email', 'password'));
+            expect(store.getActions().length).toEqual(3);
+            expect(store.getActions()[0]).toEqual({ type: actions.AUTHENTICATE_CLEAR_ERROR });
+            expect(store.getActions()[1]).toEqual({ type: actions.AUTHENTICATE });
+            expect(store.getActions()[2]).toEqual(expectedAction);
         });
     });
 

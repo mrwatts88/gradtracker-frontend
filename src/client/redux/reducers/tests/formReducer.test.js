@@ -1,5 +1,5 @@
 import formReducer from '../formReducer';
-import { FORM_SUBMITTING, FORM_SUBMIT_SUCCESS, FORM_SUBMIT_ERROR } from '../../actions/formActions';
+import * as actions from '../../actions/formActions';
 
 describe('formReducer', () => {
     it('should return the initial state', () => {
@@ -7,17 +7,17 @@ describe('formReducer', () => {
     });
 
     it('should set isFormSubmitting to true and clear error', () => {
-        expect(formReducer({}, { type: FORM_SUBMITTING }))
-            .toEqual({ isFormSubmitting: true, error: '' });
+        expect(formReducer({}, { type: actions.POST_FORM })).toEqual({ status: actions.POST_FORM });
     });
 
     it('should set isFormSubmitting to false and clear error', () => {
-        expect(formReducer({}, { type: FORM_SUBMIT_SUCCESS }))
-            .toEqual({ isFormSubmitting: false, error: '' });
+        expect(formReducer({}, { type: actions.POST_FORM_SUCCESS })).toEqual({ status: actions.POST_FORM_SUCCESS });
     });
 
     it('should return an error', () => {
-        expect(formReducer({}, { type: FORM_SUBMIT_ERROR, payload: 'error' }))
-            .toEqual({ isFormSubmitting: false, error: 'error' });
+        expect(formReducer({}, { type: actions.POST_FORM_ERROR, payload: 'error' })).toEqual({
+            status: actions.POST_FORM_ERROR,
+            errorMessage: 'error'
+        });
     });
 });
