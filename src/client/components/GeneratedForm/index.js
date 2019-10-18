@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { submitForm } from '../../redux/actions/formActions';
+import { postForm } from '../../redux/actions/formActions';
 import { Form, Input, Button } from 'antd';
 
 export class G extends React.Component {
@@ -13,7 +13,7 @@ export class G extends React.Component {
 
   validateFields = (err, form) => {
     if (!err) {
-      this.props.submitForm(form);
+      this.props.postForm(form);
     }
   };
 
@@ -21,29 +21,23 @@ export class G extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        {this.props.formDef && (
+        {this.props.currentFormDef && (
           <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.formDef.fieldDefs.map(field => {
+            {this.props.currentFormDef.fieldDefs.map(field => {
               let fieldDecorator = field.label.split(' ');
               fieldDecorator[0] = fieldDecorator[0].toLowerCase();
               fieldDecorator = fieldDecorator.join('');
               return (
                 <Form.Item key={fieldDecorator}>
                   {getFieldDecorator(fieldDecorator, {
-                    rules: [
-                      { required: true, message: `${field.label} required.` },
-                    ],
+                    rules: [{ required: true, message: `${field.label} required.` }],
                   })(<Input placeholder={field.label} />)}
                 </Form.Item>
               );
             })}
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="generated-form__button"
-              >
+              <Button type="primary" htmlType="submit" className="generated-form__button">
                 Submit
               </Button>
             </Form.Item>
@@ -57,11 +51,12 @@ export class G extends React.Component {
 
 export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
-const mapStateToProps = ({ formDefReducer }) => ({
-  formDef: formDefReducer.currentFormDef,
+const mapStateToProps = ({ formReducer, formDefReducer }) => ({
+  currentFormDef: formDefReducer.currentFormDef,
+  formError: formReducer.errorMessage,
 });
 
 export default connect(
   mapStateToProps,
-  { submitForm }
+  { postForm }
 )(GeneratedForm);

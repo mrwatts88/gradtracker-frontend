@@ -1,8 +1,10 @@
 import axios from 'axios';
-export const API_FORM_DEF = `${CONTEXT_ROOT}/api/formDef/`;
+
+export const FORM_DEF_URL = `${CONTEXT_ROOT}/api/formDef/`;
 
 export const formDefService = {
-    submitFormDef: formDef => axios.post(`${API_FORM_DEF}`, formDef),
-    fetchAllFormDefs: () => axios.get(API_FORM_DEF),
-    fetchFormDef: id => axios.get(`${API_FORM_DEF}${id}`)
+  postFormDef: formDef => axios.post(FORM_DEF_URL, formDef),
+  getAllFormDefs: () => axios.get(FORM_DEF_URL),
+  getFormDef: id => axios.get(`${FORM_DEF_URL}${id}`),
+  deleteFormDef: id => axios.get(`${FORM_DEF_URL}${id}`),
 };

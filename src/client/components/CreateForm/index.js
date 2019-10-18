@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { submitFormDef } from '../../redux/actions/formDefActions';
+import { postFormDef } from '../../redux/actions/formDefActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
@@ -30,7 +30,7 @@ class CreateForm extends Component {
     });
   };
 
-  submitFormDef = e => {
+  postFormDef = e => {
     e.preventDefault();
     const fieldDefs = this.state.fieldDefs.map((field, fieldIndex) => {
       const f = { ...field, fieldIndex };
@@ -38,7 +38,7 @@ class CreateForm extends Component {
       return f;
     });
 
-    this.props.submitFormDef({ name: this.state.formName, fieldDefs });
+    this.props.postFormDef({ name: this.state.formName, fieldDefs });
   };
 
   deleteField = id => {
@@ -92,21 +92,12 @@ class CreateForm extends Component {
               </Row>
               <Row gutter={16}>
                 <Col xs={24} md={12}>
-                  <Button
-                    style={{ width: '100%' }}
-                    type="primary"
-                    htmlType="submit"
-                  >
+                  <Button style={{ width: '100%' }} type="primary" htmlType="submit">
                     Add Field
                   </Button>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Button
-                    style={{ width: '100%' }}
-                    type="primary"
-                    htmlType="button"
-                    onClick={this.submitFormDef}
-                  >
+                  <Button style={{ width: '100%' }} type="primary" htmlType="button" onClick={this.postFormDef}>
                     Create Form
                   </Button>
                 </Col>
@@ -116,16 +107,10 @@ class CreateForm extends Component {
           </Col>
         </Row>
         <Row>
-          <Col
-            xs={{ offset: 0, span: 24 }}
-            md={{ offset: 3, span: 18 }}
-            lg={{ offset: 6, span: 12 }}
-          >
+          <Col xs={{ offset: 0, span: 24 }} md={{ offset: 3, span: 18 }} lg={{ offset: 6, span: 12 }}>
             <RLDD
               items={this.state.fieldDefs}
-              itemRenderer={item => (
-                <Field field={item} deleteField={this.deleteField} />
-              )}
+              itemRenderer={item => <Field field={item} deleteField={this.deleteField} />}
               onChange={this.handleRLDDChange}
             />
           </Col>
@@ -135,13 +120,13 @@ class CreateForm extends Component {
   }
 }
 
-const mapStateToProps = ({ formReducer }) => ({
-  formDefError: formReducer.error,
+const mapStateToProps = ({ formDefReducer }) => ({
+  formDefError: formDefReducer.errorMessage,
 });
 
 export default connect(
   mapStateToProps,
-  { submitFormDef }
+  { postFormDef }
 )(CreateForm);
 
 class Field extends Component {
