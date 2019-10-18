@@ -7,7 +7,7 @@ describe('LogInForm', () => {
     let wrapper;
 
     const props = {
-        logIn: jest.fn()
+        authenticate: jest.fn()
     };
 
     it('renders without crashing', () => {
@@ -21,7 +21,10 @@ describe('LogInForm', () => {
             wrapper = shallow(<LogInForm />);
 
             wrapper.props().form.validateFields = mockValidateFields;
-            wrapper.dive().find(Form).prop('onSubmit')(event);
+            wrapper
+                .dive()
+                .find(Form)
+                .prop('onSubmit')(event);
             expect(event.preventDefault).toBeCalled();
             expect(mockValidateFields).toBeCalled();
         });
@@ -42,14 +45,20 @@ describe('LogInForm', () => {
     describe('validateEmailPassword', () => {
         it('calls logIn', () => {
             wrapper = shallow(<LogInForm {...props} />);
-            wrapper.dive().instance().validateEmailPassword(undefined, 'test_email@gmail.com', 'test_password');
-            expect(props.logIn).toBeCalled();
+            wrapper
+                .dive()
+                .instance()
+                .validateEmailPassword(undefined, 'test_email@gmail.com', 'test_password');
+            expect(props.authenticate).toBeCalled();
         });
 
         it('doesnt call login if there is an error', () => {
             wrapper = shallow(<LogInForm {...props} />);
-            wrapper.dive().instance().validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
-            expect(props.logIn).toBeCalled();
+            wrapper
+                .dive()
+                .instance()
+                .validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
+            expect(props.authenticate).toBeCalled();
         });
     });
 });
