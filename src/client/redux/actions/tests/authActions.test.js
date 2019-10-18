@@ -33,7 +33,7 @@ describe('User actions', () => {
 
             await store.dispatch(actions.authenticate('email', 'password'));
             expect(store.getActions().length).toEqual(3);
-            expect(store.getActions()[0]).toEqual({ type: actions.AUTHENTICATE_CLEAR_ERROR });
+            expect(store.getActions()[0]).toEqual({ type: actions.AUTH_CLEAR_ERROR });
             expect(store.getActions()[1]).toEqual({ type: actions.AUTHENTICATE });
             expect(store.getActions()[2]).toEqual(expectedAction);
         });

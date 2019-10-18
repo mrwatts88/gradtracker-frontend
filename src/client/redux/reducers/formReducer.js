@@ -10,7 +10,7 @@ const formReducer = (state = initialState, action) => {
             return { ...state, status: action.type };
         case actions.POST_FORM_ERROR:
             return { ...state, errorMessage: action.payload, status: action.type };
-        case actions.POST_FORM_CLEAR_ERROR:
+        case actions.FORM_CLEAR_ERROR:
             return { ...state, errorMessage: null, status: action.type };
 
         default:
