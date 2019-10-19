@@ -17,7 +17,9 @@ describe('User actions', () => {
     });
 
     describe('logIn', () => {
-        it('should handle success', async () => { });
+        it('should handle success', async () => {
+            // TODO: mock jwt successfully
+        });
 
         it('should handle errors', async () => {
             authService.logIn = jest.fn(() => {
@@ -26,12 +28,14 @@ describe('User actions', () => {
 
             const expectedAction = {
                 type: actions.AUTHENTICATION_ERROR,
-                payload: 'Invalid email or password'
+                payload: 'Invalid email or password.'
             };
 
-            await store.dispatch(actions.logIn('email', 'password'));
-            expect(store.getActions()[0]).toEqual({ type: actions.UNAUTHENTICATE });
-            expect(store.getActions()[1]).toEqual(expectedAction);
+            await store.dispatch(actions.authenticate('email', 'password'));
+            expect(store.getActions().length).toEqual(3);
+            expect(store.getActions()[0]).toEqual({ type: actions.AUTH_CLEAR_ERROR });
+            expect(store.getActions()[1]).toEqual({ type: actions.AUTHENTICATE });
+            expect(store.getActions()[2]).toEqual(expectedAction);
         });
     });
 
@@ -40,6 +44,37 @@ describe('User actions', () => {
             const expectedAction = { type: actions.UNAUTHENTICATE };
             store.dispatch(actions.logOut());
             expect(store.getActions()[0]).toEqual(expectedAction);
+        });
+    });
+
+    describe('register', () => {
+        it('should handle success', async () => {
+            authService.register = jest.fn(() => {
+                return Promise.resolve({});
+            });
+
+            await store.dispatch(actions.register({}));
+            expect(store.getActions().length).toEqual(2);
+            expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
+            expect(store.getActions()[1]).toEqual({ type: actions.REGISTER_SUCCESS });
+            expect(authService.register).toBeCalled();
+        });
+
+        it('should handle errors', async () => {
+            authService.register = jest.fn(() => {
+                return Promise.reject(new Error('error'));
+            });
+
+            const expectedAction = {
+                type: actions.REGISTER_ERROR,
+                payload: 'Error registering user.'
+            };
+
+            await store.dispatch(actions.register({}));
+            expect(store.getActions().length).toEqual(2);
+            expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
+            expect(store.getActions()[1]).toEqual(expectedAction);
+            expect(authService.register).toBeCalled();
         });
     });
 });

@@ -1,10 +1,6 @@
 import React from 'react';
 import { LogIn } from '../../components';
 
-export const LogInPage = () => (
-    <main>
-        <LogIn />
-    </main>
-);
+export const LogInPage = () => <LogIn />;
 
 export default LogInPage;
