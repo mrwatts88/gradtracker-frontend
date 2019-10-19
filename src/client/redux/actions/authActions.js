@@ -45,11 +45,11 @@ export function logOut() {
     };
 }
 
-export function register(email) {
+export function register(newUser) {
     return async dispatch => {
         try {
             dispatch({ type: REGISTER });
-            await authService.register(email);
+            await authService.register(newUser);
             dispatch({ type: REGISTER_SUCCESS });
         } catch (error) {
             dispatch({ type: REGISTER_ERROR, payload: 'Error registering user.' });
