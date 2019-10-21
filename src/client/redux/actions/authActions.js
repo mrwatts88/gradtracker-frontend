@@ -5,18 +5,18 @@ import * as JWT from 'jwt-decode';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS';
-export const AUTHENTICATE_CLEAR_ERROR = 'AUTHENTICATE_CLEAR_ERROR';
+export const UNAUTHENTICATE = 'UNAUTHENTICATE';
 
 export const REGISTER = 'REGISTER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
-export const UNAUTHENTICATE = 'UNAUTHENTICATE';
+export const AUTH_CLEAR_ERROR = 'AUTH_CLEAR_ERROR';
 
 export function authenticate(email, password) {
     return async dispatch => {
         try {
-            dispatch({ type: AUTHENTICATE_CLEAR_ERROR });
+            dispatch({ type: AUTH_CLEAR_ERROR });
             dispatch({ type: AUTHENTICATE });
             const { data } = await authService.authenticate(email, password);
             const { token } = data;
@@ -45,11 +45,11 @@ export function logOut() {
     };
 }
 
-export function register(email) {
+export function register(newUser) {
     return async dispatch => {
         try {
             dispatch({ type: REGISTER });
-            await authService.register(email);
+            await authService.register(newUser);
             dispatch({ type: REGISTER_SUCCESS });
         } catch (error) {
             dispatch({ type: REGISTER_ERROR, payload: 'Error registering user.' });

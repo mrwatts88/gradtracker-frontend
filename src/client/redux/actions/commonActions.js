@@ -1,14 +1,11 @@
-import * as authActions from '../actions/authActions';
-import * as formActions from '../actions/formActions';
-import * as formDefActions from '../actions/formDefActions';
+import { AUTH_CLEAR_ERROR } from '../actions/authActions';
+import { FORM_CLEAR_ERROR } from '../actions/formActions';
+import { FORM_DEF_CLEAR_ERROR } from '../actions/formDefActions';
 
 export function clearErrors() {
     return async dispatch => {
-        dispatch({ type: authActions.AUTHENTICATE_CLEAR_ERROR });
-        dispatch({ type: formActions.POST_FORM_CLEAR_ERROR });
-        dispatch({ type: formDefActions.POST_FORM_DEF_CLEAR_ERROR });
-        dispatch({ type: formDefActions.GET_ALL_FORM_DEFS_CLEAR_ERROR });
-        dispatch({ type: formDefActions.GET_FORM_DEF_CLEAR_ERROR });
-        dispatch({ type: formDefActions.DELETE_FORM_DEF_CLEAR_ERROR });
+        dispatch({ type: AUTH_CLEAR_ERROR });
+        dispatch({ type: FORM_CLEAR_ERROR });
+        dispatch({ type: FORM_DEF_CLEAR_ERROR });
     };
 }

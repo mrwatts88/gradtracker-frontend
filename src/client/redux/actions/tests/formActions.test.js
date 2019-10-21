@@ -25,7 +25,7 @@ describe('Form actions', () => {
             await store.dispatch(actions.postForm({}));
 
             expect(store.getActions().length).toEqual(3);
-            expect(store.getActions()[0]).toEqual({ type: actions.POST_FORM_CLEAR_ERROR });
+            expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
             expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
             expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_SUCCESS });
             expect(formService.postForm).toBeCalled();
@@ -44,7 +44,7 @@ describe('Form actions', () => {
             await store.dispatch(actions.postForm({}));
 
             expect(store.getActions().length).toEqual(3);
-            expect(store.getActions()[0]).toEqual({ type: actions.POST_FORM_CLEAR_ERROR });
+            expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
             expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
             expect(store.getActions()[2]).toEqual(expectedAction);
             expect(formService.postForm).toBeCalled();
