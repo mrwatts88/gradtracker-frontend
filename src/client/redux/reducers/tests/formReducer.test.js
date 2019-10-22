@@ -20,4 +20,11 @@ describe('formReducer', () => {
       errorMessage: 'error',
     });
   });
+
+  it('should handle FORM_CLEAR_ERROR', () => {
+    expect(formReducer({}, { type: actions.FORM_CLEAR_ERROR })).toEqual({
+      status: actions.FORM_CLEAR_ERROR,
+      errorMessage: null,
+    });
+  });
 });
