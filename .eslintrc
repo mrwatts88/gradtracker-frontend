@@ -23,7 +23,7 @@
     "no-return-assign": "off",
     "semi": ["error", "always"],
     "semi-spacing": ["warn", { "before": false, "after": false }],
-    "indent": ["warn", 4, { "SwitchCase": 1 }],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "handle-callback-err": "warn",
     "react/prop-types": "off",
     "react/no-find-dom-node": "off",

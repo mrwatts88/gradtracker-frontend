@@ -4,61 +4,61 @@ import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
 
 describe('LogInForm', () => {
-    let wrapper;
+  let wrapper;
 
-    const props = {
-        register: jest.fn()
-    };
+  const props = {
+    register: jest.fn(),
+  };
 
-    it('renders without crashing', () => {
-        wrapper = shallow(<RegistrationForm {...props} />);
+  it('renders without crashing', () => {
+    wrapper = shallow(<RegistrationForm {...props} />);
+  });
+
+  describe('form onSubmit', () => {
+    it('calls validateFields', () => {
+      const mockValidateFields = jest.fn();
+      const event = { preventDefault: jest.fn() };
+      wrapper = shallow(<RegistrationForm />);
+
+      wrapper.props().form.validateFields = mockValidateFields;
+      wrapper
+        .dive()
+        .find(Form)
+        .prop('onSubmit')(event);
+      expect(event.preventDefault).toBeCalled();
+      expect(mockValidateFields).toBeCalled();
     });
 
-    describe('form onSubmit', () => {
-        it('calls validateFields', () => {
-            const mockValidateFields = jest.fn();
-            const event = { preventDefault: jest.fn() };
-            wrapper = shallow(<RegistrationForm />);
+    it('calls validate', () => {
+      const mockValidate = jest.fn();
+      const event = { preventDefault: jest.fn() };
+      wrapper = mount(<RegistrationForm />);
 
-            wrapper.props().form.validateFields = mockValidateFields;
-            wrapper
-                .dive()
-                .find(Form)
-                .prop('onSubmit')(event);
-            expect(event.preventDefault).toBeCalled();
-            expect(mockValidateFields).toBeCalled();
-        });
+      const component = wrapper.find(R);
+      component.instance().validate = mockValidate;
+      component.find(Form).prop('onSubmit')(event);
+      expect(event.preventDefault).toBeCalled();
+      expect(mockValidate).toBeCalled();
+    });
+  });
 
-        it('calls validate', () => {
-            const mockValidate = jest.fn();
-            const event = { preventDefault: jest.fn() };
-            wrapper = mount(<RegistrationForm />);
-
-            const component = wrapper.find(R);
-            component.instance().validate = mockValidate;
-            component.find(Form).prop('onSubmit')(event);
-            expect(event.preventDefault).toBeCalled();
-            expect(mockValidate).toBeCalled();
-        });
+  describe('validate', () => {
+    it('calls register', () => {
+      wrapper = shallow(<RegistrationForm {...props} />);
+      wrapper
+        .dive()
+        .instance()
+        .validate(undefined, 'test_email@gmail.com');
+      expect(props.register).toBeCalled();
     });
 
-    describe('validate', () => {
-        it('calls register', () => {
-            wrapper = shallow(<RegistrationForm {...props} />);
-            wrapper
-                .dive()
-                .instance()
-                .validate(undefined, 'test_email@gmail.com');
-            expect(props.register).toBeCalled();
-        });
-
-        it('doesnt call register if there is an error', () => {
-            wrapper = shallow(<RegistrationForm {...props} />);
-            wrapper
-                .dive()
-                .instance()
-                .validate('error', 'test_email@gmail.com');
-            expect(props.register).toBeCalled();
-        });
+    it('doesnt call register if there is an error', () => {
+      wrapper = shallow(<RegistrationForm {...props} />);
+      wrapper
+        .dive()
+        .instance()
+        .validate('error', 'test_email@gmail.com');
+      expect(props.register).toBeCalled();
     });
+  });
 });

@@ -17,7 +17,7 @@ describe('Form Routes', () => {
     it('should handle success as a 200 response', async () => {
       mock.onPost(`${serviceUrl}/form/`).reply(200);
 
-      const r = await request(app)
+      await request(app)
         .post(`/`)
         .expect(200);
     });

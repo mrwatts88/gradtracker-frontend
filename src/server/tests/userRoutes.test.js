@@ -17,7 +17,7 @@ describe('User Routes', () => {
     it('should handle success as a 200 response', async () => {
       mock.onPost(`${serviceUrl}/user/`).reply(200);
 
-      const r = await request(app)
+      await request(app)
         .post(`/`)
         .expect(200);
     });

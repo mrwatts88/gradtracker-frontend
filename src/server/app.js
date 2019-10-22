@@ -40,49 +40,49 @@ app.use(contextRoot, express.static(buildAssetsDir));
 app.get(`${contextRoot}*`, (req, res) => res.sendFile(`${buildAssetsDir}/index.html`));
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production') {
-    try {
-        const certs = {
-            cert: fs.readFileSync(process.env.SSL_CERT_FILE, 'utf8'),
-            key: fs.readFileSync(process.env.SSL_KEY_FILE, 'utf8')
-        };
+  try {
+    const certs = {
+      cert: fs.readFileSync(process.env.SSL_CERT_FILE, 'utf8'),
+      key: fs.readFileSync(process.env.SSL_KEY_FILE, 'utf8'),
+    };
 
-        httpsServer = https.createServer(certs, app).listen(config.get('httpsListenerPort'), () => {
-            const host = httpsServer.address().address;
-            const port = httpsServer.address().port;
-            console.log(`server listening at ${host}:${port}`);
-        });
-    } catch (error) {
-        if (error.code === 'ENOENT') {
-            const parsedError = new Error('Service is running inside kube cluster, but certificates are not found.');
-            parsedError.code = 'ENOENT';
-            throw parsedError;
-        } else {
-            const parsedError = new Error('Service is running inside kube cluster, but an unknown error occured');
-            parsedError.code = 'UNKNOWN_ERR';
-            throw parsedError;
-        }
+    httpsServer = https.createServer(certs, app).listen(config.get('httpsListenerPort'), () => {
+      const host = httpsServer.address().address;
+      const port = httpsServer.address().port;
+      console.log(`server listening at ${host}:${port}`);
+    });
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      const parsedError = new Error('Service is running inside kube cluster, but certificates are not found.');
+      parsedError.code = 'ENOENT';
+      throw parsedError;
+    } else {
+      const parsedError = new Error('Service is running inside kube cluster, but an unknown error occured');
+      parsedError.code = 'UNKNOWN_ERR';
+      throw parsedError;
     }
+  }
 }
 
 httpServer = http.createServer(app).listen(config.get('httpListenerPort'), () => {
-    const host = httpServer.address().address;
-    const port = httpServer.address().port;
-    console.log(chalk.cyan('server listening at'), chalk.yellow(`${host}:${port}`));
+  const host = httpServer.address().address;
+  const port = httpServer.address().port;
+  console.log(chalk.cyan('server listening at'), chalk.yellow(`${host}:${port}`));
 });
 
 process.on('SIGTERM', () => {
-    if (httpServer) {
-        httpServer.close(() => {
-            console.log.info(chalk.red('SIGTERM issued...app is shutting down'));
-            process.exit(0);
-        });
-    }
-    if (httpsServer) {
-        httpsServer.close(() => {
-            console.log.info(chalk.red('SIGTERM issued...app is shutting down'));
-            process.exit(0);
-        });
-    }
+  if (httpServer) {
+    httpServer.close(() => {
+      console.log.info(chalk.red('SIGTERM issued...app is shutting down'));
+      process.exit(0);
+    });
+  }
+  if (httpsServer) {
+    httpsServer.close(() => {
+      console.log.info(chalk.red('SIGTERM issued...app is shutting down'));
+      process.exit(0);
+    });
+  }
 });
 
 module.exports = app;

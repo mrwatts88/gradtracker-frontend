@@ -1,5 +1,5 @@
 describe('Header', () => {
-    it('works', () => {
+  it('works', () => {
     // TODO
-    });
+  });
 });

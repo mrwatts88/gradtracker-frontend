@@ -10,9 +10,9 @@ ADD . /app
 
 # Install dependencies and build the app
 RUN npm install \
-    && npm rebuild node-sass \
-    && npm run build:local-docker \
-    && npm run build:deployed
+  && npm rebuild node-sass \
+  && npm run build:local-docker \
+  && npm run build:deployed
 
 # Set entrypoint
 CMD ["npm", "start"]
