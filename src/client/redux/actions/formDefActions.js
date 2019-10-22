@@ -19,57 +19,57 @@ export const DELETE_FORM_DEF_ERROR = 'DELETE_FORM_DEF_ERROR';
 export const FORM_DEF_CLEAR_ERROR = 'FORM_DEF_CLEAR_ERROR';
 
 export function postFormDef(formDef) {
-    return async dispatch => {
-        try {
-            dispatch({ type: FORM_DEF_CLEAR_ERROR });
-            dispatch({ type: POST_FORM_DEF });
-            await formDefService.postFormDef(formDef);
-            dispatch({ type: POST_FORM_DEF_SUCCESS });
-        } catch (error) {
-            dispatch({ type: POST_FORM_DEF_ERROR, payload: 'Error creating form.' });
-        }
-    };
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_DEF_CLEAR_ERROR });
+      dispatch({ type: POST_FORM_DEF });
+      await formDefService.postFormDef(formDef);
+      dispatch({ type: POST_FORM_DEF_SUCCESS });
+    } catch (error) {
+      dispatch({ type: POST_FORM_DEF_ERROR, payload: 'Error creating form.' });
+    }
+  };
 }
 
 export function clearFormDefError() {
-    return { type: FORM_DEF_CLEAR_ERROR };
+  return { type: FORM_DEF_CLEAR_ERROR };
 }
 
 export function deleteFormDef(id) {
-    return async dispatch => {
-        try {
-            dispatch({ type: FORM_DEF_CLEAR_ERROR });
-            dispatch({ type: DELETE_FORM_DEF });
-            await formDefService.deleteFormDef(id);
-            dispatch({ type: DELETE_FORM_DEF_SUCCESS });
-        } catch (error) {
-            dispatch({ type: DELETE_FORM_DEF_ERROR, payload: 'Error deleting form' });
-        }
-    };
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_DEF_CLEAR_ERROR });
+      dispatch({ type: DELETE_FORM_DEF });
+      await formDefService.deleteFormDef(id);
+      dispatch({ type: DELETE_FORM_DEF_SUCCESS });
+    } catch (error) {
+      dispatch({ type: DELETE_FORM_DEF_ERROR, payload: 'Error deleting form.' });
+    }
+  };
 }
 
 export function getFormDef(id) {
-    return async dispatch => {
-        try {
-            dispatch({ type: FORM_DEF_CLEAR_ERROR });
-            dispatch({ type: GET_FORM_DEF });
-            const { data } = await formDefService.getFormDef(id);
-            dispatch({ type: GET_FORM_DEF_SUCCESS, payload: data });
-        } catch (error) {
-            dispatch({ type: GET_FORM_DEF_ERROR, payload: 'Error finding form.' });
-        }
-    };
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_DEF_CLEAR_ERROR });
+      dispatch({ type: GET_FORM_DEF });
+      const { data } = await formDefService.getFormDef(id);
+      dispatch({ type: GET_FORM_DEF_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: GET_FORM_DEF_ERROR, payload: 'Error finding form.' });
+    }
+  };
 }
 
 export function getAllFormDefs() {
-    return async dispatch => {
-        try {
-            dispatch({ type: FORM_DEF_CLEAR_ERROR });
-            dispatch({ type: GET_ALL_FORM_DEFS });
-            const { data } = await formDefService.getAllFormDefs();
-            dispatch({ type: GET_ALL_FORM_DEFS_SUCCESS, payload: data });
-        } catch (error) {
-            dispatch({ type: GET_ALL_FORM_DEFS_ERROR, payload: 'Error finding forms.' });
-        }
-    };
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_DEF_CLEAR_ERROR });
+      dispatch({ type: GET_ALL_FORM_DEFS });
+      const { data } = await formDefService.getAllFormDefs();
+      dispatch({ type: GET_ALL_FORM_DEFS_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: GET_ALL_FORM_DEFS_ERROR, payload: 'Error finding forms.' });
+    }
+  };
 }
