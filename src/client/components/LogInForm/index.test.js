@@ -4,61 +4,61 @@ import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
 
 describe('LogInForm', () => {
-    let wrapper;
+  let wrapper;
 
-    const props = {
-        authenticate: jest.fn()
-    };
+  const props = {
+    authenticate: jest.fn(),
+  };
 
-    it('renders without crashing', () => {
-        wrapper = shallow(<LogInForm {...props} />);
+  it('renders without crashing', () => {
+    wrapper = shallow(<LogInForm {...props} />);
+  });
+
+  describe('form onSubmit', () => {
+    it('calls calls validateFields', () => {
+      const mockValidateFields = jest.fn();
+      const event = { preventDefault: jest.fn() };
+      wrapper = shallow(<LogInForm />);
+
+      wrapper.props().form.validateFields = mockValidateFields;
+      wrapper
+        .dive()
+        .find(Form)
+        .prop('onSubmit')(event);
+      expect(event.preventDefault).toBeCalled();
+      expect(mockValidateFields).toBeCalled();
     });
 
-    describe('form onSubmit', () => {
-        it('calls calls validateFields', () => {
-            const mockValidateFields = jest.fn();
-            const event = { preventDefault: jest.fn() };
-            wrapper = shallow(<LogInForm />);
+    it('calls calls validateEmailPassword', () => {
+      const mockValidateEmailPassword = jest.fn();
+      const event = { preventDefault: jest.fn() };
+      wrapper = mount(<LogInForm />);
 
-            wrapper.props().form.validateFields = mockValidateFields;
-            wrapper
-                .dive()
-                .find(Form)
-                .prop('onSubmit')(event);
-            expect(event.preventDefault).toBeCalled();
-            expect(mockValidateFields).toBeCalled();
-        });
+      const component = wrapper.find(L);
+      component.instance().validateEmailPassword = mockValidateEmailPassword;
+      component.find(Form).prop('onSubmit')(event);
+      expect(event.preventDefault).toBeCalled();
+      expect(mockValidateEmailPassword).toBeCalled();
+    });
+  });
 
-        it('calls calls validateEmailPassword', () => {
-            const mockValidateEmailPassword = jest.fn();
-            const event = { preventDefault: jest.fn() };
-            wrapper = mount(<LogInForm />);
-
-            const component = wrapper.find(L);
-            component.instance().validateEmailPassword = mockValidateEmailPassword;
-            component.find(Form).prop('onSubmit')(event);
-            expect(event.preventDefault).toBeCalled();
-            expect(mockValidateEmailPassword).toBeCalled();
-        });
+  describe('validateEmailPassword', () => {
+    it('calls logIn', () => {
+      wrapper = shallow(<LogInForm {...props} />);
+      wrapper
+        .dive()
+        .instance()
+        .validateEmailPassword(undefined, 'test_email@gmail.com', 'test_password');
+      expect(props.authenticate).toBeCalled();
     });
 
-    describe('validateEmailPassword', () => {
-        it('calls logIn', () => {
-            wrapper = shallow(<LogInForm {...props} />);
-            wrapper
-                .dive()
-                .instance()
-                .validateEmailPassword(undefined, 'test_email@gmail.com', 'test_password');
-            expect(props.authenticate).toBeCalled();
-        });
-
-        it('doesnt call login if there is an error', () => {
-            wrapper = shallow(<LogInForm {...props} />);
-            wrapper
-                .dive()
-                .instance()
-                .validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
-            expect(props.authenticate).toBeCalled();
-        });
+    it('doesnt call login if there is an error', () => {
+      wrapper = shallow(<LogInForm {...props} />);
+      wrapper
+        .dive()
+        .instance()
+        .validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
+      expect(props.authenticate).toBeCalled();
     });
+  });
 });

@@ -1,44 +1,29 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { authService, AUTH_URL } from './authService';
+import { authHeader } from '../../helpers/authHeader';
+jest.mock('../../helpers/authHeader');
 
 describe('authService', () => {
-    const mock = new MockAdapter(axios);
+  const testHeaders = {
+    Authorization: 'testToken',
+    Accept: 'application/json, text/plain, */*',
+    'Content-Type': 'application/json;charset=utf-8',
+  };
 
-    beforeEach(() => {
-        mock.reset();
-    });
+  authHeader.mockImplementation(() => testHeaders);
 
-    describe('log in', () => {
-        it('makes a post to the AUTH_URL url', async () => {
-            const reqBody = { email: 'email', password: 'password' };
+  const mock = new MockAdapter(axios);
 
-            mock.onPost(`${AUTH_URL}auth`).reply(
-                200,
-                JSON.stringify({
-                    data: {
-                        user: {
-                            name: 'username'
-                        },
-                        token: 'jwt.token.role'
-                    }
-                })
-            );
-
-            await authService.authenticate(reqBody.email, reqBody.password);
-            expect(mock.history.post.length).toEqual(1);
-            expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
-            expect(mock.history.post[0].url).toEqual(`${AUTH_URL}auth`);
-        });
-    });
-<<<<<<< HEAD
+  beforeEach(() => {
+    mock.reset();
   });
 
-  describe('register user'), () => {
-    it('makes a post to the API_REGISTRATION url', async () => {
+  describe('authenticate', () => {
+    it('makes a post to the AUTH_URL/auth url', async () => {
       const reqBody = { email: 'email', password: 'password' };
 
-      mock.onPost(`${API_AUTH}/auth`).reply(
+      mock.onPost(`${AUTH_URL}auth`).reply(
         200,
         JSON.stringify({
           data: {
@@ -50,12 +35,57 @@ describe('authService', () => {
         })
       );
 
-      await authService.logIn(reqBody.email, reqBody.password);
+      await authService.authenticate(reqBody.email, reqBody.password);
       expect(mock.history.post.length).toEqual(1);
       expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
-      expect(mock.history.post[0].url).toEqual(`${API_AUTH}/auth`);
+      expect(mock.history.post[0].url).toEqual(`${AUTH_URL}auth`);
+    });
+
+    it('should throw error on axios bad response', async () => {
+      const reqBody = { email: 'email', password: 'password' };
+      mock.onPost(`${AUTH_URL}auth`).reply(500);
+
+      await expect(authService.authenticate(reqBody.email, reqBody.password)).rejects.toThrow();
+
+      expect(mock.history.post.length).toEqual(1);
+      expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
+      expect(mock.history.post[0].url).toEqual(`${AUTH_URL}auth`);
     });
   });
-=======
->>>>>>> 6c3fa039295abec8a9c2c87081f135eba74a737e
-});
+
+  describe('register', () => {
+    it('makes a post to the AUTH_URL/user url', async () => {
+      const reqBody = { email: 'email', password: 'password' };
+
+      mock.onPost(`${AUTH_URL}user`).reply(
+        200,
+        JSON.stringify({
+          data: {
+            user: {
+              name: 'username',
+            },
+            token: 'jwt.token.role',
+          },
+        })
+      );
+
+      await authService.register(reqBody);
+      expect(mock.history.post.length).toEqual(1);
+      expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
+      expect(mock.history.post[0].url).toEqual(`${AUTH_URL}user`);
+    });
+
+    it('should throw error on axios bad response', async () => {
+      const reqBody = { email: 'email', password: 'password' };
+      mock.onPost(`${AUTH_URL}user`).reply(500);
+
+      await expect(authService.register(reqBody)).rejects.toThrow();
+
+      expect(mock.history.post.length).toEqual(1);
+      expect(mock.history.post[0].data).toEqual(JSON.stringify(reqBody));
+      expect(mock.history.post[0].url).toEqual(`${AUTH_URL}user`);
+      expect(mock.history.post[0].headers).toEqual(testHeaders);
+    });
+  });
+
+

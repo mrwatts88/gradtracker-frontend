@@ -3,9 +3,9 @@ import router from '../index';
 const routes = ['auth', 'form', 'formDef', 'user'];
 
 describe('Index file', () => {
-    const stacks = router.stack.map(el => el.regexp.toString().match(/\w+/)[0]);
+  const stacks = router.stack.map(el => el.regexp.toString().match(/\w+/)[0]);
 
-    it('should attach the routes', () => {
-        stacks.forEach(el => expect(routes.includes(el)).toBeTruthy());
-    });
+  it('should attach the routes', () => {
+    stacks.forEach(el => expect(routes.includes(el)).toBeTruthy());
+  });
 });

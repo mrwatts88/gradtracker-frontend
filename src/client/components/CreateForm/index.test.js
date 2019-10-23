@@ -1,5 +1,3 @@
 describe('CreateForm', () => {
-    it('works', () => {
-
-    });
+  it('works', () => {});
 });

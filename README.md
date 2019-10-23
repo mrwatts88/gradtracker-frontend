@@ -31,10 +31,10 @@ This project is intended as both an example to be referenced, and a cookbook to 
 2. `cd uwm-cs-595-nm-frontend`
 3. `npm install`
 4. Start up the backend
-    - If you are using Docker, simply follow these steps:
-        1. `docker login docker.nmcapstone.com`
-        2. `npm run infra:up`
-    - If you are not using Docker, then please refer to the [project docs](https://gitlab.nmcapstone.com/nm-capstone-cookbooks/nm-capstone-backend-cookbooks/backend-example#using-this-project).
+   - If you are using Docker, simply follow these steps:
+     1. `docker login docker.nmcapstone.com`
+     2. `npm run infra:up`
+   - If you are not using Docker, then please refer to the [project docs](https://gitlab.nmcapstone.com/nm-capstone-cookbooks/nm-capstone-backend-cookbooks/backend-example#using-this-project).
 
 ## Build and run on your local machine
 
@@ -42,9 +42,9 @@ This project is intended as both an example to be referenced, and a cookbook to 
 
 NPM scripts are custom commands that simplify common project tasks, such as:
 
--   Running tests
--   Building and starting the application
--   Running code quality tools like ESLint
+- Running tests
+- Building and starting the application
+- Running code quality tools like ESLint
 
 These scripts are defined `scripts` block of the `package.json` file, and can be run in a terminal using `npm run <script-name>`.  
 If the script requires additional arguments, use the format `npm run <script-name> -- <arguments...>`.  
@@ -69,8 +69,8 @@ Once you are all set up, with the backend already running, you can start the web
 
 1. Run the command `npm run start` (Runs the node server)
 2. In another terminal `npm run start:dev` (Builds and watches the client side code)
-2. Open a browser
-3. Navigate to `http://localhost:4000`
+3. Open a browser
+4. Navigate to `http://localhost:4000`
 
 ### Running Tests
 

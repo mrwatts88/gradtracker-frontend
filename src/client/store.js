@@ -10,16 +10,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const history = createBrowserHistory({ basename: CONTEXT_ROOT });
 
 export default function configureStore(preloadedState) {
-    const store = createStore(
-        createRootReducer(history),
-        preloadedState,
-        composeEnhancers(
-            applyMiddleware(
-                routerMiddleware(history),
-                thunkMiddleware
-            ),
-        ),
-    );
+  const store = createStore(
+    createRootReducer(history),
+    preloadedState,
+    composeEnhancers(applyMiddleware(routerMiddleware(history), thunkMiddleware))
+  );
 
-    return store;
+  return store;
 }

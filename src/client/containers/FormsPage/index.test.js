@@ -1,5 +1,3 @@
 describe('forms page', () => {
-    it('works', () => {
-
-    })
-})
+  it('works', () => {});
+});

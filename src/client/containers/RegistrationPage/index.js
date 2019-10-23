@@ -2,9 +2,9 @@ import React from 'react';
 import { Registration } from '../../components';
 
 export const RegistrationPage = () => (
-    <main>
-        <Registration />
-    </main>
+  <main>
+    <Registration />
+  </main>
 );
 
 export default RegistrationPage;

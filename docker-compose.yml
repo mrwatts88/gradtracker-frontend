@@ -1,17 +1,17 @@
 version: '3'
 
 services:
-    mysql:
-        image: mysql:5.7.25
-        ports:
-            - '3306:3306'
-        environment:
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-            MYSQL_DATABASE: 'capstone'
+  mysql:
+    image: mysql:5.7.25
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_DATABASE: 'capstone'
 
-    backend:
-        image: docker.nmcapstone.com/uwm-2019-fall/uwm-cs595-nm-backend:latest 
-        ports:
-            - '8333:8333'
-        environment:
-            SPRING_PROFILES: localdocker
+  backend:
+    image: docker.nmcapstone.com/uwm-2019-fall/uwm-cs595-nm-backend:latest
+    ports:
+      - '8333:8333'
+    environment:
+      SPRING_PROFILES: localdocker

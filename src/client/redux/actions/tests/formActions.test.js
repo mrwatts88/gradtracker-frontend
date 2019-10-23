@@ -6,48 +6,48 @@ import * as actions from '../../actions/formActions';
 import { formService } from '../../../services';
 
 describe('Form actions', () => {
-    const mock = new MockAdapter(axios);
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
+  const mock = new MockAdapter(axios);
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
 
-    let store;
-    beforeEach(() => {
-        mock.reset();
-        store = mockStore();
+  let store;
+  beforeEach(() => {
+    mock.reset();
+    store = mockStore();
+  });
+
+  describe('postForm', () => {
+    it('should handle success', async () => {
+      formService.postForm = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.postForm({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
+      expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_SUCCESS });
+      expect(formService.postForm).toBeCalled();
     });
 
-    describe('postForm', () => {
-        it('should handle success', async () => {
-            formService.postForm = jest.fn(() => {
-                return Promise.resolve({});
-            });
+    it('should handle errors', async () => {
+      formService.postForm = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
 
-            await store.dispatch(actions.postForm({}));
+      const expectedAction = {
+        type: actions.POST_FORM_ERROR,
+        payload: 'Error submitting form.',
+      };
 
-            expect(store.getActions().length).toEqual(3);
-            expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
-            expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
-            expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_SUCCESS });
-            expect(formService.postForm).toBeCalled();
-        });
+      await store.dispatch(actions.postForm({}));
 
-        it('should handle errors', async () => {
-            formService.postForm = jest.fn(() => {
-                return Promise.reject(new Error('error'));
-            });
-
-            const expectedAction = {
-                type: actions.POST_FORM_ERROR,
-                payload: 'Error submitting form.'
-            };
-
-            await store.dispatch(actions.postForm({}));
-
-            expect(store.getActions().length).toEqual(3);
-            expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
-            expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
-            expect(store.getActions()[2]).toEqual(expectedAction);
-            expect(formService.postForm).toBeCalled();
-        });
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formService.postForm).toBeCalled();
     });
+  });
 });

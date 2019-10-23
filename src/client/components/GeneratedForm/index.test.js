@@ -1,5 +1,3 @@
 describe('generated form', () => {
-    it('works', () => {
-
-    })
-})
+  it('works', () => {});
+});
