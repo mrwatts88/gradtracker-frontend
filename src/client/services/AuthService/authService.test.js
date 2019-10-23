@@ -87,5 +87,4 @@ describe('authService', () => {
       expect(mock.history.post[0].headers).toEqual(testHeaders);
     });
   });
-
-
+});
