@@ -4,7 +4,7 @@ import {
   postFormDef,
   clearFormDefError,
   POST_FORM_DEF_ERROR,
-  POST_FORM_DEF_SUCCESS,
+  POST_FORM_DEF_SUCCESS
 } from '../../redux/actions/formDefActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
@@ -13,7 +13,7 @@ class CreateForm extends Component {
   state = {
     fieldDefs: [],
     label: '',
-    nextListId: 0,
+    nextListId: 0
   };
 
   addField = e => {
@@ -29,11 +29,11 @@ class CreateForm extends Component {
           label: this.state.label,
           id: this.state.nextListId,
           inputType: 'text',
-          dataType: 'string',
-        },
+          dataType: 'string'
+        }
       ],
       label: '',
-      nextListId: this.state.nextListId + 1,
+      nextListId: this.state.nextListId + 1
     });
   };
 
@@ -56,7 +56,7 @@ class CreateForm extends Component {
     const fieldDefs = [...this.state.fieldDefs];
 
     this.setState({
-      fieldDefs: fieldDefs.filter(field => field.id !== id),
+      fieldDefs: fieldDefs.filter(field => field.id !== id)
     });
   };
 
@@ -76,7 +76,7 @@ class CreateForm extends Component {
             style={{
               borderBottom: '1px solid black',
               paddingBottom: '5px',
-              marginBottom: '5px',
+              marginBottom: '5px'
             }}
             xs={{ offset: 0, span: 24 }}
             md={{ offset: 3, span: 18 }}
@@ -118,7 +118,7 @@ class CreateForm extends Component {
             {this.props.status === POST_FORM_DEF_SUCCESS && 'Form created.'}
           </Col>
         </Row>
-        <Row>
+        <Row gutter={24}>
           <Col xs={{ offset: 0, span: 24 }} md={{ offset: 3, span: 18 }} lg={{ offset: 6, span: 12 }}>
             <RLDD
               items={this.state.fieldDefs}
@@ -134,7 +134,7 @@ class CreateForm extends Component {
 
 const mapStateToProps = ({ formDefReducer }) => ({
   formDefError: formDefReducer.errorMessage,
-  status: formDefReducer.status,
+  status: formDefReducer.status
 });
 
 export default connect(
@@ -144,8 +144,14 @@ export default connect(
 
 class Field extends Component {
   render() {
+    const style = () => ({
+      lineHeight: 3.7,
+      marginRight: '18px',
+      cursor: 'move'
+    });
     return (
       <div style={{ display: 'flex' }}>
+        <Icon style={style()} type="drag" />
         <Input disabled value={this.props.field.label} />
         <Icon
           type="close-circle"
@@ -155,7 +161,7 @@ class Field extends Component {
             lineHeight: 2.7,
             fontSize: '19px',
             color: 'red',
-            marginLeft: '21px',
+            marginLeft: '21px'
           }}
         />
       </div>

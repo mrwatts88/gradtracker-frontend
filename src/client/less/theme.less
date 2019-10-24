@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.less'; // Import Ant Design styles by less entry
+@import "~antd/dist/antd.less"; // Import Ant Design styles by less entry
 
 @primary-color: #eac13d; // primary color for all components
 @link-color: #1890ff; // link color
@@ -42,11 +42,16 @@
 @menu-dark-submenu-bg: #000c17;
 @menu-dark-highlight-color: #eac13d;
 @menu-dark-item-active-bg: @primary-color;
-@menu-dark-selected-item-icon-color: @white;
+@menu-dark-selected-item-icon-color: @black;
 @menu-dark-selected-item-text-color: @black;
 @menu-dark-item-hover-bg: transparent;
 
 .ant-menu-dark .ant-menu-item-selected > a,
 .ant-menu-dark .ant-menu-item-selected > a:hover {
+  color: black !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-dark .ant-menu-item-selected:hover {
   color: black !important;
 }

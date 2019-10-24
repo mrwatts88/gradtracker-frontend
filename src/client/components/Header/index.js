@@ -23,16 +23,6 @@ const Header = props => (
           </Menu.Item>
         )}
         {props.path !== '/login' && (
-          <Menu.Item key="/createform">
-            <Link to="/createform">CREATE FORM</Link>
-          </Menu.Item>
-        )}
-        {props.path !== '/login' && (
-          <Menu.Item key="/forms">
-            <Link to="/forms">FORMS</Link>
-          </Menu.Item>
-        )}
-        {props.path !== '/login' && (
           <Menu.Item key="/registration">
             <Link to="/registration">REGISTER A USER</Link>
           </Menu.Item>
