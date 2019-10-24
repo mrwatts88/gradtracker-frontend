@@ -145,23 +145,24 @@ export default connect(
 class Field extends Component {
   render() {
     const style = () => ({
-      lineHeight: 3.7,
-      marginRight: '18px',
-      cursor: 'move'
+      lineHeight: 2.4,
+      fontSize: '22px',
+      marginRight: '9px',
+      cursor: 'grab'
     });
     return (
       <div style={{ display: 'flex' }}>
-        <Icon style={style()} type="drag" />
+        <Icon style={style()} type="column-height" />
         <Input disabled value={this.props.field.label} />
         <Icon
           type="close-circle"
           onClick={() => this.props.deleteField(this.props.field.id)}
           style={{
             float: 'right',
-            lineHeight: 2.7,
+            lineHeight: 2.9,
             fontSize: '19px',
             color: 'red',
-            marginLeft: '21px'
+            marginLeft: '9px'
           }}
         />
       </div>
