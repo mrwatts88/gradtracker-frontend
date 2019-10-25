@@ -3,6 +3,11 @@ import { formService } from '../../services/FormService/formService';
 export const POST_FORM = 'POST_FORM';
 export const POST_FORM_SUCCESS = 'POST_FORM_SUCCESS';
 export const POST_FORM_ERROR = 'POST_FORM_ERROR';
+
+export const GET_ALL_FORMS_BY_USER = 'GET_ALL_FORMS_BY_USER';
+export const GET_ALL_FORMS_BY_USER_SUCCESS = 'GET_ALL_FORMS_BY_USER_SUCCESS';
+export const GET_ALL_FORMS_BY_USER_ERROR = 'GET_ALL_FORMS_BY_USER_ERROR';
+
 export const FORM_CLEAR_ERROR = 'FORM_CLEAR_ERROR';
 
 export function postForm(form) {
@@ -14,6 +19,19 @@ export function postForm(form) {
       dispatch({ type: POST_FORM_SUCCESS });
     } catch (error) {
       dispatch({ type: POST_FORM_ERROR, payload: 'Error submitting form.' });
+    }
+  };
+}
+
+export function getAllFormSubsByUser(userId) {
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: GET_ALL_FORMS_BY_USER });
+      const { data } = await formService.getAllFormSubsByUser(userId);
+      dispatch({ type: GET_ALL_FORMS_BY_USER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: GET_ALL_FORMS_BY_USER_ERROR, payload: 'Error retrieving forms.' });
     }
   };
 }

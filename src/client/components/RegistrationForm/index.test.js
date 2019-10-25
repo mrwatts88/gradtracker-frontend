@@ -7,7 +7,7 @@ describe('LogInForm', () => {
   let wrapper;
 
   const props = {
-    register: jest.fn(),
+    register: jest.fn(() => Promise.resolve())
   };
 
   it('renders without crashing', () => {

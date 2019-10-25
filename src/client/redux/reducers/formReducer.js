@@ -10,6 +10,14 @@ const formReducer = (state = initialState, action) => {
       return { ...state, status: action.type };
     case actions.POST_FORM_ERROR:
       return { ...state, errorMessage: action.payload, status: action.type };
+
+    case actions.GET_ALL_FORMS_BY_USER:
+      return { ...state, status: action.type };
+    case actions.GET_ALL_FORMS_BY_USER_SUCCESS:
+      return { ...state, status: action.type, submissions: action.payload };
+    case actions.GET_ALL_FORMS_BY_USER_ERROR:
+      return { ...state, errorMessage: action.payload, status: action.type };
+
     case actions.FORM_CLEAR_ERROR:
       return { ...state, errorMessage: null, status: action.type };
 
