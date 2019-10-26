@@ -6,7 +6,7 @@ export function transformForm(form) {
     const data = entry[1];
     return {
       data,
-      fieldDefId
+      fieldDefId,
     };
   });
 
@@ -17,6 +17,5 @@ export function transformForm(form) {
     userId,
   };
 
-  console.log(formattedForm);
   return formattedForm;
 }

@@ -25,18 +25,18 @@ class S extends React.Component {
             .map(field => {
               return this.props.currentlyEditing ? (
                 <div key={field.id}>
-                  <div style={{ fontWeight: 'bold' }}>{field.name}</div>
+                  <div style={{ fontWeight: 'bold' }}>{field.label}</div>
                   <Form.Item key={field.id}>
                     {getFieldDecorator(String(field.id), {
                       initialValue: field.data,
-                      rules: [{ required: true, message: `${field.name} required.` }],
+                      rules: [{ required: true, message: `${field.label} required.` }],
                     })(<Input />)}
                   </Form.Item>
                   <br />
                 </div>
               ) : (
                 <div key={field.id}>
-                  <div style={{ fontWeight: 'bold' }}>{field.name}</div>
+                  <div style={{ fontWeight: 'bold' }}>{field.label}</div>
                   <div>{field.data}</div>
                   <br />
                 </div>

@@ -6,10 +6,6 @@ import { SubmissionForm } from './submissionForm';
 
 const { Panel } = Collapse;
 
-function callback(key) {
-  console.log(key);
-}
-
 export class FormSubmissionsAccordion extends Component {
   state = {
     currentlyEditing: [],
@@ -25,7 +21,6 @@ export class FormSubmissionsAccordion extends Component {
             event.stopPropagation();
             const currentlyEditing = [...this.state.currentlyEditing].filter(id => id !== subId);
             this.setState({ currentlyEditing });
-            console.log(subId);
           }}
         />
         &nbsp;
@@ -36,7 +31,6 @@ export class FormSubmissionsAccordion extends Component {
             event.stopPropagation();
             const currentlyEditing = [...this.state.currentlyEditing].filter(id => id !== subId);
             this.setState({ currentlyEditing });
-            console.log(subId);
           }}
         />
       </React.Fragment>
@@ -48,7 +42,6 @@ export class FormSubmissionsAccordion extends Component {
           const currentlyEditing = [...this.state.currentlyEditing];
           currentlyEditing.push(subId);
           this.setState({ currentlyEditing });
-          console.log(subId);
         }}
       />
     );
@@ -65,7 +58,7 @@ export class FormSubmissionsAccordion extends Component {
   render() {
     return (
       <div>
-        <Collapse onChange={callback}>
+        <Collapse>
           {(this.props.submissions || []).map(s => {
             return (
               <Panel
