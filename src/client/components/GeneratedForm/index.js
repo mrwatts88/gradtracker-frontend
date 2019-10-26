@@ -13,7 +13,7 @@ export class G extends React.Component {
 
   validateFields = (err, form) => {
     if (!err) {
-      this.props.postForm(form);
+      this.props.postForm({ form, formDef: this.props.currentFormDef, approved: false, userId: this.props.userId });
     }
   };
 
@@ -23,15 +23,12 @@ export class G extends React.Component {
       <div>
         {this.props.currentFormDef && (
           <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.currentFormDef.fieldDefs.map(field => {
-              let fieldDecorator = field.label.split(' ');
-              fieldDecorator[0] = fieldDecorator[0].toLowerCase();
-              fieldDecorator = fieldDecorator.join('');
+            {this.props.currentFormDef.fieldDefs.map(fieldDef => {
               return (
-                <Form.Item key={fieldDecorator}>
-                  {getFieldDecorator(fieldDecorator, {
-                    rules: [{ required: true, message: `${field.label} required.` }],
-                  })(<Input placeholder={field.label} />)}
+                <Form.Item key={fieldDef.id}>
+                  {getFieldDecorator(String(fieldDef.id), {
+                    rules: [{ required: true, message: `${fieldDef.label} required.` }],
+                  })(<Input placeholder={fieldDef.label} />)}
                 </Form.Item>
               );
             })}
@@ -51,9 +48,10 @@ export class G extends React.Component {
 
 export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
-const mapStateToProps = ({ formReducer, formDefReducer }) => ({
+const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   currentFormDef: formDefReducer.currentFormDef,
   formError: formReducer.errorMessage,
+  userId: authReducer.currentUser.id,
 });
 
 export default connect(

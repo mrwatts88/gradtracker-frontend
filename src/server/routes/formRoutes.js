@@ -8,7 +8,7 @@ const serviceUrl = config.get('serviceUrl');
 router.post('/', (req, res, next) =>
   axios
     .post(`${serviceUrl}/form/`, req.body, { headers: req.headers })
-    .then(response => res.send(response))
+    .then(response => res.send(response.data))
     .catch(err => next(err))
 );
 

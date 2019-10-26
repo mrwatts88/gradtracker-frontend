@@ -24,7 +24,7 @@ export function authenticate(email, password) {
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,
-        payload: { username: decodedToken.sub },
+        payload: { username: decodedToken.sub, firstName: decodedToken['first name'], lastName: decodedToken['last name'], id: decodedToken.id, email: decodedToken.email },
       });
 
       localStorage.setItem('userToken', token);
