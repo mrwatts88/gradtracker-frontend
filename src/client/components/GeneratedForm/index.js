@@ -13,7 +13,12 @@ export class G extends React.Component {
 
   validateFields = (err, form) => {
     if (!err) {
-      this.props.postForm({ form, formDef: this.props.currentFormDef, approved: false, userId: this.props.userId });
+      this.props.postForm({
+        form,
+        formDefId: this.props.currentFormDef.id,
+        approved: false,
+        userId: this.props.userId,
+      });
     }
   };
 

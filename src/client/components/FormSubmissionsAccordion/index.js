@@ -1,50 +1,12 @@
-import { Collapse, Icon } from 'antd';
+import { Collapse } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllFormSubsByUser } from '../../redux/actions/formActions';
-import { SubmissionForm } from './submissionForm';
-
-const { Panel } = Collapse;
+import { getAllFormSubsByUser, putForm } from '../../redux/actions/formActions';
+import SubmissionForm from './submissionForm';
 
 export class FormSubmissionsAccordion extends Component {
   state = {
     currentlyEditing: [],
-  };
-
-  renderEdit = subId => {
-    return this.state.currentlyEditing.includes(subId) ? (
-      <React.Fragment>
-        <Icon
-          type="save"
-          style={{ color: 'green' }}
-          onClick={event => {
-            event.stopPropagation();
-            const currentlyEditing = [...this.state.currentlyEditing].filter(id => id !== subId);
-            this.setState({ currentlyEditing });
-          }}
-        />
-        &nbsp;
-        <Icon
-          style={{ color: 'red' }}
-          type="stop"
-          onClick={event => {
-            event.stopPropagation();
-            const currentlyEditing = [...this.state.currentlyEditing].filter(id => id !== subId);
-            this.setState({ currentlyEditing });
-          }}
-        />
-      </React.Fragment>
-    ) : (
-      <Icon
-        type="edit"
-        onClick={event => {
-          event.stopPropagation();
-          const currentlyEditing = [...this.state.currentlyEditing];
-          currentlyEditing.push(subId);
-          this.setState({ currentlyEditing });
-        }}
-      />
-    );
   };
 
   onInputChange = e => {
@@ -55,19 +17,32 @@ export class FormSubmissionsAccordion extends Component {
     this.props.getAllFormSubsByUser(1);
   }
 
+  unsetEditing = submissionId => {
+    const currentlyEditing = this.state.currentlyEditing.filter(id => id !== submissionId);
+    this.setState({ currentlyEditing });
+  };
+
+  setEditing = submissionId => {
+    const currentlyEditing = [...this.state.currentlyEditing];
+    currentlyEditing.push(submissionId);
+    this.setState({ currentlyEditing });
+  };
+
   render() {
     return (
       <div>
         <Collapse>
-          {(this.props.submissions || []).map(s => {
+          {(this.props.submissions || []).map(submission => {
             return (
-              <Panel
-                header={`${s.name} - ${s.submissionDate} ${s.approved ? '' : '(pending)'}`}
-                key={s.id}
-                extra={!s.approved && this.renderEdit(s.id)}
-              >
-                <SubmissionForm submission={s} currentlyEditing={this.state.currentlyEditing.includes(s.id)} />
-              </Panel>
+              <SubmissionForm
+                key={submission.id}
+                putForm={this.props.putForm}
+                submission={submission}
+                currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
+                unsetEditing={this.unsetEditing}
+                setEditing={this.setEditing}
+                userId={this.props.userId}
+              />
             );
           })}
         </Collapse>
@@ -77,11 +52,12 @@ export class FormSubmissionsAccordion extends Component {
   }
 }
 
-const mapStateToProps = ({ formReducer }) => ({
+const mapStateToProps = ({ formReducer, authReducer }) => ({
   submissions: formReducer.submissions,
+  userId: authReducer.currentUser.id,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllFormSubsByUser }
+  { getAllFormSubsByUser, putForm }
 )(FormSubmissionsAccordion);
