@@ -12,9 +12,7 @@ export class R extends React.Component {
   };
 
   validate = (err, newUser) => {
-    if (!err) {
-      this.props.register(newUser).then(() => this.props.form.resetFields());
-    }
+    if (!err) this.props.register(newUser).then(() => this.props.form.resetFields());
   };
 
   render() {
@@ -44,7 +42,7 @@ export class R extends React.Component {
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: "Please input new user's password." }],
-          })(<Input placeholder="New User's password" />)}
+          })(<Input type="password" placeholder="New User's password" />)}
         </Form.Item>
         <Form.Item style={{ marginBottom: '0' }}>
           <Button type="primary" htmlType="submit" className="registration-form__button">
@@ -67,7 +65,4 @@ const mapStateToProps = ({ authReducer }) => ({
   status: authReducer.status,
 });
 
-export default connect(
-  mapStateToProps,
-  { register }
-)(RegistrationForm);
+export default connect(mapStateToProps, { register })(RegistrationForm);

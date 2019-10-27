@@ -31,31 +31,28 @@ export class FormSubmissionsAccordion extends Component {
 
   render() {
     return (
-      <div>
-        <Collapse>
-          {(this.props.submissions || []).map(submission => {
-            return (
-              <Collapse.Panel
-                header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
-                  submission.approved ? '' : '(pending)'
-                }`}
+      <Collapse>
+        {(this.props.submissions || []).map(submission => {
+          return (
+            <Collapse.Panel
+              header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
+                submission.approved ? '' : '(pending)'
+              }`}
+              key={submission.id}
+            >
+              <SubmissionForm
                 key={submission.id}
-              >
-                <SubmissionForm
-                  key={submission.id}
-                  putForm={this.props.putForm}
-                  submission={submission}
-                  currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
-                  unsetEditing={this.unsetEditing}
-                  setEditing={this.setEditing}
-                  userId={this.props.userId}
-                />
-              </Collapse.Panel>
-            );
-          })}
-        </Collapse>
-        <br />
-      </div>
+                putForm={this.props.putForm}
+                submission={submission}
+                currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
+                unsetEditing={this.unsetEditing}
+                setEditing={this.setEditing}
+                userId={this.props.userId}
+              />
+            </Collapse.Panel>
+          );
+        })}
+      </Collapse>
     );
   }
 }
@@ -65,7 +62,4 @@ const mapStateToProps = ({ formReducer, authReducer }) => ({
   userId: authReducer.currentUser.id,
 });
 
-export default connect(
-  mapStateToProps,
-  { getAllFormSubsByUser, putForm }
-)(FormSubmissionsAccordion);
+export default connect(mapStateToProps, { getAllFormSubsByUser, putForm })(FormSubmissionsAccordion);
