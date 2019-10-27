@@ -6,7 +6,7 @@ export default Form.create({ name: 'submission_form' })(
   class S extends React.Component {
     renderEdit = submission => {
       return this.props.currentlyEditing ? (
-        <React.Fragment>
+        <span style={{ float: 'right' }}>
           <Icon
             type="save"
             style={{ color: 'green' }}
@@ -24,15 +24,17 @@ export default Form.create({ name: 'submission_form' })(
               this.props.unsetEditing(submission.id);
             }}
           />
-        </React.Fragment>
+        </span>
       ) : (
-        <Icon
-          type="edit"
-          onClick={event => {
-            event.stopPropagation();
-            this.props.setEditing(submission.id);
-          }}
-        />
+        <span style={{ float: 'right' }}>
+          <Icon
+            type="edit"
+            onClick={event => {
+              event.stopPropagation();
+              this.props.setEditing(submission.id);
+            }}
+          />
+        </span>
       );
     };
 
@@ -61,40 +63,32 @@ export default Form.create({ name: 'submission_form' })(
 
     render() {
       const { getFieldDecorator } = this.props.form;
-      const { submission } = this.props;
       return (
-        <Collapse.Panel
-          header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
-            submission.approved ? '' : '(pending)'
-          }`}
-          key={submission.id}
-          extra={!submission.approved && this.renderEdit(submission)}
-        >
-          <Form className="submission-form">
-            {this.props.submission.fields
-              .sort((a, b) => a.fieldIndex - b.fieldIndex)
-              .map(field => {
-                return this.props.currentlyEditing ? (
-                  <div key={field.id}>
-                    <div style={{ fontWeight: 'bold' }}>{field.label}</div>
-                    <Form.Item key={field.id}>
-                      {getFieldDecorator(String(field.fieldDefId), {
-                        initialValue: field.data,
-                        rules: [{ required: true, message: `${field.label} required.` }],
-                      })(<Input />)}
-                    </Form.Item>
-                    <br />
-                  </div>
-                ) : (
-                  <div key={field.id}>
-                    <div style={{ fontWeight: 'bold' }}>{field.label}</div>
-                    <div>{field.data}</div>
-                    <br />
-                  </div>
-                );
-              })}
-          </Form>
-        </Collapse.Panel>
+        <Form className="submission-form">
+          {!this.props.submission.approved && this.renderEdit(this.props.submission)}
+          {this.props.submission.fields
+            .sort((a, b) => a.fieldIndex - b.fieldIndex)
+            .map(field => {
+              return this.props.currentlyEditing ? (
+                <div key={field.id}>
+                  <div style={{ fontWeight: 'bold' }}>{field.label}</div>
+                  <Form.Item key={field.id}>
+                    {getFieldDecorator(String(field.fieldDefId), {
+                      initialValue: field.data,
+                      rules: [{ required: true, message: `${field.label} required.` }],
+                    })(<Input />)}
+                  </Form.Item>
+                  <br />
+                </div>
+              ) : (
+                <div key={field.id}>
+                  <div style={{ fontWeight: 'bold' }}>{field.label}</div>
+                  <div>{field.data}</div>
+                  <br />
+                </div>
+              );
+            })}
+        </Form>
       );
     }
   }
