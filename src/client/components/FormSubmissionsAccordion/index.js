@@ -2,16 +2,12 @@ import { Collapse } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllFormSubsByUser, putForm } from '../../redux/actions/formActions';
-import SubmissionForm from './submissionForm';
+import { SubmissionForm } from './submissionForm';
 import moment from 'moment';
 
 export class FormSubmissionsAccordion extends Component {
   state = {
     currentlyEditing: [],
-  };
-
-  onInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
   };
 
   componentDidMount() {

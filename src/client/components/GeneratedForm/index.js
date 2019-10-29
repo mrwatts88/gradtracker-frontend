@@ -7,11 +7,11 @@ export class G extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, form) => {
-      this.validateFields(err, form);
+      this.postForm(err, form);
     });
   };
 
-  validateFields = (err, form) => {
+  postForm = (err, form) => {
     if (!err) {
       this.props.postForm({
         form,
@@ -25,28 +25,26 @@ export class G extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
-        {this.props.currentFormDef && (
-          <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.currentFormDef.fieldDefs.map(fieldDef => {
-              return (
-                <Form.Item key={fieldDef.id}>
-                  {getFieldDecorator(String(fieldDef.id), {
-                    rules: [{ required: true, message: `${fieldDef.label} required.` }],
-                  })(<Input placeholder={fieldDef.label} />)}
-                </Form.Item>
-              );
-            })}
+      this.props.currentFormDef ? (
+        <Form onSubmit={this.handleSubmit} className="generated-form">
+          {this.props.currentFormDef.fieldDefs.map(fieldDef => {
+            return (
+              <Form.Item key={fieldDef.id}>
+                {getFieldDecorator(String(fieldDef.id), {
+                  rules: [{ required: true, message: `${fieldDef.label} required.` }],
+                })(<Input placeholder={fieldDef.label} />)}
+              </Form.Item>
+            );
+          })}
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="generated-form__button">
-                Submit
-              </Button>
-            </Form.Item>
-            {this.props.formError && <div>{this.props.formError}</div>}
-          </Form>
-        )}
-      </div>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="generated-form__button">
+              Submit
+            </Button>
+          </Form.Item>
+          {this.props.formError && <div>{this.props.formError}</div>}
+        </Form>
+      ) : null
     );
   }
 }
@@ -59,7 +57,4 @@ const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   userId: authReducer.currentUser.id,
 });
 
-export default connect(
-  mapStateToProps,
-  { postForm }
-)(GeneratedForm);
+export default connect(mapStateToProps, { postForm })(GeneratedForm);

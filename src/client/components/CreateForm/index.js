@@ -9,7 +9,7 @@ import {
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
-class CreateForm extends Component {
+export class CreateForm extends Component {
   state = {
     fieldDefs: [],
     label: '',
@@ -137,10 +137,7 @@ const mapStateToProps = ({ formDefReducer }) => ({
   status: formDefReducer.status
 });
 
-export default connect(
-  mapStateToProps,
-  { postFormDef, clearFormDefError }
-)(CreateForm);
+export default connect(mapStateToProps, { postFormDef, clearFormDefError })(CreateForm);
 
 class Field extends Component {
   render() {
