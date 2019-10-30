@@ -1,4 +1,5 @@
 import { formService } from '../../services/FormService/formService';
+import { logOut } from '../actions/authActions';
 
 export const POST_FORM = 'POST_FORM';
 export const POST_FORM_SUCCESS = 'POST_FORM_SUCCESS';
@@ -22,6 +23,7 @@ export function postForm(form) {
       await formService.postForm(form);
       dispatch({ type: POST_FORM_SUCCESS });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: POST_FORM_ERROR, payload: 'Error submitting form.' });
     }
   };
@@ -35,6 +37,7 @@ export function getAllFormSubsByUser(userId) {
       const { data } = await formService.getAllFormSubsByUser(userId);
       dispatch({ type: GET_ALL_FORMS_BY_USER_SUCCESS, payload: data });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: GET_ALL_FORMS_BY_USER_ERROR, payload: 'Error retrieving forms.' });
     }
   };
@@ -48,6 +51,7 @@ export function putForm(form) {
       const { data } = await formService.putForm(form);
       dispatch({ type: PUT_FORM_SUCCESS, payload: data });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: PUT_FORM_ERROR, payload: 'Error updating form submission.' });
     }
   };

@@ -52,6 +52,7 @@ export function register(newUser) {
       await authService.register(newUser);
       dispatch({ type: REGISTER_SUCCESS });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: REGISTER_ERROR, payload: 'Error registering user.' });
     }
   };
