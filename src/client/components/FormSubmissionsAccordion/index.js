@@ -11,7 +11,7 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    this.props.getAllFormSubsByUser(1);
+    this.props.getAllFormSubsByUser(this.props.userId);
   }
 
   unsetEditing = submissionId => {
