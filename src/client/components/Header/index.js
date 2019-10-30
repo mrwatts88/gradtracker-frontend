@@ -6,7 +6,7 @@ import { logOut } from '../../redux/actions/authActions';
 
 const { Header: AntdHeader } = Layout;
 
-const Header = props => (
+export const Header = props => (
   <AntdHeader>
     <div className="logo" />
     <span id="nav">
@@ -37,7 +37,4 @@ const Header = props => (
   </AntdHeader>
 );
 
-export default connect(
-  null,
-  { logOut }
-)(Header);
+export default connect(null, { logOut })(Header);

@@ -8,6 +8,10 @@ export const GET_ALL_FORMS_BY_USER = 'GET_ALL_FORMS_BY_USER';
 export const GET_ALL_FORMS_BY_USER_SUCCESS = 'GET_ALL_FORMS_BY_USER_SUCCESS';
 export const GET_ALL_FORMS_BY_USER_ERROR = 'GET_ALL_FORMS_BY_USER_ERROR';
 
+export const PUT_FORM = 'PUT_FORM';
+export const PUT_FORM_SUCCESS = 'PUT_FORM_SUCCESS';
+export const PUT_FORM_ERROR = 'PUT_FORM_ERROR';
+
 export const FORM_CLEAR_ERROR = 'FORM_CLEAR_ERROR';
 
 export function postForm(form) {
@@ -32,6 +36,19 @@ export function getAllFormSubsByUser(userId) {
       dispatch({ type: GET_ALL_FORMS_BY_USER_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: GET_ALL_FORMS_BY_USER_ERROR, payload: 'Error retrieving forms.' });
+    }
+  };
+}
+
+export function putForm(form) {
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: PUT_FORM });
+      const { data } = await formService.putForm(form);
+      dispatch({ type: PUT_FORM_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: PUT_FORM_ERROR, payload: 'Error updating form submission.' });
     }
   };
 }

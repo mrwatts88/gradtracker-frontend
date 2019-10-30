@@ -1,52 +1,61 @@
-import { Collapse, Icon } from 'antd';
+import { Collapse } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllFormSubsByUser } from '../../redux/actions/formActions';
-
-const { Panel } = Collapse;
-
-function callback(key) {
-  console.log(key);
-}
-
-const renderEdit = () => (
-  <Icon
-    type='edit'
-    onClick={event => {
-      event.stopPropagation();
-      console.log(event.target);
-    }}
-  />
-);
+import { getAllFormSubsByUser, putForm } from '../../redux/actions/formActions';
+import { SubmissionForm } from './submissionForm';
+import moment from 'moment';
 
 export class FormSubmissionsAccordion extends Component {
+  state = {
+    currentlyEditing: [],
+  };
+
   componentDidMount() {
     this.props.getAllFormSubsByUser(1);
   }
 
+  unsetEditing = submissionId => {
+    const currentlyEditing = this.state.currentlyEditing.filter(id => id !== submissionId);
+    this.setState({ currentlyEditing });
+  };
+
+  setEditing = submissionId => {
+    const currentlyEditing = [...this.state.currentlyEditing];
+    currentlyEditing.push(submissionId);
+    this.setState({ currentlyEditing });
+  };
+
   render() {
     return (
-      <div>
-        <Collapse onChange={callback}>
-          {(this.props.submissions || []).map(s => {
-            return <Panel
-              header={`${s.name} - ${s.submissionDate} ${s.approved ? '' : '(pending)'}`}
-              key={s.id}
-              extra={!s.approved && renderEdit()}>
-              <div>{s.fields.sort((a, b) => (a.fieldIndex - b.fieldIndex)).map(field => {
-                return <div key={field.id}>{field.name}:{field.data}</div>;
-              })}</div>
-            </Panel>;
-          })}
-        </Collapse>
-        <br />
-      </div>
+      <Collapse>
+        {(this.props.submissions || []).map(submission => {
+          return (
+            <Collapse.Panel
+              header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
+                submission.approved ? '' : '(pending)'
+              }`}
+              key={submission.id}
+            >
+              <SubmissionForm
+                key={submission.id}
+                putForm={this.props.putForm}
+                submission={submission}
+                currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
+                unsetEditing={this.unsetEditing}
+                setEditing={this.setEditing}
+                userId={this.props.userId}
+              />
+            </Collapse.Panel>
+          );
+        })}
+      </Collapse>
     );
   }
 }
 
-const mapStateToProps = ({ formReducer }) => ({
+const mapStateToProps = ({ formReducer, authReducer }) => ({
   submissions: formReducer.submissions,
+  userId: authReducer.currentUser.id,
 });
 
-export default connect(mapStateToProps, { getAllFormSubsByUser })(FormSubmissionsAccordion);
+export default connect(mapStateToProps, { getAllFormSubsByUser, putForm })(FormSubmissionsAccordion);

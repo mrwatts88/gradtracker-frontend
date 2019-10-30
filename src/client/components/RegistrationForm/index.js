@@ -12,11 +12,7 @@ export class R extends React.Component {
   };
 
   validate = (err, newUser) => {
-    if (!err) {
-      this.props.register(newUser).then(() => this.props.form.resetFields());
-    } else {
-      console.log(err);
-    }
+    if (!err) this.props.register(newUser).then(() => this.props.form.resetFields());
   };
 
   render() {
@@ -25,28 +21,28 @@ export class R extends React.Component {
       <Form onSubmit={this.handleSubmit} className="registration-form">
         <Form.Item>
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: "Please input new user's email." }]
+            rules: [{ required: true, message: "Please input new user's email." }],
           })(<Input placeholder="New User's Email" />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('firstName', {
-            rules: [{ required: true, message: "Please input new user's first name." }]
+            rules: [{ required: true, message: "Please input new user's first name." }],
           })(<Input placeholder="New User's first name" />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('lastName', {
-            rules: [{ required: true, message: "Please input new user's last name." }]
+            rules: [{ required: true, message: "Please input new user's last name." }],
           })(<Input placeholder="New User's last name" />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('pantherId', {
-            rules: [{ required: true, message: "Please input new user's pantherId." }]
+            rules: [{ required: true, message: "Please input new user's pantherId." }],
           })(<Input placeholder="New User's pantherId" />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: "Please input new user's password." }]
-          })(<Input placeholder="New User's password" />)}
+            rules: [{ required: true, message: "Please input new user's password." }],
+          })(<Input type="password" placeholder="New User's password" />)}
         </Form.Item>
         <Form.Item style={{ marginBottom: '0' }}>
           <Button type="primary" htmlType="submit" className="registration-form__button">
@@ -66,10 +62,7 @@ export const RegistrationForm = Form.create({ name: 'registration_form' })(R);
 
 const mapStateToProps = ({ authReducer }) => ({
   authError: authReducer.errorMessage,
-  status: authReducer.status
+  status: authReducer.status,
 });
 
-export default connect(
-  mapStateToProps,
-  { register }
-)(RegistrationForm);
+export default connect(mapStateToProps, { register })(RegistrationForm);

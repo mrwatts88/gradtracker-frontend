@@ -8,7 +8,21 @@ const serviceUrl = config.get('serviceUrl');
 router.post('/', (req, res, next) =>
   axios
     .post(`${serviceUrl}/form/`, req.body, { headers: req.headers })
-    .then(response => res.send(response))
+    .then(response => res.send(response.data))
+    .catch(err => next(err))
+);
+
+router.put('/:id', (req, res, next) =>
+  axios
+    .put(`${serviceUrl}/form/${req.params.id}`, req.body, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err))
+);
+
+router.get('/user/:id', (req, res, next) =>
+  axios
+    .get(`${serviceUrl}/form/user/${req.params.id}`, { headers: req.headers })
+    .then(response => res.send(response.data))
     .catch(err => next(err))
 );
 

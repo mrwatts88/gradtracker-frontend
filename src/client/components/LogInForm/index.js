@@ -12,9 +12,7 @@ export class L extends React.Component {
   };
 
   validateEmailPassword = (err, email, password) => {
-    if (!err) {
-      this.props.authenticate(email, password);
-    }
+    if (!err) this.props.authenticate(email, password);
   };
 
   render() {
@@ -48,7 +46,4 @@ const mapStateToProps = ({ authReducer }) => ({
   authError: authReducer.errorMessage,
 });
 
-export default connect(
-  mapStateToProps,
-  { authenticate }
-)(LogInForm);
+export default connect(mapStateToProps, { authenticate })(LogInForm);

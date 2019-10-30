@@ -1,5 +1,6 @@
 export { default as LogIn } from './LogInForm';
 export { default as GeneratedForm } from './GeneratedForm';
+export { default as FormDefSelect } from './FormDefSelect';
 export { default as PrivateRoute } from './PrivateRoute';
 export { default as CreateForm } from './CreateForm';
 export { default as Header } from './Header';
