@@ -38,7 +38,7 @@ describe('Form actions', () => {
 
       const expectedAction = {
         type: actions.POST_FORM_ERROR,
-        payload: 'Error submitting form.',
+        payload: 'Error submitting form.'
       };
 
       await store.dispatch(actions.postForm({}));
@@ -48,6 +48,76 @@ describe('Form actions', () => {
       expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
       expect(store.getActions()[2]).toEqual(expectedAction);
       expect(formService.postForm).toBeCalled();
+    });
+  });
+
+  describe('putForm', () => {
+    it('should handle success', async () => {
+      formService.putForm = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.putForm({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.PUT_FORM });
+      expect(store.getActions()[2]).toEqual({ type: actions.PUT_FORM_SUCCESS });
+      expect(formService.putForm).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      formService.putForm = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.PUT_FORM_ERROR,
+        payload: 'Error updating form submission.'
+      };
+
+      await store.dispatch(actions.putForm({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.PUT_FORM });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formService.putForm).toBeCalled();
+    });
+  });
+
+  describe('getAllFormSubsByUser', () => {
+    it('should handle success', async () => {
+      formService.getAllFormSubsByUser = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.getAllFormSubsByUser({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER });
+      expect(store.getActions()[2]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER_SUCCESS });
+      expect(formService.getAllFormSubsByUser).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      formService.getAllFormSubsByUser = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.GET_ALL_FORMS_BY_USER_ERROR,
+        payload: 'Error retrieving forms.'
+      };
+
+      await store.dispatch(actions.getAllFormSubsByUser({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formService.putForm).toBeCalled();
     });
   });
 });

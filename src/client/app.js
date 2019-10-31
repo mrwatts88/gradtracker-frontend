@@ -15,7 +15,7 @@ const userToken = localStorage.getItem('userToken');
 
 if (userToken) {
   const decodedToken = JWT(userToken);
-  store.dispatch({ type: AUTHENTICATE_SUCCESS, payload: { username: decodedToken.sub } });
+  store.dispatch({ type: AUTHENTICATE_SUCCESS, payload: { username: decodedToken.sub, firstName: decodedToken['first name'], lastName: decodedToken['last name'], id: decodedToken.id, email: decodedToken.email } });
 }
 
 ReactDOM.render(

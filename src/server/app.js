@@ -39,6 +39,12 @@ app.use(contextRoot, express.static(buildAssetsDir));
 // request any page and receive index.html
 app.get(`${contextRoot}*`, (req, res) => res.sendFile(`${buildAssetsDir}/index.html`));
 
+app.use((err, req, res, next) => {
+  if (res.headersSent) return next(err);
+  res.status((err && err.response && err.response.status) || 500)
+    .send((err && err.response && err.response.data && err.response.data.message) || 'Internal Server Error');
+});
+
 if (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production') {
   try {
     const certs = {

@@ -18,6 +18,21 @@ const formReducer = (state = initialState, action) => {
     case actions.GET_ALL_FORMS_BY_USER_ERROR:
       return { ...state, errorMessage: action.payload, status: action.type };
 
+    case actions.PUT_FORM:
+      return { ...state, status: action.type };
+    case actions.PUT_FORM_SUCCESS:
+      if (state.submissions) {
+        const submissions = [...state.submissions];
+        const idx = submissions.findIndex(s => s.id === action.payload.id);
+        if (idx !== -1) {
+          submissions[idx] = action.payload;
+        }
+        return { ...state, submissions, status: action.type };
+      }
+      return { ...state, status: action.type };
+    case actions.PUT_FORM_ERROR:
+      return { ...state, errorMessage: action.payload, status: action.type };
+
     case actions.FORM_CLEAR_ERROR:
       return { ...state, errorMessage: null, status: action.type };
 

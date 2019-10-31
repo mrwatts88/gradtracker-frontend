@@ -1,4 +1,5 @@
 import { formDefService } from '../../services/FormDefService/formDefService';
+import { logOut } from '../actions/authActions';
 
 export const POST_FORM_DEF = 'POST_FORM_DEF';
 export const POST_FORM_DEF_SUCCESS = 'POST_FORM_DEF_SUCCESS';
@@ -26,6 +27,7 @@ export function postFormDef(formDef) {
       await formDefService.postFormDef(formDef);
       dispatch({ type: POST_FORM_DEF_SUCCESS });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: POST_FORM_DEF_ERROR, payload: 'Error creating form.' });
     }
   };
@@ -43,6 +45,7 @@ export function deleteFormDef(id) {
       await formDefService.deleteFormDef(id);
       dispatch({ type: DELETE_FORM_DEF_SUCCESS });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: DELETE_FORM_DEF_ERROR, payload: 'Error deleting form.' });
     }
   };
@@ -56,6 +59,7 @@ export function getFormDef(id) {
       const { data } = await formDefService.getFormDef(id);
       dispatch({ type: GET_FORM_DEF_SUCCESS, payload: data });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: GET_FORM_DEF_ERROR, payload: 'Error finding form.' });
     }
   };
@@ -69,6 +73,7 @@ export function getAllFormDefs() {
       const { data } = await formDefService.getAllFormDefs();
       dispatch({ type: GET_ALL_FORM_DEFS_SUCCESS, payload: data });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: GET_ALL_FORM_DEFS_ERROR, payload: 'Error finding forms.' });
     }
   };

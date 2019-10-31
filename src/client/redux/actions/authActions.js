@@ -24,7 +24,7 @@ export function authenticate(email, password) {
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,
-        payload: { username: decodedToken.sub },
+        payload: { username: decodedToken.sub, firstName: decodedToken['first name'], lastName: decodedToken['last name'], id: decodedToken.id, email: decodedToken.email },
       });
 
       localStorage.setItem('userToken', token);
@@ -52,6 +52,7 @@ export function register(newUser) {
       await authService.register(newUser);
       dispatch({ type: REGISTER_SUCCESS });
     } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: REGISTER_ERROR, payload: 'Error registering user.' });
     }
   };

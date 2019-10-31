@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authenticate } from '../../redux/actions/authActions';
+import { authenticate, AUTHENTICATION_ERROR } from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
 
 export class L extends React.Component {
@@ -12,9 +12,7 @@ export class L extends React.Component {
   };
 
   validateEmailPassword = (err, email, password) => {
-    if (!err) {
-      this.props.authenticate(email, password);
-    }
+    if (!err) this.props.authenticate(email, password);
   };
 
   render() {
@@ -36,7 +34,7 @@ export class L extends React.Component {
             Log in
           </Button>
         </Form.Item>
-        {this.props.authError && <div>{this.props.authError}</div>}
+        {this.props.status === AUTHENTICATION_ERROR && <div className="error">{this.props.authError}</div>}
       </Form>
     );
   }
@@ -46,9 +44,7 @@ export const LogInForm = Form.create({ name: 'login_form' })(L);
 
 const mapStateToProps = ({ authReducer }) => ({
   authError: authReducer.errorMessage,
+  status: authReducer.status,
 });
 
-export default connect(
-  mapStateToProps,
-  { authenticate }
-)(LogInForm);
+export default connect(mapStateToProps, { authenticate })(LogInForm);
