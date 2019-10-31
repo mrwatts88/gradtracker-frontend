@@ -65,7 +65,7 @@ module.exports = {
             CONTEXT_ROOT: JSON.stringify(contextRoot)
         }),
         new HtmlWebpackPlugin({
-            title: 'My App',
+            title: 'Grad Tracker',
             favicon: '../server/template/favicon.ico',
             template: '../server/template/index.html'
         })
