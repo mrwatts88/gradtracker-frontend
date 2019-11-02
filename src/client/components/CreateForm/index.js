@@ -7,6 +7,8 @@ import {
   POST_FORM_DEF_SUCCESS
 } from '../../redux/actions/formDefActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
 export class CreateForm extends Component {
@@ -91,7 +93,7 @@ export class CreateForm extends Component {
                     type="text"
                     placeholder="Form Name"
                     value={this.state.formName}
-                  ></Input>
+                  ></Input><br /><br />
                   <Input
                     onChange={this.onTextInputChange}
                     name="label"
@@ -100,7 +102,7 @@ export class CreateForm extends Component {
                     value={this.state.label}
                   ></Input>
                 </Col>
-              </Row>
+              </Row><br />
               <Row gutter={16}>
                 <Col xs={24} md={12}>
                   <Button style={{ width: '100%' }} type="primary" htmlType="submit">
@@ -142,13 +144,14 @@ export default connect(mapStateToProps, { postFormDef, clearFormDefError })(Crea
 class Field extends Component {
   render() {
     const style = () => ({
-      lineHeight: 2.4,
-      fontSize: '22px',
+      marginTop: '6px',
+      fontSize: '20px',
       marginRight: '9px',
       cursor: 'grab'
     });
     return (
       <div style={{ display: 'flex' }}>
+        {/* <FontAwesomeIcon icon={faArrowsAltV} Style={style()} /> */}
         <Icon style={style()} type="column-height" />
         <Input disabled value={this.props.field.label} />
         <Icon
@@ -156,7 +159,7 @@ class Field extends Component {
           onClick={() => this.props.deleteField(this.props.field.id)}
           style={{
             float: 'right',
-            lineHeight: 2.9,
+            lineHeight: 2.0,
             fontSize: '19px',
             color: 'red',
             marginLeft: '9px'

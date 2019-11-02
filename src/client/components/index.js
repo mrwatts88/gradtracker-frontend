@@ -6,3 +6,4 @@ export { default as CreateForm } from './CreateForm';
 export { default as Header } from './Header';
 export { default as Registration } from './RegistrationForm';
 export { default as FormSubmissionsAccordion } from './FormSubmissionsAccordion';
+export { default as FormSubmissionsSearch } from './FormSubmissionsSearch';

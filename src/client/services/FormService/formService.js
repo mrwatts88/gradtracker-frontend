@@ -8,4 +8,5 @@ export const formService = {
   postForm: form => axios.post(FORM_URL, transformForm(form), { headers: authHeader() }),
   putForm: form => axios.put(`${FORM_URL}${form.id}`, transformForm(form), { headers: authHeader() }),
   getAllFormSubsByUser: userId => axios.get(`${FORM_URL}user/${userId}`, { headers: authHeader() }),
+  getAllFormSubsByFormDef: formDefId => axios.get(`${FORM_URL}formDef/${formDefId}`, { headers: authHeader() }),
 };

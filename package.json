@@ -23,6 +23,9 @@
   "contributors": [],
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
     "antd": "^3.23.6",
     "axios": "^0.18.1",
     "babel-plugin-import": "^1.12.2",
@@ -49,6 +52,7 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "axios-mock-adapter": "^1.17.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",

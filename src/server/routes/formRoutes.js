@@ -26,4 +26,11 @@ router.get('/user/:id', (req, res, next) =>
     .catch(err => next(err))
 );
 
+router.get('/formDef/:id', (req, res, next) =>
+  axios
+    .get(`${serviceUrl}/form/formDef/${req.params.id}`, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err))
+);
+
 module.exports = router;

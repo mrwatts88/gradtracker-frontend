@@ -9,6 +9,10 @@ export const GET_ALL_FORMS_BY_USER = 'GET_ALL_FORMS_BY_USER';
 export const GET_ALL_FORMS_BY_USER_SUCCESS = 'GET_ALL_FORMS_BY_USER_SUCCESS';
 export const GET_ALL_FORMS_BY_USER_ERROR = 'GET_ALL_FORMS_BY_USER_ERROR';
 
+export const GET_ALL_FORMS_BY_FORM_DEF = 'GET_ALL_FORMS_BY_FORM_DEF';
+export const GET_ALL_FORMS_BY_FORM_DEF_SUCCESS = 'GET_ALL_FORMS_BY_FORM_DEF_SUCCESS';
+export const GET_ALL_FORMS_BY_FORM_DEF_ERROR = 'GET_ALL_FORMS_BY_FORM_DEF_ERROR';
+
 export const PUT_FORM = 'PUT_FORM';
 export const PUT_FORM_SUCCESS = 'PUT_FORM_SUCCESS';
 export const PUT_FORM_ERROR = 'PUT_FORM_ERROR';
@@ -39,6 +43,20 @@ export function getAllFormSubsByUser(userId) {
     } catch (error) {
       if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: GET_ALL_FORMS_BY_USER_ERROR, payload: 'Error retrieving forms.' });
+    }
+  };
+}
+
+export function getAllFormSubsByFormDef(formDefId) {
+  return async dispatch => {
+    try {
+      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: GET_ALL_FORMS_BY_FORM_DEF });
+      const { data } = await formService.getAllFormSubsByFormDef(formDefId);
+      dispatch({ type: GET_ALL_FORMS_BY_FORM_DEF_SUCCESS, payload: data });
+    } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
+      dispatch({ type: GET_ALL_FORMS_BY_FORM_DEF_ERROR, payload: 'Error retrieving forms.' });
     }
   };
 }
