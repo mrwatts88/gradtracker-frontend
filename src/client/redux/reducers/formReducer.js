@@ -18,6 +18,13 @@ const formReducer = (state = initialState, action) => {
     case actions.GET_ALL_FORMS_BY_USER_ERROR:
       return { ...state, errorMessage: action.payload, status: action.type };
 
+    case actions.GET_ALL_FORMS_BY_FORM_DEF:
+      return { ...state, status: action.type };
+    case actions.GET_ALL_FORMS_BY_FORM_DEF_SUCCESS:
+      return { ...state, status: action.type, submissions: action.payload };
+    case actions.GET_ALL_FORMS_BY_FORM_DEF_ERROR:
+      return { ...state, errorMessage: action.payload, status: action.type };
+
     case actions.PUT_FORM:
       return { ...state, status: action.type };
     case actions.PUT_FORM_SUCCESS:
