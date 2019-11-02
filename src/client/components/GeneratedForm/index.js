@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { postForm } from '../../redux/actions/formActions';
+import { postForm, POST_FORM, POST_FORM_ERROR, POST_FORM_SUCCESS } from '../../redux/actions/formActions';
 import { Form, Input, Button } from 'antd';
 
 export class G extends React.Component {
@@ -13,14 +13,19 @@ export class G extends React.Component {
 
   postForm = (err, form) => {
     if (!err) {
+      const reset = this.reset;
       this.props.postForm({
         form,
         formDefId: this.props.currentFormDef.id,
         approved: false,
         userId: this.props.userId,
-      });
+      }).then(() => { reset(); });
     }
   };
+
+  reset = () => {
+    this.props.form.resetFields();
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -42,7 +47,9 @@ export class G extends React.Component {
               Submit
             </Button>
           </Form.Item>
-          {this.props.formError && <div>{this.props.formError}</div>}
+          {this.props.status === POST_FORM && <div>SUBMIT...</div>}
+          {this.props.status === POST_FORM_ERROR && <div className="error">{this.props.formError}</div>}
+          {this.props.status === POST_FORM_SUCCESS && <div>Form submitted successfully.</div>}
         </Form>
       ) : null
     );
@@ -55,6 +62,7 @@ const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   currentFormDef: formDefReducer.currentFormDef,
   formError: formReducer.errorMessage,
   userId: authReducer.currentUser.id,
+  status: formReducer.status,
 });
 
 export default connect(mapStateToProps, { postForm })(GeneratedForm);
