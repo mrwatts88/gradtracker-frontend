@@ -1,8 +1,9 @@
-import { Collapse } from 'antd';
+import { Collapse, Icon } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllFormSubsByUser, putForm } from '../../redux/actions/formActions';
+import { getAllFormSubsByUser, putForm, GET_ALL_FORMS_BY_FORM_DEF, GET_ALL_FORMS_BY_USER } from '../../redux/actions/formActions';
 import { SubmissionForm } from './submissionForm';
+import { hasPermissions, permissions } from '../../helpers/permissionHelper';
 import moment from 'moment';
 
 export class FormSubmissionsAccordion extends Component {
@@ -11,7 +12,11 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    this.props.getAllFormSubsByUser(this.props.userId);
+    this.props.getAllFormSubsByUser(this.props.user.id);
+    if (hasPermissions(this.props.user, [permissions.VIEW_SUBMISSION]) &&
+      !hasPermissions(this.props.user, [permissions.VIEW_ALL_SUBMISSIONS])) {
+      this.props.getAllFormSubsByUser(this.props.user.id);
+    }
   }
 
   unsetEditing = submissionId => {
@@ -27,35 +32,43 @@ export class FormSubmissionsAccordion extends Component {
 
   render() {
     return (
-      <Collapse>
-        {(this.props.submissions || []).map(submission => {
-          return (
-            <Collapse.Panel
-              header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
-                submission.approved ? '' : '(pending)'
-              }`}
-              key={submission.id}
-            >
-              <SubmissionForm
+
+      (this.props.getAllFormsByFormDefStatus === GET_ALL_FORMS_BY_FORM_DEF ||
+        this.props.getAllFormsByFormDefStatus === GET_ALL_FORMS_BY_USER)
+        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Icon style={{ fontSize: '40px' }} spin type="loading-3-quarters" />
+        </div>
+        : <Collapse>
+          {(this.props.submissions || []).map(submission => {
+            return (
+              <Collapse.Panel
+                header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
+                  submission.approved ? '' : '(pending)'
+                  }`}
                 key={submission.id}
-                putForm={this.props.putForm}
-                submission={submission}
-                currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
-                unsetEditing={this.unsetEditing}
-                setEditing={this.setEditing}
-                userId={this.props.userId}
-              />
-            </Collapse.Panel>
-          );
-        })}
-      </Collapse>
+              >
+                <SubmissionForm
+                  key={submission.id}
+                  putForm={this.props.putForm}
+                  submission={submission}
+                  currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
+                  unsetEditing={this.unsetEditing}
+                  setEditing={this.setEditing}
+                  userId={this.props.user.id}
+                />
+              </Collapse.Panel>
+            );
+          })}
+        </Collapse>
+
     );
   }
 }
 
 const mapStateToProps = ({ formReducer, authReducer }) => ({
+  getAllFormsByFormDefStatus: formReducer.getAllFormsByFormDefStatus,
   submissions: formReducer.submissions,
-  userId: authReducer.currentUser.id,
+  user: authReducer.currentUser,
 });
 
 export default connect(mapStateToProps, { getAllFormSubsByUser, putForm })(FormSubmissionsAccordion);

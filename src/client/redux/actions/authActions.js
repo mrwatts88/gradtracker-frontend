@@ -12,6 +12,7 @@ export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
 export const AUTH_CLEAR_ERROR = 'AUTH_CLEAR_ERROR';
+export const AUTH_CLEAR_STATUSES = 'AUTH_CLEAR_STATUSES';
 
 export function authenticate(email, password) {
   return async dispatch => {
@@ -24,7 +25,7 @@ export function authenticate(email, password) {
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,
-        payload: { username: decodedToken.sub, firstName: decodedToken['first name'], lastName: decodedToken['last name'], id: decodedToken.id, email: decodedToken.email },
+        payload: { user: decodedToken.sub },
       });
 
       localStorage.setItem('userToken', token);
@@ -48,6 +49,7 @@ export function logOut() {
 export function register(newUser) {
   return async dispatch => {
     try {
+      dispatch({ type: AUTH_CLEAR_ERROR });
       dispatch({ type: REGISTER });
       await authService.register(newUser);
       dispatch({ type: REGISTER_SUCCESS });

@@ -34,7 +34,7 @@ export class L extends React.Component {
             Log in
           </Button>
         </Form.Item>
-        {this.props.status === AUTHENTICATION_ERROR && <div className="error">{this.props.authError}</div>}
+        {this.props.authenticateStatus === AUTHENTICATION_ERROR && <div className="error">{this.props.authError}</div>}
       </Form>
     );
   }
@@ -44,7 +44,7 @@ export const LogInForm = Form.create({ name: 'login_form' })(L);
 
 const mapStateToProps = ({ authReducer }) => ({
   authError: authReducer.errorMessage,
-  status: authReducer.status,
+  authenticateStatus: authReducer.authenticateStatus,
 });
 
 export default connect(mapStateToProps, { authenticate })(LogInForm);

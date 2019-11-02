@@ -18,6 +18,7 @@ export const PUT_FORM_SUCCESS = 'PUT_FORM_SUCCESS';
 export const PUT_FORM_ERROR = 'PUT_FORM_ERROR';
 
 export const FORM_CLEAR_ERROR = 'FORM_CLEAR_ERROR';
+export const FORM_CLEAR_STATUSES = 'FORM_CLEAR_STATUSES';
 
 export function postForm(form) {
   return async dispatch => {

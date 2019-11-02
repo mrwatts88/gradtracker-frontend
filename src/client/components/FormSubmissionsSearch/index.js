@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Input, Select } from 'antd';
 import { getAllFormDefs } from '../../redux/actions/formDefActions';
 import { getAllFormSubsByUser, getAllFormSubsByFormDef } from '../../redux/actions/formActions';
+import { hasPermission, permissions } from '../../helpers/permissionHelper';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -39,33 +40,40 @@ export class FormSubmissionsSearch extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', marginBottom: '15px' }}>
+      hasPermission(this.props.user, permissions.VIEW_ALL_SUBMISSIONS) &&
+      < div style={{ display: 'flex', marginBottom: '15px' }}>
         <Select onChange={this.handleMethodChange} value={this.state.searchMethod} style={{ marginRight: '10px' }}>
           <Option value={SEARCH_METHODS.user}>Panther ID&nbsp;</Option>
           <Option value={SEARCH_METHODS.formDef}>Form Type&nbsp;</Option>
         </Select>
-        {this.state.searchMethod === SEARCH_METHODS.formDef && (
-          <Select placeholder="Select Form" onChange={this.handleFormDefChange} style={{ width: '100%' }}>
-            {(this.props.formDefs || []).map(formDef =>
-              <Option key={formDef.id} value={formDef.id}>{formDef.name}&nbsp;</Option>
-            )}
-          </Select>
-        )}
-        {this.state.searchMethod === SEARCH_METHODS.user && (
-          <Search
-            name="pantherId"
-            placeholder=""
-            enterButton="Search"
-            onSearch={this.search}
-            value={this.state.pantherId}
-            onChange={this.handleInputChange} />
-        )}
-      </div>
+        {
+          this.state.searchMethod === SEARCH_METHODS.formDef && (
+            <Select placeholder="Select Form" onChange={this.handleFormDefChange} style={{ width: '100%' }}>
+              {(this.props.formDefs || []).map(formDef =>
+                <Option key={formDef.id} value={formDef.id}>{formDef.name}&nbsp;</Option>
+              )}
+            </Select>
+          )
+        }
+        {
+          this.state.searchMethod === SEARCH_METHODS.user && (
+            <Search
+              name="pantherId"
+              placeholder=""
+              enterButton="Search"
+              onSearch={this.search}
+              value={this.state.pantherId}
+              onChange={this.handleInputChange} />
+          )
+        }
+      </div >
+
     );
   }
 }
 
-const mapStateToProps = ({ formDefReducer }) => ({ formDefs: formDefReducer.formDefs });
+const mapStateToProps = ({ formDefReducer, authReducer }) =>
+  ({ formDefs: formDefReducer.formDefs, user: authReducer.currentUser });
 
 export default connect(mapStateToProps,
   {

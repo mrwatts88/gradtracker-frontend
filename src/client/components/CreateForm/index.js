@@ -116,8 +116,8 @@ export class CreateForm extends Component {
                 </Col>
               </Row>
             </Form>
-            {this.props.status === POST_FORM_DEF_ERROR && this.props.formDefError}
-            {this.props.status === POST_FORM_DEF_SUCCESS && 'Form created.'}
+            {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
+            {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
           </Col>
         </Row>
         <Row gutter={24}>
@@ -136,7 +136,7 @@ export class CreateForm extends Component {
 
 const mapStateToProps = ({ formDefReducer }) => ({
   formDefError: formDefReducer.errorMessage,
-  status: formDefReducer.status
+  postFormDefStatus: formDefReducer.postFormDefStatus
 });
 
 export default connect(mapStateToProps, { postFormDef, clearFormDefError })(CreateForm);

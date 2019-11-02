@@ -18,6 +18,7 @@ export const DELETE_FORM_DEF_SUCCESS = 'DELETE_FORM_DEF_SUCCESS';
 export const DELETE_FORM_DEF_ERROR = 'DELETE_FORM_DEF_ERROR';
 
 export const FORM_DEF_CLEAR_ERROR = 'FORM_DEF_CLEAR_ERROR';
+export const FORM_DEF_CLEAR_STATUSES = 'FORM_DEF_CLEAR_STATUSES';
 
 export function postFormDef(formDef) {
   return async dispatch => {
