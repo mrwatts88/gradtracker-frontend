@@ -10,7 +10,9 @@ import {
 import { Form, Input, Button, Icon } from 'antd';
 import {
   GET_FORM_DEF,
-  CLEAR_GET_FORM_DEF_STATUS
+  CLEAR_GET_FORM_DEF_STATUS,
+  GET_ALL_FORM_DEFS,
+  CLEAR_GET_ALL_FORM_DEFS_STATUS
 } from '../../redux/actions/formDefActions';
 import { dispatchType } from '../../redux/actions/commonActions';
 
@@ -18,6 +20,7 @@ export class G extends React.Component {
   componentWillUnmount = () => {
     this.props.dispatchType(CLEAR_POST_FORM_STATUS);
     this.props.dispatchType(CLEAR_GET_FORM_DEF_STATUS);
+    this.props.dispatchType(CLEAR_GET_ALL_FORM_DEFS_STATUS);
   }
 
   handleSubmit = e => {
@@ -47,7 +50,9 @@ export class G extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        {this.props.currentFormDef && this.props.getFormDefStatus !== GET_FORM_DEF && (
+        {this.props.currentFormDef &&
+          this.props.getFormDefStatus !== GET_FORM_DEF &&
+          this.props.getAllFormDefsStatus !== GET_ALL_FORM_DEFS && (
           <Form onSubmit={this.handleSubmit} className="generated-form">
             {this.props.currentFormDef.fieldDefs.map(fieldDef => {
               return (
@@ -66,8 +71,8 @@ export class G extends React.Component {
                 type="primary"
                 htmlType="submit"
                 className="generated-form__button">
-                Submit
-            </Button>
+                  Submit
+              </Button>
             </Form.Item>
             {this.props.postFormStatus === POST_FORM_ERROR && <div className="error">{this.props.formError}</div>}
             {this.props.postFormStatus === POST_FORM_SUCCESS && <div>Form submitted successfully.</div>}
@@ -88,6 +93,7 @@ export const GeneratedForm = Form.create({ name: 'generated_form' })(G);
 
 const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   getFormDefStatus: formDefReducer.getFormDefStatus,
+  getAllFormDefsStatus: formDefReducer.getAllFormDefsStatus,
   currentFormDef: formDefReducer.currentFormDef,
   formError: formReducer.errorMessage,
   userId: authReducer.currentUser.id,

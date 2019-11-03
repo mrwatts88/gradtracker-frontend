@@ -20,8 +20,6 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    this.props.getAllFormSubsByUser(this.props.user.id); //TODO: delete this line
-
     if (hasPermissions(this.props.user, [permissions.VIEW_SUBMISSION]) &&
       !hasPermissions(this.props.user, [permissions.VIEW_ALL_SUBMISSIONS])) {
       this.props.getAllFormSubsByUser(this.props.user.id);
@@ -57,7 +55,7 @@ export class FormSubmissionsAccordion extends Component {
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
                   submission.approved ? '' : '(pending)'
-                  }`}
+                }`}
                 key={submission.id}
               >
                 <SubmissionForm

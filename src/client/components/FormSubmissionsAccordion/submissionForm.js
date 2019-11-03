@@ -2,37 +2,40 @@ import React from 'react';
 import { Form, Input, Icon } from 'antd';
 
 export class S extends React.Component {
+  state = { saving: false }
+
   renderEdit = submission => {
+    if (this.state.saving) {
+      return <Icon style={{ float: 'right' }} spin type="loading-3-quarters" />;
+    }
     return this.props.currentlyEditing ? (
-      <span style={{ float: 'right' }}>
+      <React.Fragment>
         <Icon
-          type="save"
-          style={{ color: 'green' }}
-          onClick={event => {
-            event.stopPropagation();
-            this.handleSubmit(event);
-          }}
-        />
-        &nbsp;
-        <Icon
-          style={{ color: 'red' }}
+          style={{ color: 'red', float: 'right', marginLeft: '3px' }}
           type="stop"
           onClick={event => {
             event.stopPropagation();
             this.props.unsetEditing(submission.id);
           }}
         />
-      </span>
-    ) : (
-      <span style={{ float: 'right' }}>
         <Icon
-          type="edit"
+          type="save"
+          style={{ color: 'green', float: 'right' }}
           onClick={event => {
             event.stopPropagation();
-            this.props.setEditing(submission.id);
+            this.handleSubmit(event);
           }}
         />
-      </span>
+      </React.Fragment>
+    ) : (
+      <Icon
+        type="edit"
+        style={{ float: 'right' }}
+        onClick={event => {
+          event.stopPropagation();
+          this.props.setEditing(submission.id);
+        }}
+      />
     );
   };
 
@@ -45,6 +48,7 @@ export class S extends React.Component {
 
   putForm = (err, form) => {
     if (!err) {
+      this.setState({ saving: true });
       this.props
         .putForm({
           form,
@@ -53,7 +57,10 @@ export class S extends React.Component {
           approved: false,
           userId: this.props.userId,
         })
-        .then(() => this.props.unsetEditing(this.props.submission.id));
+        .then(() => {
+          this.setState({ saving: false });
+          this.props.unsetEditing(this.props.submission.id);
+        });
     }
   };
 
