@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { Carousel } from 'antd';
 import '../../less/home.less';
 
-function onChange(a, b, c) {
-  console.log(a, b, c);
-}
-
 export class HomeScreen extends Component {
   render() {
     return (
@@ -14,9 +10,9 @@ export class HomeScreen extends Component {
           { display: 'flex', justifyContent: 'center', marginTop: '20px', fontSize: '40px' }}>
           UWM Graduate Student Tracker
         </h1>
-        <Carousel autoplay>
+        <Carousel>
           <div>
-            <h3>1</h3>
+            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/funny-dog-captions-1563456605.jpg" />
           </div>
           <div>
             <h3>2</h3>
@@ -28,9 +24,7 @@ export class HomeScreen extends Component {
             <h3>4</h3>
           </div>
         </Carousel>
-
-      </React.Fragment>
-    );
+      </React.Fragment>);
   }
 }
 

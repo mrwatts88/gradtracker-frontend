@@ -32,9 +32,8 @@ export class FormSubmissionsAccordion extends Component {
 
   render() {
     return (
-
       (this.props.getAllFormsByFormDefStatus === GET_ALL_FORMS_BY_FORM_DEF ||
-        this.props.getAllFormsByFormDefStatus === GET_ALL_FORMS_BY_USER)
+        this.props.getAllFormsByUserStatus === GET_ALL_FORMS_BY_USER)
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
           <Icon style={{ fontSize: '40px' }} spin type="loading-3-quarters" />
         </div>
@@ -67,6 +66,7 @@ export class FormSubmissionsAccordion extends Component {
 
 const mapStateToProps = ({ formReducer, authReducer }) => ({
   getAllFormsByFormDefStatus: formReducer.getAllFormsByFormDefStatus,
+  getAllFormsByUserStatus: formReducer.getAllFormsByUserStatus,
   submissions: formReducer.submissions,
   user: authReducer.currentUser,
 });

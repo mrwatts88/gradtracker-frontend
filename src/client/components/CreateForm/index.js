@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   postFormDef,
-  clearFormDefError,
+  POST_FORM_DEF,
   POST_FORM_DEF_ERROR,
   POST_FORM_DEF_SUCCESS
 } from '../../redux/actions/formDefActions';
+import { clearStatuses } from '../../redux/actions/commonActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,7 @@ export class CreateForm extends Component {
 
   addField = e => {
     e.preventDefault();
-    this.props.clearFormDefError();
+    this.props.clearStatuses();
 
     if (!this.state.label) return;
 
@@ -51,7 +52,9 @@ export class CreateForm extends Component {
 
     this.props
       .postFormDef({ name: this.state.formName, fieldDefs })
-      .then(() => this.setState({ fieldDefs: [], formName: '' }));
+      .then(() => {
+        this.setState({ fieldDefs: [], formName: '' });
+      });
   };
 
   deleteField = id => {
@@ -105,12 +108,12 @@ export class CreateForm extends Component {
               </Row><br />
               <Row gutter={16}>
                 <Col xs={24} md={12}>
-                  <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+                  <Button loading={this.props.postFormDefStatus === POST_FORM_DEF} style={{ width: '100%' }} type="primary" htmlType="submit">
                     Add Field
                   </Button>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Button style={{ width: '100%' }} type="primary" htmlType="button" onClick={this.postFormDef}>
+                  <Button loading={this.props.postFormDefStatus === POST_FORM_DEF} style={{ width: '100%' }} type="primary" htmlType="button" onClick={this.postFormDef}>
                     Create Form
                   </Button>
                 </Col>
@@ -139,7 +142,7 @@ const mapStateToProps = ({ formDefReducer }) => ({
   postFormDefStatus: formDefReducer.postFormDefStatus
 });
 
-export default connect(mapStateToProps, { postFormDef, clearFormDefError })(CreateForm);
+export default connect(mapStateToProps, { postFormDef, clearStatuses })(CreateForm);
 
 class Field extends Component {
   render() {

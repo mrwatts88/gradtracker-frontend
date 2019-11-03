@@ -45,19 +45,17 @@ export class G extends React.Component {
             })}
 
             <Form.Item>
-              <Button style={{ width: '100%' }} type="primary" htmlType="submit" className="generated-form__button">
+              <Button
+                loading={this.props.postFormStatus === POST_FORM}
+                style={{ width: '100%' }}
+                type="primary"
+                htmlType="submit"
+                className="generated-form__button">
                 Submit
             </Button>
-<<<<<<< Updated upstream
-          </Form.Item>
-          {this.props.status === POST_FORM && <div>SUBMIT...</div>}
-        {this.props.status === POST_FORM_ERROR && <div className="error">{this.props.formError}</div>}
-        {this.props.status === POST_FORM_SUCCESS && <div>Form submitted successfully.</div>}
-        </Form>
-    ) : null
-=======
             </Form.Item>
-            {this.props.formError && <div>{this.props.formError}</div>}
+            {this.props.postFormStatus === POST_FORM_ERROR && <div className="error">{this.props.formError}</div>}
+            {this.props.postFormStatus === POST_FORM_SUCCESS && <div>Form submitted successfully.</div>}
           </Form>
         )}
 
@@ -67,7 +65,6 @@ export class G extends React.Component {
           </div>}
       </React.Fragment>
 
->>>>>>> Stashed changes
     );
   }
 }
@@ -79,7 +76,7 @@ const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   currentFormDef: formDefReducer.currentFormDef,
   formError: formReducer.errorMessage,
   userId: authReducer.currentUser.id,
-  status: formReducer.status,
+  postFormStatus: formReducer.postFormStatus,
 });
 
 export default connect(mapStateToProps, { postForm })(GeneratedForm);

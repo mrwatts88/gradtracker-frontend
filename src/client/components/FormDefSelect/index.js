@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { clearStatuses } from '../../redux/actions/commonActions';
 import { getFormDef, getAllFormDefs } from '../../redux/actions/formDefActions';
 import { Select } from 'antd';
 
@@ -8,7 +9,10 @@ const { Option } = Select;
 export class FormDefSelect extends Component {
   componentDidMount = () => this.props.getAllFormDefs();
 
-  handleChange = id => this.props.getFormDef(id);
+  handleChange = id => {
+    this.props.clearStatuses();
+    this.props.getFormDef(id);
+  }
 
   render() {
     return (
@@ -33,4 +37,4 @@ const mapStateToProps = ({ formDefReducer }) => ({
   currentFormDef: formDefReducer.currentFormDef
 });
 
-export default connect(mapStateToProps, { getFormDef, getAllFormDefs })(FormDefSelect);
+export default connect(mapStateToProps, { getFormDef, getAllFormDefs, clearStatuses })(FormDefSelect);

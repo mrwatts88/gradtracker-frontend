@@ -16,7 +16,6 @@ export class R extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, newUser) => {
-      console.log(newUser);
       this.validate(err, newUser);
     });
   };
@@ -67,12 +66,15 @@ export class R extends React.Component {
           )}
         </Form.Item>
         <Form.Item style={{ marginBottom: '0' }}>
-          <Button type="primary" htmlType="submit" className="registration-form__button">
+          <Button
+            loading={this.props.registerStatus === REGISTER}
+            type="primary"
+            htmlType="submit"
+            className="registration-form__button">
             Register User
           </Button>
         </Form.Item>
 
-        {this.props.registerStatus === REGISTER && <div>Registering...</div>}
         {this.props.registerStatus === REGISTER_ERROR && <div className="error">{this.props.authError}</div>}
         {this.props.registerStatus === REGISTER_SUCCESS && <div>User registered successfully.</div>}
       </Form>

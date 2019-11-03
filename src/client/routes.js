@@ -3,7 +3,7 @@ import { Route, Switch, withRouter, Link } from 'react-router-dom';
 import { PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
 import { HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage, FormSubmissionsPage } from './containers';
-import { clearErrors } from './redux/actions/commonActions';
+import { clearStatuses } from './redux/actions/commonActions';
 import { Layout, Breadcrumb, Menu, Icon } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -22,7 +22,7 @@ class Routes extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.location.pathname !== this.props.location.pathname) this.props.clearErrors();
+    if (prevProps.location.pathname !== this.props.location.pathname) this.props.clearStatuses(prevProps.location.pathname);
   }
 
   render() {
@@ -90,6 +90,6 @@ class Routes extends Component {
 export default withRouter(
   connect(
     null,
-    { clearErrors }
+    { clearStatuses }
   )(Routes)
 );
