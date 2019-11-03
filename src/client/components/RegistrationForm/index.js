@@ -1,8 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Form, Checkbox } from 'antd';
-import { register, REGISTER_ERROR, REGISTER, REGISTER_SUCCESS } from '../../redux/actions/authActions';
+import {
+  register,
+  REGISTER_ERROR,
+  REGISTER,
+  REGISTER_SUCCESS,
+  CLEAR_REGISTER_STATUS
+} from '../../redux/actions/authActions';
 import { authService } from '../../services/AuthService/authService';
+import { dispatchType } from '../../redux/actions/commonActions';
 
 export class R extends React.Component {
   state = {
@@ -13,8 +20,13 @@ export class R extends React.Component {
     authService.getAllRoles().then(({ data }) => this.setState({ roles: data }));
   }
 
+  componentWillUnmount = () => {
+    this.props.dispatchType(CLEAR_REGISTER_STATUS);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
+    this.props.dispatchType(CLEAR_REGISTER_STATUS);
     this.props.form.validateFields((err, newUser) => {
       this.validate(err, newUser);
     });
@@ -89,4 +101,4 @@ const mapStateToProps = ({ authReducer }) => ({
   registerStatus: authReducer.registerStatus,
 });
 
-export default connect(mapStateToProps, { register })(RegistrationForm);
+export default connect(mapStateToProps, { register, dispatchType })(RegistrationForm);

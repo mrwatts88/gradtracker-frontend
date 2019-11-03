@@ -1,10 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { postForm, POST_FORM, POST_FORM_ERROR, POST_FORM_SUCCESS } from '../../redux/actions/formActions';
+import {
+  postForm,
+  POST_FORM,
+  POST_FORM_ERROR,
+  POST_FORM_SUCCESS,
+  CLEAR_POST_FORM_STATUS
+} from '../../redux/actions/formActions';
 import { Form, Input, Button, Icon } from 'antd';
-import { GET_FORM_DEF } from '../../redux/actions/formDefActions';
+import {
+  GET_FORM_DEF,
+  CLEAR_GET_FORM_DEF_STATUS
+} from '../../redux/actions/formDefActions';
+import { dispatchType } from '../../redux/actions/commonActions';
 
 export class G extends React.Component {
+  componentWillUnmount = () => {
+    this.props.dispatchType(CLEAR_POST_FORM_STATUS);
+    this.props.dispatchType(CLEAR_GET_FORM_DEF_STATUS);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, form) => {
@@ -79,4 +94,4 @@ const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   postFormStatus: formReducer.postFormStatus,
 });
 
-export default connect(mapStateToProps, { postForm })(GeneratedForm);
+export default connect(mapStateToProps, { postForm, dispatchType })(GeneratedForm);

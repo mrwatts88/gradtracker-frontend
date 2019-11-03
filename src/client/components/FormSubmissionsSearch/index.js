@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input, Select } from 'antd';
 import { getAllFormDefs } from '../../redux/actions/formDefActions';
-import { getAllFormSubsByUser, getAllFormSubsByFormDef } from '../../redux/actions/formActions';
+import {
+  getAllFormSubsByUser,
+  getAllFormSubsByFormDef,
+  CLEAR_GET_ALL_FORMS_BY_USER_STATUS,
+  CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS
+} from '../../redux/actions/formActions';
 import { hasPermission, permissions } from '../../helpers/permissionHelper';
+import { dispatchType } from '../../redux/actions/commonActions';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -22,6 +28,8 @@ export class FormSubmissionsSearch extends Component {
 
   search = () => {
     if (this.state.pantherId) {
+      this.props.dispatchType(CLEAR_GET_ALL_FORMS_BY_USER_STATUS);
+      this.props.dispatchType(CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS);
       this.props.getAllFormSubsByUser(this.state.pantherId).then(() => this.setState({ pantherId: '' }));
     }
   };
@@ -79,5 +87,6 @@ export default connect(mapStateToProps,
   {
     getAllFormSubsByUser,
     getAllFormSubsByFormDef,
-    getAllFormDefs
+    getAllFormDefs,
+    dispatchType
   })(FormSubmissionsSearch);

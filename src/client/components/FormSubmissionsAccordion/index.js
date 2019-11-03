@@ -1,9 +1,17 @@
 import { Collapse, Icon } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllFormSubsByUser, putForm, GET_ALL_FORMS_BY_FORM_DEF, GET_ALL_FORMS_BY_USER } from '../../redux/actions/formActions';
+import {
+  getAllFormSubsByUser,
+  putForm,
+  GET_ALL_FORMS_BY_FORM_DEF,
+  GET_ALL_FORMS_BY_USER,
+  CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS,
+  CLEAR_GET_ALL_FORMS_BY_USER_STATUS
+} from '../../redux/actions/formActions';
 import { SubmissionForm } from './submissionForm';
 import { hasPermissions, permissions } from '../../helpers/permissionHelper';
+import { dispatchType } from '../../redux/actions/commonActions';
 import moment from 'moment';
 
 export class FormSubmissionsAccordion extends Component {
@@ -12,11 +20,17 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    this.props.getAllFormSubsByUser(this.props.user.id);
+    this.props.getAllFormSubsByUser(this.props.user.id); //TODO: delete this line
+
     if (hasPermissions(this.props.user, [permissions.VIEW_SUBMISSION]) &&
       !hasPermissions(this.props.user, [permissions.VIEW_ALL_SUBMISSIONS])) {
       this.props.getAllFormSubsByUser(this.props.user.id);
     }
+  }
+
+  componentWillUnmount = () => {
+    this.props.dispatchType(CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS);
+    this.props.dispatchType(CLEAR_GET_ALL_FORMS_BY_USER_STATUS);
   }
 
   unsetEditing = submissionId => {
@@ -71,4 +85,4 @@ const mapStateToProps = ({ formReducer, authReducer }) => ({
   user: authReducer.currentUser,
 });
 
-export default connect(mapStateToProps, { getAllFormSubsByUser, putForm })(FormSubmissionsAccordion);
+export default connect(mapStateToProps, { getAllFormSubsByUser, putForm, dispatchType })(FormSubmissionsAccordion);

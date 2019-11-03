@@ -21,9 +21,9 @@ class Routes extends Component {
     this.setState({ collapsed });
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.location.pathname !== this.props.location.pathname) this.props.clearStatuses(prevProps.location.pathname);
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.location.pathname !== this.props.location.pathname) this.props.clearStatuses(prevProps.location.pathname);
+  // }
 
   render() {
     const { pathname } = this.props.location;

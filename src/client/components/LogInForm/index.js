@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authenticate, AUTHENTICATION_ERROR } from '../../redux/actions/authActions';
+import { authenticate, AUTHENTICATION_ERROR, CLEAR_AUTHENTICATE_STATUS } from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
+import { dispatchType } from '../../redux/actions/commonActions';
 
 export class L extends React.Component {
+  componentWillUnmount = () => {
+    this.props.dispatchType(CLEAR_AUTHENTICATE_STATUS);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
+    this.props.dispatchType(CLEAR_AUTHENTICATE_STATUS);
     this.props.form.validateFields((err, { email, password }) => {
       this.validateEmailPassword(err, email, password);
     });
@@ -47,4 +53,4 @@ const mapStateToProps = ({ authReducer }) => ({
   authenticateStatus: authReducer.authenticateStatus,
 });
 
-export default connect(mapStateToProps, { authenticate })(LogInForm);
+export default connect(mapStateToProps, { authenticate, dispatchType })(LogInForm);

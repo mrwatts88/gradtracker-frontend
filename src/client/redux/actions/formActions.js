@@ -4,26 +4,27 @@ import { logOut } from '../actions/authActions';
 export const POST_FORM = 'POST_FORM';
 export const POST_FORM_SUCCESS = 'POST_FORM_SUCCESS';
 export const POST_FORM_ERROR = 'POST_FORM_ERROR';
+export const CLEAR_POST_FORM_STATUS = 'CLEAR_POST_FORM_STATUS';
 
 export const GET_ALL_FORMS_BY_USER = 'GET_ALL_FORMS_BY_USER';
 export const GET_ALL_FORMS_BY_USER_SUCCESS = 'GET_ALL_FORMS_BY_USER_SUCCESS';
 export const GET_ALL_FORMS_BY_USER_ERROR = 'GET_ALL_FORMS_BY_USER_ERROR';
+export const CLEAR_GET_ALL_FORMS_BY_USER_STATUS = 'CLEAR_GET_ALL_FORMS_BY_USER_STATUS';
 
 export const GET_ALL_FORMS_BY_FORM_DEF = 'GET_ALL_FORMS_BY_FORM_DEF';
 export const GET_ALL_FORMS_BY_FORM_DEF_SUCCESS = 'GET_ALL_FORMS_BY_FORM_DEF_SUCCESS';
 export const GET_ALL_FORMS_BY_FORM_DEF_ERROR = 'GET_ALL_FORMS_BY_FORM_DEF_ERROR';
+export const CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS = 'CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS';
 
 export const PUT_FORM = 'PUT_FORM';
 export const PUT_FORM_SUCCESS = 'PUT_FORM_SUCCESS';
 export const PUT_FORM_ERROR = 'PUT_FORM_ERROR';
-
-export const FORM_CLEAR_ERROR = 'FORM_CLEAR_ERROR';
-export const FORM_CLEAR_STATUSES = 'FORM_CLEAR_STATUSES';
+export const CLEAR_PUT_FORM_STATUS = 'CLEAR_PUT_FORM_STATUS';
 
 export function postForm(form) {
   return async dispatch => {
     try {
-      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: CLEAR_POST_FORM_STATUS });
       dispatch({ type: POST_FORM });
       await formService.postForm(form);
       dispatch({ type: POST_FORM_SUCCESS });
@@ -37,7 +38,7 @@ export function postForm(form) {
 export function getAllFormSubsByUser(userId) {
   return async dispatch => {
     try {
-      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: CLEAR_GET_ALL_FORMS_BY_USER_STATUS });
       dispatch({ type: GET_ALL_FORMS_BY_USER });
       const { data } = await formService.getAllFormSubsByUser(userId);
       dispatch({ type: GET_ALL_FORMS_BY_USER_SUCCESS, payload: data });
@@ -51,7 +52,7 @@ export function getAllFormSubsByUser(userId) {
 export function getAllFormSubsByFormDef(formDefId) {
   return async dispatch => {
     try {
-      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS });
       dispatch({ type: GET_ALL_FORMS_BY_FORM_DEF });
       const { data } = await formService.getAllFormSubsByFormDef(formDefId);
       dispatch({ type: GET_ALL_FORMS_BY_FORM_DEF_SUCCESS, payload: data });
@@ -65,7 +66,7 @@ export function getAllFormSubsByFormDef(formDefId) {
 export function putForm(form) {
   return async dispatch => {
     try {
-      dispatch({ type: FORM_CLEAR_ERROR });
+      dispatch({ type: CLEAR_PUT_FORM_STATUS });
       dispatch({ type: PUT_FORM });
       const { data } = await formService.putForm(form);
       dispatch({ type: PUT_FORM_SUCCESS, payload: data });
