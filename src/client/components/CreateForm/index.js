@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   postFormDef,
-  clearFormDefError,
+  POST_FORM_DEF,
   POST_FORM_DEF_ERROR,
-  POST_FORM_DEF_SUCCESS
+  POST_FORM_DEF_SUCCESS,
+  CLEAR_POST_FORM_DEF_STATUS
 } from '../../redux/actions/formDefActions';
+import { dispatchType } from '../../redux/actions/commonActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
@@ -18,9 +20,11 @@ export class CreateForm extends Component {
     nextListId: 0
   };
 
+  componentWillUnmount = () => this.props.dispatchType(CLEAR_POST_FORM_DEF_STATUS);
+
   addField = e => {
     e.preventDefault();
-    this.props.clearFormDefError();
+    this.props.dispatchType(CLEAR_POST_FORM_DEF_STATUS);
 
     if (!this.state.label) return;
 
@@ -51,7 +55,9 @@ export class CreateForm extends Component {
 
     this.props
       .postFormDef({ name: this.state.formName, fieldDefs })
-      .then(() => this.setState({ fieldDefs: [], formName: '' }));
+      .then(() => {
+        this.setState({ fieldDefs: [], formName: '' });
+      });
   };
 
   deleteField = id => {
@@ -105,19 +111,28 @@ export class CreateForm extends Component {
               </Row><br />
               <Row gutter={16}>
                 <Col xs={24} md={12}>
-                  <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+                  <Button
+                    loading={this.props.postFormDefStatus === POST_FORM_DEF}
+                    style={{ width: '100%' }}
+                    type="primary"
+                    htmlType="submit">
                     Add Field
                   </Button>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Button style={{ width: '100%' }} type="primary" htmlType="button" onClick={this.postFormDef}>
+                  <Button
+                    loading={this.props.postFormDefStatus === POST_FORM_DEF}
+                    style={{ width: '100%' }}
+                    type="primary"
+                    htmlType="button"
+                    onClick={this.postFormDef}>
                     Create Form
                   </Button>
                 </Col>
               </Row>
             </Form>
-            {this.props.status === POST_FORM_DEF_ERROR && this.props.formDefError}
-            {this.props.status === POST_FORM_DEF_SUCCESS && 'Form created.'}
+            {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
+            {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
           </Col>
         </Row>
         <Row gutter={24}>
@@ -136,10 +151,10 @@ export class CreateForm extends Component {
 
 const mapStateToProps = ({ formDefReducer }) => ({
   formDefError: formDefReducer.errorMessage,
-  status: formDefReducer.status
+  postFormDefStatus: formDefReducer.postFormDefStatus
 });
 
-export default connect(mapStateToProps, { postFormDef, clearFormDefError })(CreateForm);
+export default connect(mapStateToProps, { postFormDef, dispatchType })(CreateForm);
 
 class Field extends Component {
   render() {
