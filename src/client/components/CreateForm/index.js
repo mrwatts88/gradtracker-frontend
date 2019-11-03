@@ -9,8 +9,6 @@ import {
 } from '../../redux/actions/formDefActions';
 import { dispatchType } from '../../redux/actions/commonActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
 export class CreateForm extends Component {
@@ -166,7 +164,6 @@ class Field extends Component {
     });
     return (
       <div style={{ display: 'flex' }}>
-        {/* <FontAwesomeIcon icon={faArrowsAltV} Style={style()} /> */}
         <Icon style={style()} type="column-height" />
         <Input disabled value={this.props.field.label} />
         <Icon

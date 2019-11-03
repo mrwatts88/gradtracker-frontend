@@ -25,7 +25,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.postForm({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_POST_FORM_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
       expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_SUCCESS });
       expect(formService.postForm).toBeCalled();
@@ -44,7 +44,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.postForm({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_POST_FORM_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM });
       expect(store.getActions()[2]).toEqual(expectedAction);
       expect(formService.postForm).toBeCalled();
@@ -60,7 +60,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.putForm({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_PUT_FORM_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.PUT_FORM });
       expect(store.getActions()[2]).toEqual({ type: actions.PUT_FORM_SUCCESS });
       expect(formService.putForm).toBeCalled();
@@ -79,7 +79,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.putForm({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_PUT_FORM_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.PUT_FORM });
       expect(store.getActions()[2]).toEqual(expectedAction);
       expect(formService.putForm).toBeCalled();
@@ -95,7 +95,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.getAllFormSubsByUser({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_FORMS_BY_USER_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER });
       expect(store.getActions()[2]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER_SUCCESS });
       expect(formService.getAllFormSubsByUser).toBeCalled();
@@ -114,7 +114,7 @@ describe('Form actions', () => {
       await store.dispatch(actions.getAllFormSubsByUser({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_FORMS_BY_USER_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORMS_BY_USER });
       expect(store.getActions()[2]).toEqual(expectedAction);
       expect(formService.putForm).toBeCalled();

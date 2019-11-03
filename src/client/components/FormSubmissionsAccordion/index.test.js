@@ -8,7 +8,7 @@ describe('FromSubmissionsAccordion', () => {
 
   const props = {
     submissions: [{ name: 'test name', id: 1, approved: true, createdDate: '2007-04-05T24:00' }],
-    userId: 'test id',
+    user: { id: 1 },
     getAllFormSubsByUser: jest.fn(),
     putForm: jest.fn(),
   };
@@ -21,8 +21,8 @@ describe('FromSubmissionsAccordion', () => {
     expect(component.find(Collapse).length).toEqual(1);
   });
 
-  it('calls getAllFormSubsByUser on mount', () => {
-    expect(props.getAllFormSubsByUser).toBeCalled();
+  it('doesnt call getAllFormSubsByUser on mount', () => {
+    expect(props.getAllFormSubsByUser).not.toBeCalled();
   });
 
   describe('un/setEditing', () => {

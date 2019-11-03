@@ -11,6 +11,7 @@ describe('FormDefSelect', () => {
   const props = {
     getAllFormDefs: jest.fn(),
     getFormDef: jest.fn(),
+    dispatchType: jest.fn(),
     currentFormDef: { id: 1, name: 'test name' },
     formDefs: [{ id: 1, name: 'test name' }, { id: 2, name: 'test name 2' }]
   };

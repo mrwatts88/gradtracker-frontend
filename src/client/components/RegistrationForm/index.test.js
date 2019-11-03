@@ -7,7 +7,8 @@ describe('LogInForm', () => {
   let wrapper;
 
   const props = {
-    register: jest.fn(() => Promise.resolve())
+    register: jest.fn(() => Promise.resolve()),
+    dispatchType: jest.fn()
   };
 
   it('renders without crashing', () => {
@@ -18,7 +19,7 @@ describe('LogInForm', () => {
     it('calls validateFields', () => {
       const mockValidateFields = jest.fn();
       const event = { preventDefault: jest.fn() };
-      wrapper = shallow(<RegistrationForm />);
+      wrapper = shallow(<RegistrationForm {...props} />);
 
       wrapper.props().form.validateFields = mockValidateFields;
       wrapper
@@ -32,7 +33,7 @@ describe('LogInForm', () => {
     it('calls validate', () => {
       const mockValidate = jest.fn();
       const event = { preventDefault: jest.fn() };
-      wrapper = mount(<RegistrationForm />);
+      wrapper = mount(<RegistrationForm {...props} />);
 
       const component = wrapper.find(R);
       component.instance().validate = mockValidate;

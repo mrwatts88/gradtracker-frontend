@@ -11,7 +11,10 @@ describe('SubmissionForm', () => {
     putForm: jest.fn(() => Promise.resolve()),
     unsetEditing: jest.fn(),
     setEditing: jest.fn(),
-    submission: { approved: false, fields: [{ fieldIndex: 0, id: 1, fieldDefId: 2, data: 'test data', label: 'test label' }] }
+    submission: {
+      approved: false,
+      fields: [{ fieldIndex: 0, id: 1, fieldDefId: 2, data: 'test data', label: 'test label' }]
+    }
   };
 
   beforeEach(() => {
@@ -27,7 +30,7 @@ describe('SubmissionForm', () => {
       wrapper
         .dive()
         .find(Form)
-        .find(Icon).first()
+        .find(Icon).at(1)
         .prop('onClick')(event);
       expect(event.stopPropagation).toBeCalled();
       expect(event.preventDefault).toBeCalled();
@@ -41,7 +44,7 @@ describe('SubmissionForm', () => {
 
       const component = wrapper.find(S);
       component.instance().putForm = mockPutForm;
-      component.find(Form).find(Icon).first().prop('onClick')(event);
+      component.find(Form).find(Icon).at(1).prop('onClick')(event);
       expect(event.stopPropagation).toBeCalled();
       expect(mockPutForm).toBeCalled();
     });
@@ -51,7 +54,7 @@ describe('SubmissionForm', () => {
       wrapper = mount(<SubmissionForm {...props} />);
 
       const component = wrapper.find(S);
-      component.find(Form).find(Icon).at(1).prop('onClick')(event);
+      component.find(Form).find(Icon).first().prop('onClick')(event);
       expect(event.stopPropagation).toBeCalled();
       expect(props.unsetEditing).toBeCalled();
     });
