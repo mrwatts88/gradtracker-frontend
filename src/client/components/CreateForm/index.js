@@ -111,7 +111,7 @@ export class CreateForm extends Component {
                 <Col xs={24} md={12}>
                   <Button
                     loading={this.props.postFormDefStatus === POST_FORM_DEF}
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', marginBottom: '10px' }}
                     type="primary"
                     htmlType="submit">
                     Add Field
@@ -120,7 +120,7 @@ export class CreateForm extends Component {
                 <Col xs={24} md={12}>
                   <Button
                     loading={this.props.postFormDefStatus === POST_FORM_DEF}
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', marginBottom: '10px' }}
                     type="primary"
                     htmlType="button"
                     onClick={this.postFormDef}>

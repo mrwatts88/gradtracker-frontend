@@ -37,7 +37,7 @@ export class G extends React.Component {
         form,
         formDefId: this.props.currentFormDef.id,
         approved: false,
-        userId: this.props.userId,
+        userId: this.props.user.id,
       }).then(() => { reset(); });
     }
   };
@@ -96,7 +96,7 @@ const mapStateToProps = ({ formReducer, formDefReducer, authReducer }) => ({
   getAllFormDefsStatus: formDefReducer.getAllFormDefsStatus,
   currentFormDef: formDefReducer.currentFormDef,
   formError: formReducer.errorMessage,
-  userId: authReducer.currentUser.id,
+  user: authReducer.currentUser,
   postFormStatus: formReducer.postFormStatus,
 });
 

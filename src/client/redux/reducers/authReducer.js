@@ -7,14 +7,14 @@ const authReducer = (state = initialState, action) => {
     case actions.AUTHENTICATE:
       return { ...state, authenticateStatus: action.type };
     case actions.AUTHENTICATE_SUCCESS:
-      return { ...state, currentUser: action.payload, authenticateStatus: action.type };
+      return { ...state, currentUser: action.payload.user, authenticateStatus: action.type };
     case actions.AUTHENTICATION_ERROR:
       return { ...state, errorMessage: action.payload, authenticateStatus: action.type };
     case actions.CLEAR_AUTHENTICATE_STATUS:
       return { ...state, authenticateStatus: null, errorMessage: null };
 
     case actions.UNAUTHENTICATE:
-      return { ...state, currentUser: undefined, unauthenticateStatus: action.type };
+      return {};
 
     case actions.REGISTER:
       return { ...state, registerStatus: action.type };

@@ -1,4 +1,5 @@
 import * as actions from '../actions/formDefActions';
+import { UNAUTHENTICATE } from '../actions/authActions';
 
 const initialState = {};
 
@@ -39,6 +40,9 @@ const formDefReducer = (state = initialState, action) => {
       return { ...state, errorMessage: action.payload, getFormDefStatus: action.type };
     case actions.CLEAR_GET_FORM_DEF_STATUS:
       return { ...state, getFormDefStatus: null, errorMessage: null };
+
+    case UNAUTHENTICATE:
+      return {};
 
     default:
       return state;

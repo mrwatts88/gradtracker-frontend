@@ -8,7 +8,8 @@ describe('GeneratedForm', () => {
 
   const props = {
     postForm: jest.fn(() => Promise.resolve()),
-    currentFormDef: { fieldDefs: [{ id: 1, label: 'test label' }] }
+    currentFormDef: { fieldDefs: [{ id: 1, label: 'test label' }] },
+    user: { id: 1 }
   };
 
   it('renders without crashing', () => {

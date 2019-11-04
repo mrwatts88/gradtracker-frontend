@@ -1,4 +1,5 @@
 import * as actions from '../actions/formActions';
+import { UNAUTHENTICATE } from '../actions/authActions';
 
 const initialState = {};
 
@@ -45,6 +46,9 @@ const formReducer = (state = initialState, action) => {
       return { ...state, errorMessage: action.payload, putFormStatus: action.type };
     case actions.CLEAR_PUT_FORM_STATUS:
       return { ...state, putFormStatus: null, errorMessage: null };
+
+    case UNAUTHENTICATE:
+      return {};
 
     default:
       return state;

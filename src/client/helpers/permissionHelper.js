@@ -1,5 +1,5 @@
 export function hasPermission(user, permission) {
-  return (user.permissions || []).includes(permission);
+  return (user.authorities || []).includes(permission);
 }
 
 export function hasPermissions(user, permissions) {
