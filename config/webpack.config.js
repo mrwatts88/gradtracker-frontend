@@ -58,11 +58,11 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|jpg)$/,
         use: [
-          'file-loader',
+          'url-loader?limit=200000',
         ],
-      }
+      },
     ]
   },
   plugins: [

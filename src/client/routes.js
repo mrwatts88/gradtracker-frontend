@@ -3,7 +3,6 @@ import { Route, Switch, withRouter, Link } from 'react-router-dom';
 import { PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
 import { HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage, FormSubmissionsPage } from './containers';
-import { clearStatuses } from './redux/actions/commonActions';
 import { Layout, Breadcrumb, Menu, Icon } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -20,10 +19,6 @@ class Routes extends Component {
   onCollapse = collapsed => {
     this.setState({ collapsed });
   };
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.location.pathname !== this.props.location.pathname) this.props.clearStatuses(prevProps.location.pathname);
-  // }
 
   render() {
     const { pathname } = this.props.location;
@@ -87,9 +82,4 @@ class Routes extends Component {
   }
 }
 
-export default withRouter(
-  connect(
-    null,
-    { clearStatuses }
-  )(Routes)
-);
+export default withRouter(connect(null)(Routes));

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Carousel } from 'antd';
 import '../../less/home.less';
-import Collab from '../../img/collab.jpg';
 
 export class HomeScreen extends Component {
   render() {
@@ -13,16 +12,16 @@ export class HomeScreen extends Component {
         </h1>
         <Carousel autoplay>
           <div>
-            <img src="https://innovation.northwesternmutual.com/img/tech-advancement/og_tech.jpg" />
+            <img src={require('../../img/nm.jpg')} />
           </div>
           <div>
-            <img src="https://uwm.edu/wp-content/uploads/2018/05/aerial-uwmcampus-milwaukee-1500x650.jpg" />
+            <img src={require('../../img/campus.jpg')} />
           </div>
           <div>
-            <img src={Collab} />
+            <img src={require('../../img/collab.jpg')} />
           </div>
           <div>
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/funny-dog-captions-1563456605.jpg" />
+            <img src={require('../../img/dog.jpg')} />
           </div>
         </Carousel>
       </React.Fragment>);
