@@ -25,7 +25,7 @@ export function authenticate(email, password) {
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,
-        payload: { user: decodedToken.sub },
+        payload: { user: JSON.parse(decodedToken.sub) },
       });
 
       localStorage.setItem('userToken', token);
