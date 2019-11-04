@@ -14,11 +14,11 @@ const formDefReducer = (state = initialState, action) => {
       return { ...state, postFormDefStatus: null, errorMessage: null };
 
     case actions.DELETE_FORM_DEF:
-      return { ...state, deleteFormStatus: action.type };
+      return { ...state, deleteFormDefStatus: action.type };
     case actions.DELETE_FORM_DEF_SUCCESS:
-      return { ...state, deleteFormStatus: action.type };
+      return { ...state, deleteFormDefStatus: action.type };
     case actions.DELETE_FORM_DEF_ERROR:
-      return { ...state, errorMessage: action.payload, deleteFormStatus: action.type };
+      return { ...state, errorMessage: action.payload, deleteFormDefStatus: action.type };
     case actions.CLEAR_DELETE_FORM_DEF_STATUS:
       return { ...state, deleteFormDefStatus: null, errorMessage: null };
 

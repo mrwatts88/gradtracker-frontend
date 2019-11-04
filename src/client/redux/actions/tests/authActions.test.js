@@ -16,7 +16,7 @@ describe('User actions', () => {
     store = mockStore();
   });
 
-  describe('logIn', () => {
+  describe('authenticate', () => {
     it('should handle success', async () => {
       // TODO: mock jwt successfully
     });
@@ -33,7 +33,7 @@ describe('User actions', () => {
 
       await store.dispatch(actions.authenticate('email', 'password'));
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.AUTH_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_AUTHENTICATE_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.AUTHENTICATE });
       expect(store.getActions()[2]).toEqual(expectedAction);
     });
@@ -54,9 +54,10 @@ describe('User actions', () => {
       });
 
       await store.dispatch(actions.register({}));
-      expect(store.getActions().length).toEqual(2);
-      expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
-      expect(store.getActions()[1]).toEqual({ type: actions.REGISTER_SUCCESS });
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_REGISTER_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.REGISTER });
+      expect(store.getActions()[2]).toEqual({ type: actions.REGISTER_SUCCESS });
       expect(authService.register).toBeCalled();
     });
 
@@ -71,9 +72,10 @@ describe('User actions', () => {
       };
 
       await store.dispatch(actions.register({}));
-      expect(store.getActions().length).toEqual(2);
-      expect(store.getActions()[0]).toEqual({ type: actions.REGISTER });
-      expect(store.getActions()[1]).toEqual(expectedAction);
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_REGISTER_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.REGISTER });
+      expect(store.getActions()[2]).toEqual(expectedAction);
       expect(authService.register).toBeCalled();
     });
   });
