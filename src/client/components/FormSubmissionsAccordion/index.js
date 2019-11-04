@@ -22,7 +22,7 @@ export class FormSubmissionsAccordion extends Component {
   componentDidMount() {
     if (hasPermissions(this.props.user, [permissions.VIEW_ALL_SUBMISSIONS]) &&
       !hasPermissions(this.props.user, [permissions.VIEW_OTHERS_SUBMISSIONS])) {
-      this.props.getAllFormSubsByUser(this.props.user.id);
+      this.props.getAllFormSubsByUser(this.props.user.pantherId);
     }
   }
 
