@@ -54,20 +54,20 @@ describe('Form Routes', () => {
   describe('get', () => {
     it('should handle success as a 200 response', async () => {
       const expected = { test: 'response' };
-      mock.onGet(`${serviceUrl}/form/user/1`).reply(200, expected);
+      mock.onGet(`${serviceUrl}/form/panther_id/1`).reply(200, expected);
 
       const response = await request(app)
-        .get(`/user/1`)
+        .get(`/panther_id/1`)
         .expect(200);
 
       expect(response.text).toEqual(JSON.stringify(expected));
     });
 
     it('should handle errors', async () => {
-      mock.onGet(`${serviceUrl}/form/user/1`).reply(400, {});
+      mock.onGet(`${serviceUrl}/form/panther_id/1`).reply(400, {});
 
       await request(app)
-        .get(`/user/1`)
+        .get(`/panther_id/1`)
         .expect(500);
     });
   });

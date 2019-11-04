@@ -76,12 +76,12 @@ describe('formService', () => {
 
   describe('getAllFormSubsByUser', () => {
     it('makes a get to the API_FORM url', async () => {
-      mock.onGet(`${FORM_URL}user/1`).reply(200, { test: 'response' });
+      mock.onGet(`${FORM_URL}panther_id/1`).reply(200, { test: 'response' });
 
       const response = await formService.getAllFormSubsByUser(1);
 
       expect(mock.history.get.length).toEqual(1);
-      expect(mock.history.get[0].url).toEqual(`${FORM_URL}user/1`);
+      expect(mock.history.get[0].url).toEqual(`${FORM_URL}panther_id/1`);
       expect(response.data).toEqual({ test: 'response' });
     });
   });
@@ -92,7 +92,7 @@ describe('formService', () => {
     await expect(formService.getAllFormSubsByUser(1)).rejects.toThrow();
 
     expect(mock.history.get.length).toEqual(1);
-    expect(mock.history.get[0].url).toEqual(`${FORM_URL}user/1`);
+    expect(mock.history.get[0].url).toEqual(`${FORM_URL}panther_id/1`);
     expect(mock.history.get[0].headers).toEqual(testHeaders);
   });
 });
