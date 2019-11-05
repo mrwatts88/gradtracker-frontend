@@ -7,5 +7,5 @@ export const authService = {
   authenticate: (email, password) => axios.post(`${AUTH_URL}auth`, { email, password }),
   register: newUser => axios.post(`${AUTH_URL}user`, newUser, { headers: authHeader() }),
   // getAllRoles: () => axios.get(`${AUTH_URL}roles`, { headers: authHeader() }),
-  getAllRoles: () => Promise.resolve({ data: [{ name: 'role1' }, { name: 'role2' }] })
+  getAllRoles: () => Promise.resolve({ data: [{ name: 'Admin' }, { name: 'Student' }] })
 };
