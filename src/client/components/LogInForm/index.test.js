@@ -2,6 +2,7 @@ import React from 'react';
 import { LogInForm, L } from '.';
 import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
+import { AUTHENTICATION_ERROR } from '../../redux/actions/authActions';
 
 describe('LogInForm', () => {
   let wrapper, props;
@@ -15,6 +16,12 @@ describe('LogInForm', () => {
 
   it('renders without crashing', () => {
     wrapper = shallow(<LogInForm {...props} />);
+  });
+
+  it('shows error when auth doesnt work', () => {
+    props = { ...props, authenticateStatus: AUTHENTICATION_ERROR };
+    wrapper = shallow(<LogInForm {...props} />);
+    expect(wrapper.dive().find('div.error').length).toEqual(1);
   });
 
   describe('form onSubmit', () => {

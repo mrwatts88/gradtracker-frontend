@@ -1,19 +1,45 @@
 import React from 'react';
 import { GeneratedForm, G } from '.';
 import { shallow, mount } from 'enzyme';
-import { Form } from 'antd';
+import { Form, Icon } from 'antd';
+import { CLEAR_POST_FORM_STATUS, POST_FORM_ERROR, POST_FORM_SUCCESS } from '../../redux/actions/formActions';
+import {
+  CLEAR_GET_FORM_DEF_STATUS,
+  CLEAR_GET_ALL_FORM_DEFS_STATUS,
+  GET_FORM_DEF
+} from '../../redux/actions/formDefActions';
 
 describe('GeneratedForm', () => {
-  let wrapper;
+  let wrapper, props;
 
-  const props = {
-    postForm: jest.fn(() => Promise.resolve()),
-    currentFormDef: { fieldDefs: [{ id: 1, label: 'test label' }] },
-    user: { id: 1 }
-  };
+  beforeEach(() => {
+    props = {
+      postForm: jest.fn(() => Promise.resolve()),
+      currentFormDef: { fieldDefs: [{ id: 1, label: 'test label' }] },
+      user: { id: 1 },
+      dispatchType: jest.fn(),
+      postFormStatus: POST_FORM_SUCCESS,
+    };
+  });
 
-  it('renders without crashing', () => {
-    wrapper = shallow(<GeneratedForm {...props} />);
+  describe('ui', () => {
+    it('renders without crashing', () => {
+      wrapper = shallow(<GeneratedForm {...props} />);
+      expect(wrapper.dive().find('div.error').length).toEqual(0);
+      expect(wrapper.dive().find('div.success').length).toEqual(1);
+    });
+
+    it('shows error message', () => {
+      props.postFormStatus = POST_FORM_ERROR;
+      wrapper = shallow(<GeneratedForm {...props} />);
+      expect(wrapper.dive().find('div.error').length).toEqual(1);
+    });
+
+    it('shows loading icon', () => {
+      props.getFormDefStatus = GET_FORM_DEF;
+      wrapper = shallow(<GeneratedForm {...props} />);
+      expect(wrapper.dive().find(Icon).length).toEqual(1);
+    });
   });
 
   describe('form onSubmit', () => {
@@ -60,7 +86,17 @@ describe('GeneratedForm', () => {
         .dive()
         .instance()
         .postForm('error', 'test_email@gmail.com');
-      expect(props.postForm).toBeCalled();
+      expect(props.postForm).not.toBeCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('calls dispatchType', () => {
+      wrapper = mount(<GeneratedForm {...props} />);
+      wrapper.unmount();
+      expect(props.dispatchType).toBeCalledWith(CLEAR_POST_FORM_STATUS);
+      expect(props.dispatchType).toBeCalledWith(CLEAR_GET_FORM_DEF_STATUS);
+      expect(props.dispatchType).toBeCalledWith(CLEAR_GET_ALL_FORM_DEFS_STATUS);
     });
   });
 });

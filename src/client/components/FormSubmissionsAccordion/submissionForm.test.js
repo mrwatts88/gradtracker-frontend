@@ -10,10 +10,12 @@ describe('SubmissionForm', () => {
     currentlyEditing: true,
     putForm: jest.fn(() => Promise.resolve()),
     unsetEditing: jest.fn(),
+
     setEditing: jest.fn(),
     submission: {
       approved: false,
-      fields: [{ fieldIndex: 0, id: 1, fieldDefId: 2, data: 'test data', label: 'test label' }]
+      fields: [{ fieldIndex: 0, id: 1, fieldDefId: 2, data: 'test data', label: 'test label' },
+        { fieldIndex: 1, id: 2, fieldDefId: 3, data: 'test data', label: 'test label' }]
     }
   };
 
