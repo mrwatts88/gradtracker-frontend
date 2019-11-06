@@ -4,12 +4,14 @@ import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
 
 describe('LogInForm', () => {
-  let wrapper;
+  let wrapper, props;
 
-  const props = {
-    authenticate: jest.fn(),
-    dispatchType: jest.fn()
-  };
+  beforeEach(() => {
+    props = {
+      authenticate: jest.fn(),
+      dispatchType: jest.fn(),
+    };
+  });
 
   it('renders without crashing', () => {
     wrapper = shallow(<LogInForm {...props} />);
@@ -59,7 +61,15 @@ describe('LogInForm', () => {
         .dive()
         .instance()
         .validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
-      expect(props.authenticate).toBeCalled();
+      expect(props.authenticate).not.toBeCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('clears authenticate status', () => {
+      wrapper = mount(<LogInForm {...props} />);
+      wrapper.unmount();
+      expect(props.dispatchType).toBeCalled();
     });
   });
 });

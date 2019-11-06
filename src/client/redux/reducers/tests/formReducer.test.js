@@ -1,5 +1,6 @@
 import formReducer from '../formReducer';
 import * as actions from '../../actions/formActions';
+import { UNAUTHENTICATE } from '../../actions/authActions';
 
 describe('formReducer', () => {
   const submissions = [{ id: 1 }, { id: 2 }, { id: 3 }];
@@ -11,8 +12,8 @@ describe('formReducer', () => {
     expect(formReducer({}, { type: actions.POST_FORM_SUCCESS })).toEqual({ postFormStatus: actions.POST_FORM_SUCCESS });
     expect(formReducer({}, { type: actions.POST_FORM_ERROR, payload: 'error' }))
       .toEqual({ postFormStatus: actions.POST_FORM_ERROR, errorMessage: 'error' });
-    expect(formReducer({}, { type: actions.CLEAR_POST_FORM_DEF_STATUS }))
-      .toEqual({ postFormStatus: actions.CLEAR_POST_FORM_DEF_STATUS });
+    expect(formReducer({}, { type: actions.CLEAR_POST_FORM_STATUS }))
+      .toEqual({ postFormStatus: null, errorMessage: null });
 
     expect(formReducer({}, { type: actions.GET_ALL_FORMS_BY_USER }))
       .toEqual({ getAllFormsByUserStatus: actions.GET_ALL_FORMS_BY_USER });
@@ -42,5 +43,7 @@ describe('formReducer', () => {
       .toEqual({ putFormStatus: actions.PUT_FORM_ERROR, errorMessage: 'error' });
     expect(formReducer({}, { type: actions.CLEAR_PUT_FORM_STATUS }))
       .toEqual({ putFormStatus: null, errorMessage: null });
+
+    expect(formReducer({}, { type: UNAUTHENTICATE })).toEqual({});
   });
 });

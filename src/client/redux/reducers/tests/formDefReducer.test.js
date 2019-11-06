@@ -1,9 +1,10 @@
 import formDefReducer from '../formDefReducer';
 import * as actions from '../../actions/formDefActions';
+import { UNAUTHENTICATE } from '../../actions/authActions';
 
 describe('formDefReducer', () => {
   it('should return correct state', () => {
-    expect(formDefReducer({}, {})).toEqual({
+    expect(formDefReducer(undefined, {})).toEqual({
       getAllFormDefsStatus: null, errorMessage: null
     });
 
@@ -40,5 +41,7 @@ describe('formDefReducer', () => {
       .toEqual({ getAllFormDefsStatus: actions.GET_ALL_FORM_DEFS_ERROR, errorMessage: 'error' });
     expect(formDefReducer({}, { type: actions.CLEAR_GET_ALL_FORM_DEFS_STATUS }))
       .toEqual({});
+
+    expect(formDefReducer({}, { type: UNAUTHENTICATE })).toEqual({});
   });
 });

@@ -60,18 +60,18 @@ describe('formService', () => {
       expect(mock.history.put[0].url).toEqual(`${FORM_URL}1`);
       expect(response.data).toEqual({ test: 'response' });
     });
-  });
 
-  it('should throw error on axios bad response', async () => {
-    const testForm = { test: 'form', id: 1 };
-    mock.onPut(`${FORM_URL}1`).reply(500);
+    it('should throw error on axios bad response', async () => {
+      const testForm = { test: 'form', id: 1 };
+      mock.onPut(`${FORM_URL}1`).reply(500);
 
-    await expect(formService.putForm(testForm)).rejects.toThrow();
+      await expect(formService.putForm(testForm)).rejects.toThrow();
 
-    expect(mock.history.put.length).toEqual(1);
-    expect(mock.history.put[0].data).toEqual(JSON.stringify({ test: 'form' }));
-    expect(mock.history.put[0].url).toEqual(`${FORM_URL}1`);
-    expect(mock.history.put[0].headers).toEqual(testHeaders);
+      expect(mock.history.put.length).toEqual(1);
+      expect(mock.history.put[0].data).toEqual(JSON.stringify({ test: 'form' }));
+      expect(mock.history.put[0].url).toEqual(`${FORM_URL}1`);
+      expect(mock.history.put[0].headers).toEqual(testHeaders);
+    });
   });
 
   describe('getAllFormSubsByUser', () => {
@@ -84,15 +84,37 @@ describe('formService', () => {
       expect(mock.history.get[0].url).toEqual(`${FORM_URL}panther_id/1`);
       expect(response.data).toEqual({ test: 'response' });
     });
+
+    it('should throw error on axios bad response', async () => {
+      mock.onGet(`${FORM_URL}1`).reply(500);
+
+      await expect(formService.getAllFormSubsByUser(1)).rejects.toThrow();
+
+      expect(mock.history.get.length).toEqual(1);
+      expect(mock.history.get[0].url).toEqual(`${FORM_URL}panther_id/1`);
+      expect(mock.history.get[0].headers).toEqual(testHeaders);
+    });
   });
 
-  it('should throw error on axios bad response', async () => {
-    mock.onGet(`${FORM_URL}1`).reply(500);
+  describe('getAllFormSubsByFormDef', () => {
+    it('makes a get to the API_FORM url', async () => {
+      mock.onGet(`${FORM_URL}formDef/1`).reply(200, { test: 'response' });
 
-    await expect(formService.getAllFormSubsByUser(1)).rejects.toThrow();
+      const response = await formService.getAllFormSubsByFormDef(1);
 
-    expect(mock.history.get.length).toEqual(1);
-    expect(mock.history.get[0].url).toEqual(`${FORM_URL}panther_id/1`);
-    expect(mock.history.get[0].headers).toEqual(testHeaders);
+      expect(mock.history.get.length).toEqual(1);
+      expect(mock.history.get[0].url).toEqual(`${FORM_URL}formDef/1`);
+      expect(response.data).toEqual({ test: 'response' });
+    });
+
+    it('should throw error on axios bad response', async () => {
+      mock.onGet(`${FORM_URL}1`).reply(500);
+
+      await expect(formService.getAllFormSubsByFormDef(1)).rejects.toThrow();
+
+      expect(mock.history.get.length).toEqual(1);
+      expect(mock.history.get[0].url).toEqual(`${FORM_URL}formDef/1`);
+      expect(mock.history.get[0].headers).toEqual(testHeaders);
+    });
   });
 });

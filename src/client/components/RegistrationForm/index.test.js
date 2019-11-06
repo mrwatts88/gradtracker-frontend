@@ -62,4 +62,12 @@ describe('LogInForm', () => {
       expect(props.register).toBeCalled();
     });
   });
+
+  describe('componentWillUnmount', () => {
+    it('should clear register status', () => {
+      wrapper = shallow(<RegistrationForm {...props} />);
+      wrapper.unmount();
+      expect(props.dispatchType).toBeCalled();
+    });
+  });
 });

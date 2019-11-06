@@ -18,7 +18,14 @@ describe('User actions', () => {
 
   describe('authenticate', () => {
     it('should handle success', async () => {
-      // TODO: mock jwt successfully
+      authService.logIn = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.authenticate('email', 'password'));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_AUTHENTICATE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.AUTHENTICATE });
     });
 
     it('should handle errors', async () => {
