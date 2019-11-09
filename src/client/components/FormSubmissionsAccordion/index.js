@@ -10,7 +10,7 @@ import {
   CLEAR_GET_ALL_FORMS_BY_USER_STATUS
 } from '../../redux/actions/formActions';
 import { SubmissionForm } from './submissionForm';
-import { hasPermissions, permissions } from '../../helpers/permissionHelper';
+import { hasAllPermissions, permissions } from '../../helpers/permissionHelper';
 import { dispatchType } from '../../redux/actions/commonActions';
 import moment from 'moment';
 
@@ -20,7 +20,7 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    if (!hasPermissions(this.props.user, [permissions.READ_USER_FORMS])) {
+    if (!hasAllPermissions(this.props.user, [permissions.READ_USER_FORMS])) {
       this.props.getAllFormSubsByUser(this.props.user.pantherId);
     }
   }

@@ -1,4 +1,4 @@
-import { hasPermissions } from './permissionHelper';
+import { hasAnyPermissions } from './permissionHelper';
 
 describe('hasPermissions', () => {
   it('returns correct boolean', () => {
@@ -8,7 +8,7 @@ describe('hasPermissions', () => {
 
     const permissionsNeeded = ['test'];
 
-    let result = hasPermissions(user, permissionsNeeded);
+    let result = hasAnyPermissions(user, permissionsNeeded);
     expect(result).toBeTruthy();
 
     user.authorities = [];

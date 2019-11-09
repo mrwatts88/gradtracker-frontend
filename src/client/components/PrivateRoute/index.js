@@ -2,12 +2,22 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { hasAllPermissions, hasAnyPermission } from '../../helpers/permissionHelper';
 
-export const PrivateRoute = ({ component: Component, currentUser, ...rest }) => (
+export const PrivateRoute = ({ component: Component, permissions, currentUser, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      currentUser ? <Component {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+    render={props => {
+      if (!currentUser) {
+        return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
+      }
+
+      // if (!hasAnyPermission(currentUser, permissions)) {
+      //   // role not authorised so redirect to home page
+      //   return <Redirect to={{ pathname: '/' }} />;
+      // }
+      return <Component {...props} />;
+    }
     }
   />
 );

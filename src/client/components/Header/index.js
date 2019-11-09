@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { connect } from 'react-redux';
 import { logOut } from '../../redux/actions/authActions';
+import { permissions, hasPermission } from '../../helpers/permissionHelper';
 
 const { Header: AntdHeader } = Layout;
 
@@ -22,7 +23,7 @@ export const Header = props => (
             <Link to="/">HOME</Link>
           </Menu.Item>
         )}
-        {props.path !== '/login' && (
+        {props.path !== '/login' && hasPermission(props.currentUser, permissions.CREATE_USER) && (
           <Menu.Item key="/registration">
             <Link to="/registration">REGISTER A USER</Link>
           </Menu.Item>

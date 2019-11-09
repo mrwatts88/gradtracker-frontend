@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter, Link } from 'react-router-dom';
 import { PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
-import { HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage, FormSubmissionsPage } from './containers';
+import {
+  HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage,
+  FormSubmissionsPage, MilestonesPage
+} from './containers';
 import { Layout, Breadcrumb, Menu, Icon } from 'antd';
+import { permissions, hasPermission } from './helpers/permissionHelper';
 
 import 'antd/dist/antd.css';
 import './less/main.less';
@@ -24,7 +28,7 @@ class Routes extends Component {
     const { pathname } = this.props.location;
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Header path={pathname} />
+        <Header currentUser={this.props.currentUser} path={pathname} />
 
         <Layout>
           {pathname !== '/login' && (
@@ -49,14 +53,30 @@ class Routes extends Component {
                     </span>
                   }
                 >
-                  <Menu.Item key="/createform">
-                    <Link to="/createform">Create a Form</Link>
-                  </Menu.Item>
+                  {hasPermission(this.props.currentUser, permissions.CREATE_FORM_DEF) &&
+                    <Menu.Item key="/createform">
+                      <Link to="/createform">Create a Form</Link>
+                    </Menu.Item>
+                  }
                   <Menu.Item key="/forms">
                     <Link to="/forms">Submit a Form</Link>
                   </Menu.Item>
                   <Menu.Item key="/formsubmissions">
                     <Link to="/formsubmissions">View Submissions</Link>
+                  </Menu.Item>
+                </SubMenu>
+
+                <SubMenu
+                  key="admin"
+                  title={
+                    <span>
+                      <Icon type="laptop" />
+                      <span>Admin</span>
+                    </span>
+                  }
+                >
+                  <Menu.Item key="/milestones">
+                    <Link to="/milestones">Milestones</Link>
                   </Menu.Item>
                 </SubMenu>
               </Menu>
@@ -68,10 +88,11 @@ class Routes extends Component {
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
               <Switch>
                 <PrivateRoute exact path="/" component={HomeScreen} />
-                <PrivateRoute exact path="/createform" component={CreateFormPage} />
+                <PrivateRoute exact path="/createform" permissions={[permissions.CREATE_FORM_DEF]} component={CreateFormPage} />
                 <PrivateRoute exact path="/forms" component={FormsPage} />
-                <PrivateRoute exact path="/registration" component={RegistrationPage} />
+                <PrivateRoute exact path="/registration" permissions={[permissions.CREATE_USER]} component={RegistrationPage} />
                 <PrivateRoute exact path="/formsubmissions" component={FormSubmissionsPage} />
+                <PrivateRoute exact path="/milestones" component={MilestonesPage} />
                 <Route exact path="/login" component={LogInPage} />
               </Switch>
             </div>
@@ -82,4 +103,6 @@ class Routes extends Component {
   }
 }
 
-export default withRouter(connect(null)(Routes));
+const mapStateToProps = ({ authReducer }) => ({ currentUser: authReducer.currentUser });
+
+export default withRouter(connect(mapStateToProps)(Routes));
