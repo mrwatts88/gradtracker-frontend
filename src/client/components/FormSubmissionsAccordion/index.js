@@ -54,7 +54,7 @@ export class FormSubmissionsAccordion extends Component {
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
                   submission.approved ? '' : '(pending)'
-                  }`}
+                }`}
                 key={submission.id}
               >
                 <SubmissionForm
@@ -64,7 +64,7 @@ export class FormSubmissionsAccordion extends Component {
                   currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
                   unsetEditing={this.unsetEditing}
                   setEditing={this.setEditing}
-                  userId={this.props.user.id}
+                  user={this.props.user}
                 />
               </Collapse.Panel>
             );
