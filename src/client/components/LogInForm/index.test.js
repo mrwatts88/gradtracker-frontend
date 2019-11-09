@@ -2,23 +2,33 @@ import React from 'react';
 import { LogInForm, L } from '.';
 import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
+import { AUTHENTICATION_ERROR } from '../../redux/actions/authActions';
 
 describe('LogInForm', () => {
-  let wrapper;
+  let wrapper, props;
 
-  const props = {
-    authenticate: jest.fn(),
-  };
+  beforeEach(() => {
+    props = {
+      authenticate: jest.fn(),
+      dispatchType: jest.fn(),
+    };
+  });
 
   it('renders without crashing', () => {
     wrapper = shallow(<LogInForm {...props} />);
+  });
+
+  it('shows error when auth doesnt work', () => {
+    props = { ...props, authenticateStatus: AUTHENTICATION_ERROR };
+    wrapper = shallow(<LogInForm {...props} />);
+    expect(wrapper.dive().find('div.error').length).toEqual(1);
   });
 
   describe('form onSubmit', () => {
     it('calls calls validateFields', () => {
       const mockValidateFields = jest.fn();
       const event = { preventDefault: jest.fn() };
-      wrapper = shallow(<LogInForm />);
+      wrapper = shallow(<LogInForm {...props} />);
 
       wrapper.props().form.validateFields = mockValidateFields;
       wrapper
@@ -32,7 +42,7 @@ describe('LogInForm', () => {
     it('calls calls validateEmailPassword', () => {
       const mockValidateEmailPassword = jest.fn();
       const event = { preventDefault: jest.fn() };
-      wrapper = mount(<LogInForm />);
+      wrapper = mount(<LogInForm {...props} />);
 
       const component = wrapper.find(L);
       component.instance().validateEmailPassword = mockValidateEmailPassword;
@@ -58,7 +68,15 @@ describe('LogInForm', () => {
         .dive()
         .instance()
         .validateEmailPassword('error', 'test_email@gmail.com', 'test_password');
-      expect(props.authenticate).toBeCalled();
+      expect(props.authenticate).not.toBeCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('clears authenticate status', () => {
+      wrapper = mount(<LogInForm {...props} />);
+      wrapper.unmount();
+      expect(props.dispatchType).toBeCalled();
     });
   });
 });

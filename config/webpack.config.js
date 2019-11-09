@@ -16,58 +16,63 @@ console.log(JSON.stringify({ contextRoot }, null, 4));
 console.log('========================================');
 
 module.exports = {
-    context: contextPath,
-    entry: ['./app.js'],
-    output: {
-        path: outputPath,
-        filename: 'bundle.js',
-        publicPath: contextRoot
-    },
-    devtool: 'source-map',
-    mode: 'development',
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-react', '@babel/preset-env']
-                }
-            },
+  context: contextPath,
+  entry: ['./app.js'],
+  output: {
+    path: outputPath,
+    filename: 'bundle.js',
+    publicPath: contextRoot
+  },
+  devtool: 'source-map',
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-react', '@babel/preset-env']
+        }
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
 
-            {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                    },
-                    {
-
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true
-                        }
-
-                    }]
-            },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true
             }
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            CONTEXT_ROOT: JSON.stringify(contextRoot)
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Grad Tracker',
-            favicon: '../server/template/favicon.ico',
-            template: '../server/template/index.html'
-        })
+
+          }]
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: [
+          'url-loader?limit=200000',
+        ],
+      },
     ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      CONTEXT_ROOT: JSON.stringify(contextRoot)
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Grad Tracker',
+      favicon: '../server/template/favicon.ico',
+      template: '../server/template/index.html'
+    })
+  ]
 };

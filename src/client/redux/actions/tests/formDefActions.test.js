@@ -1,9 +1,11 @@
+/* eslint-disable prefer-promise-reject-errors */
 import * as actions from '../../actions/formDefActions';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import { formDefService } from '../../../services';
+import { UNAUTHENTICATE } from '../authActions';
 
 describe('formDefActions', () => {
   const mock = new MockAdapter(axios);
@@ -22,7 +24,7 @@ describe('formDefActions', () => {
 
       await store.dispatch(actions.postFormDef({}));
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_POST_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM_DEF });
       expect(store.getActions()[2]).toEqual({ type: actions.POST_FORM_DEF_SUCCESS });
       expect(formDefService.postFormDef).toBeCalled();
@@ -39,18 +41,28 @@ describe('formDefActions', () => {
       await store.dispatch(actions.postFormDef({}));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_POST_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM_DEF });
       expect(store.getActions()[2]).toEqual(expectedAction);
       expect(formDefService.postFormDef).toBeCalled();
     });
-  });
 
-  describe('clearFormDefError', () => {
-    it('should return correct action', () => {
-      store.dispatch(actions.clearFormDefError());
-      expect(store.getActions().length).toEqual(1);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+    it('should log user out on 403', async () => {
+      formDefService.postFormDef = jest.fn(() => Promise.reject({ response: { status: 403 } }));
+
+      const expectedAction = {
+        type: actions.POST_FORM_DEF_ERROR,
+        payload: 'Error creating form.',
+      };
+
+      await store.dispatch(actions.postFormDef({}));
+
+      expect(store.getActions().length).toEqual(4);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_POST_FORM_DEF_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.POST_FORM_DEF });
+      expect(store.getActions()[2]).toEqual({ type: UNAUTHENTICATE });
+      expect(store.getActions()[3]).toEqual(expectedAction);
+      expect(formDefService.postFormDef).toBeCalled();
     });
   });
 
@@ -62,7 +74,7 @@ describe('formDefActions', () => {
       await store.dispatch(actions.deleteFormDef(id));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_DELETE_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.DELETE_FORM_DEF });
       expect(store.getActions()[2]).toEqual({ type: actions.DELETE_FORM_DEF_SUCCESS });
       expect(formDefService.deleteFormDef).toBeCalled();
@@ -80,9 +92,28 @@ describe('formDefActions', () => {
       };
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_DELETE_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.DELETE_FORM_DEF });
       expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formDefService.deleteFormDef).toBeCalled();
+    });
+
+    it('should log user out on 404', async () => {
+      formDefService.deleteFormDef = jest.fn(() => Promise.reject({ response: { status: 403 } }));
+
+      const id = 1;
+      await store.dispatch(actions.deleteFormDef(id));
+
+      const expectedAction = {
+        type: actions.DELETE_FORM_DEF_ERROR,
+        payload: 'Error deleting form.',
+      };
+
+      expect(store.getActions().length).toEqual(4);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_DELETE_FORM_DEF_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.DELETE_FORM_DEF });
+      expect(store.getActions()[2]).toEqual({ type: UNAUTHENTICATE });
+      expect(store.getActions()[3]).toEqual(expectedAction);
       expect(formDefService.deleteFormDef).toBeCalled();
     });
   });
@@ -95,7 +126,7 @@ describe('formDefActions', () => {
       await store.dispatch(actions.getFormDef(id));
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_FORM_DEF });
       expect(store.getActions()[2]).toEqual({ type: actions.GET_FORM_DEF_SUCCESS, payload: 'formDef' });
       expect(formDefService.getFormDef).toBeCalled();
@@ -113,9 +144,28 @@ describe('formDefActions', () => {
       };
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_FORM_DEF_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_FORM_DEF });
       expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formDefService.getFormDef).toBeCalled();
+    });
+
+    it('should log user out on 403', async () => {
+      formDefService.getFormDef = jest.fn(() => Promise.reject({ response: { status: 403 } }));
+
+      const id = 1;
+      await store.dispatch(actions.getFormDef(id));
+
+      const expectedAction = {
+        type: actions.GET_FORM_DEF_ERROR,
+        payload: 'Error finding form.',
+      };
+
+      expect(store.getActions().length).toEqual(4);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_FORM_DEF_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_FORM_DEF });
+      expect(store.getActions()[2]).toEqual({ type: UNAUTHENTICATE });
+      expect(store.getActions()[3]).toEqual(expectedAction);
       expect(formDefService.getFormDef).toBeCalled();
     });
   });
@@ -127,7 +177,7 @@ describe('formDefActions', () => {
       await store.dispatch(actions.getAllFormDefs());
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_FORM_DEFS_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORM_DEFS });
       expect(store.getActions()[2]).toEqual({ type: actions.GET_ALL_FORM_DEFS_SUCCESS, payload: 'formDefs' });
       expect(formDefService.getAllFormDefs).toBeCalled();
@@ -144,9 +194,27 @@ describe('formDefActions', () => {
       };
 
       expect(store.getActions().length).toEqual(3);
-      expect(store.getActions()[0]).toEqual({ type: actions.FORM_DEF_CLEAR_ERROR });
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_FORM_DEFS_STATUS });
       expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORM_DEFS });
       expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formDefService.getAllFormDefs).toBeCalled();
+    });
+
+    it('should log user out on 403', async () => {
+      formDefService.getAllFormDefs = jest.fn(() => Promise.reject({ response: { status: 403 } }));
+
+      await store.dispatch(actions.getAllFormDefs());
+
+      const expectedAction = {
+        type: actions.GET_ALL_FORM_DEFS_ERROR,
+        payload: 'Error finding forms.',
+      };
+
+      expect(store.getActions().length).toEqual(4);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_FORM_DEFS_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_FORM_DEFS });
+      expect(store.getActions()[2]).toEqual({ type: UNAUTHENTICATE });
+      expect(store.getActions()[3]).toEqual(expectedAction);
       expect(formDefService.getAllFormDefs).toBeCalled();
     });
   });

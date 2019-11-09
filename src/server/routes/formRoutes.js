@@ -19,9 +19,9 @@ router.put('/:id', (req, res, next) =>
     .catch(err => next(err))
 );
 
-router.get('/user/:id', (req, res, next) =>
+router.get('/panther_id/:id', (req, res, next) =>
   axios
-    .get(`${serviceUrl}/form/user/${req.params.id}`, { headers: req.headers })
+    .get(`${serviceUrl}/form/panther_id/${req.params.id}`, { headers: req.headers })
     .then(response => res.send(response.data))
     .catch(err => next(err))
 );

@@ -8,7 +8,7 @@ const { Header: AntdHeader } = Layout;
 
 export const Header = props => (
   <AntdHeader>
-    <div className="logo" />
+    <a className="logo" href="http://www.uwm.edu"></a>
     <span id="nav">
       <Menu
         theme="dark"
