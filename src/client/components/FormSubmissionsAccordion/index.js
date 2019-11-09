@@ -20,8 +20,7 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    if (hasPermissions(this.props.user, [permissions.VIEW_ALL_SUBMISSIONS]) &&
-      !hasPermissions(this.props.user, [permissions.VIEW_OTHERS_SUBMISSIONS])) {
+    if (!hasPermissions(this.props.user, [permissions.READ_USER_FORMS])) {
       this.props.getAllFormSubsByUser(this.props.user.pantherId);
     }
   }
@@ -55,7 +54,7 @@ export class FormSubmissionsAccordion extends Component {
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
                   submission.approved ? '' : '(pending)'
-                }`}
+                  }`}
                 key={submission.id}
               >
                 <SubmissionForm

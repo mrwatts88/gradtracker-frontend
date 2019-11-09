@@ -66,7 +66,7 @@ export class R extends React.Component {
           })(<Input type="password" placeholder="New User's password" />)}
         </Form.Item>
         <Form.Item label="Role(s)">
-          {getFieldDecorator('roles')(
+          {getFieldDecorator('roleNames')(
             <Checkbox.Group style={{ width: '100%' }}>
               {this.state.roles.map(({ name }) => {
                 return <div key={name}>
