@@ -4,7 +4,7 @@ import { PrivateRoute, Header } from './components';
 import { connect } from 'react-redux';
 import {
   HomeScreen, LogInPage, CreateFormPage, FormsPage, RegistrationPage,
-  FormSubmissionsPage, MilestonesPage
+  FormSubmissionsPage, MilestonesPage, RolesPage
 } from './containers';
 import { Layout, Breadcrumb, Menu, Icon } from 'antd';
 import { permissions, hasPermission } from './helpers/permissionHelper';
@@ -78,6 +78,9 @@ class Routes extends Component {
                   <Menu.Item key="/milestones">
                     <Link to="/milestones">Milestones</Link>
                   </Menu.Item>
+                  <Menu.Item key="/roles">
+                    <Link to="/roles">Roles</Link>
+                  </Menu.Item>
                 </SubMenu>
               </Menu>
             </Sider>
@@ -93,6 +96,7 @@ class Routes extends Component {
                 <PrivateRoute exact path="/registration" permissions={[permissions.CREATE_USER]} component={RegistrationPage} />
                 <PrivateRoute exact path="/formsubmissions" component={FormSubmissionsPage} />
                 <PrivateRoute exact path="/milestones" component={MilestonesPage} />
+                <PrivateRoute exact path="/roles" component={RolesPage} />
                 <Route exact path="/login" component={LogInPage} />
               </Switch>
             </div>
