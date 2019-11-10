@@ -8,3 +8,4 @@ export { default as Registration } from './RegistrationForm';
 export { default as FormSubmissionsAccordion } from './FormSubmissionsAccordion';
 export { default as FormSubmissionsSearch } from './FormSubmissionsSearch';
 export { default as CreateMilestone } from './CreateMilestone';
+export { default as Roles } from './Roles';
