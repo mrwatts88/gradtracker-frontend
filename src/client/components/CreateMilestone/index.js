@@ -1,25 +1,25 @@
-
-import React from 'react';
-import { connect } from 'react-redux';
-// import { authenticate, MILESTONE_ERROR, CLEAR_POST_MILESTONE_STATUS } from '../../redux/actions/mileActions';
+import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+// import { authenticate} from '../../redux/actions/authActions';
 import { Form, Icon, Input, Button } from 'antd';
-import { dispatchType } from '../../redux/actions/commonActions';
+// import { dispatchType } from '../../redux/actions/commonActions';
 
-export class M extends React.Component {
+class CreateMilestone extends Component {
   /*
   componentWillUnmount = () => {
     this.props.dispatchType(CLEAR_POST_MILESTONE_STATUS);
   }
 */
+  handleSubmit = () => {
+
+  };
+
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
-      <div>
+      <div style={{ display: 'flex', marginBottom: '15px' }}>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator('milestone name', {
-              rules: [{ required: true, message: 'Please input a name for the milestone.' }],
-            })(<Input prefix={<Icon type="mail" />} placeholder="Email" />)}
+            <Input prefix={<Icon type="mail" />} placeholder="Milestone Name" />
           </Form.Item>
           <Form.Item>
             <Input prefix={<Icon type="compass" />} type="text" placeholder="Description" />
@@ -29,14 +29,12 @@ export class M extends React.Component {
               Submit
             </Button>
           </Form.Item>
-
         </Form>
       </div>
     );
   }
 };
 
-export const CreateMilestone = Form.create({ name: 'milestones_form' })(M);
 /*
 
 const mapStateToProps = ({ mileReducer }) => ({
@@ -46,3 +44,5 @@ const mapStateToProps = ({ mileReducer }) => ({
 
 export default connect(mapStateToProps, { authenticate, dispatchType })(CreateMilestone);
 */
+
+export default CreateMilestone;
