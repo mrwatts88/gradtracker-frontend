@@ -33,11 +33,13 @@ router.get('/formDef/:id', (req, res, next) =>
     .catch(err => next(err))
 );
 
-router.put('/approve/:formId', (req, res, next) =>
-  axios
-    .put(`${serviceUrl}/approve/${req.params.formId}?approve=${req.query.approve}`, req.body, { headers: req.headers })
+router.put('/approve/:formId', (req, res, next) => {
+  return axios
+    .put(`${serviceUrl}/form/approve/${req.params.formId}?approve=${req.query.approve}`,
+      req.body, { headers: req.headers })
     .then(response => res.send(response.data))
-    .catch(err => next(err))
+    .catch(err => next(err));
+}
 );
 
 module.exports = router;
