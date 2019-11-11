@@ -19,14 +19,14 @@ class CreateMilestone extends Component {
       <div style={{ display: 'flex', marginBottom: '15px' }}>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            <Input prefix={<Icon type="mail" />} placeholder="Milestone Name" />
+            <Input prefix={<Icon type="compass" />} placeholder="Milestone Name" />
           </Form.Item>
           <Form.Item>
-            <Input prefix={<Icon type="compass" />} type="text" placeholder="Description" />
+            <Input prefix={<Icon type="file-text" />} type="text" placeholder="Description" />
           </Form.Item>
           <Form.Item style={{ marginBottom: '0' }}>
             <Button type="primary" htmlType="submit" className="milestone-form__button">
-              Submit
+              Create Milestone
             </Button>
           </Form.Item>
         </Form>
