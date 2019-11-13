@@ -11,7 +11,7 @@ import {
   POST_MILESTONE_ERROR
 } from '../../redux/actions/milestoneActions';
 
-class CreateMilestone extends Component {
+export class CreateMilestone extends Component {
   state = {
 
   };

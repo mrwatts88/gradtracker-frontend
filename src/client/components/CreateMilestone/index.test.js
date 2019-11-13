@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { CreateMilestone } from '.';
 import { shallow } from 'enzyme';
 
@@ -6,7 +6,7 @@ describe('CreateMilestone', () => {
   let component;
 
   const props = {
-    handleSubmit: jest.fn(),
+    postMilestone: jest.fn(),
   };
 
   beforeEach(() => {

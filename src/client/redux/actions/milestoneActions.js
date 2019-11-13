@@ -15,7 +15,7 @@ export function postMilestone(milestone) {
       dispatch({ type: POST_MILESTONE_SUCCESS });
     } catch (error) {
       if (error && error.response && error.response.status === 403) dispatch(logOut());
-      dispatch({ type: POST_MILESTONE_ERROR, payload: 'Error creating milestone.' });
+      dispatch({ type: POST_MILESTONE_ERROR, payload: 'Error creating milestone' });
     }
   };
 }
