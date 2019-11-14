@@ -29,18 +29,22 @@ export class S extends React.Component {
         />
       </React.Fragment>
     ) : (
-      <Icon
-        type="edit"
-        style={{ float: "right" }}
-        onClick={event => {
-          event.stopPropagation();
-          this.props.setEditing(submission.id);
-        }}
-      />
-    );
+        <Icon
+          type="edit"
+          style={{ float: "right" }}
+          onClick={event => {
+            event.stopPropagation();
+            this.props.setEditing(submission.id);
+          }}
+        />
+      );
   };
 
   renderApproval = submission => {
+    if (this.state.saving) {
+      return <Icon style={{ float: "right" }} spin type="loading-3-quarters" />;
+    }
+
     return (
       <React.Fragment>
         <Icon
@@ -106,13 +110,16 @@ export class S extends React.Component {
   };
 
   approveForm = (approve) => {
-    this.props.approveForm({ id: this.props.submission.id }, approve);
+    this.setState({ saving: true });
+    this.props.approveForm({ id: this.props.submission.id }, approve).then(() => {
+      this.setState({ saving: false });
+
+    });
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    console.log(hasPermission(this.props.user, permissions.APPROVE_FORM));
-    console.log(this.props.user);
+
     if (hasPermission(this.props.user, permissions.APPROVE_FORM)) {
       return (
         <Form className="submission-form">
@@ -135,12 +142,12 @@ export class S extends React.Component {
                   <br />
                 </div>
               ) : (
-                <div key={field.id}>
-                  <div style={{ fontWeight: "bold" }}>{field.label}</div>
-                  <div>{field.data}</div>
-                  <br />
-                </div>
-              );
+                  <div key={field.id}>
+                    <div style={{ fontWeight: "bold" }}>{field.label}</div>
+                    <div>{field.data}</div>
+                    <br />
+                  </div>
+                );
             })}
         </Form>
       );
@@ -166,12 +173,12 @@ export class S extends React.Component {
                 <br />
               </div>
             ) : (
-              <div key={field.id}>
-                <div style={{ fontWeight: "bold" }}>{field.label}</div>
-                <div>{field.data}</div>
-                <br />
-              </div>
-            );
+                <div key={field.id}>
+                  <div style={{ fontWeight: "bold" }}>{field.label}</div>
+                  <div>{field.data}</div>
+                  <br />
+                </div>
+              );
           })}
       </Form>
     );

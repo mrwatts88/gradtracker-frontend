@@ -47,6 +47,21 @@ const formReducer = (state = initialState, action) => {
     case actions.CLEAR_PUT_FORM_STATUS:
       return { ...state, putFormStatus: null, errorMessage: null };
 
+    case actions.APPROVE_FORM:
+      return { ...state, approveFormStatus: action.type };
+    case actions.APPROVE_FORM_SUCCESS:
+      if (state.submissions) {
+        const submissions = [...state.submissions];
+        const idx = submissions.findIndex(s => s.id === action.payload.id);
+        if (idx !== -1) submissions[idx] = action.payload;
+        return { ...state, submissions, approveFormStatus: action.type };
+      }
+      return { ...state, approveFormStatus: action.type };
+    case actions.APPROVE_FORM_ERROR:
+      return { ...state, errorMessage: action.payload, approveFormStatus: action.type };
+    case actions.CLEAR_APPROVE_FORM_STATUS:
+      return { ...state, approveFormStatus: null, errorMessage: null };
+
     case UNAUTHENTICATE:
       return {};
 

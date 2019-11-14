@@ -11,14 +11,15 @@ class Roles extends Component {
     currentRoleId: undefined,
     roles: [],
     creatingOrEditing: 'editing',
+    roleNameText: ''
   }
 
   componentDidMount() {
     authService.getAllRoles().then(({ data }) => {
       const creatingRole = {
         id: -1,
-        name: 'Admin',
-        description: 'The default admin role',
+        name: '',
+        description: 'new role',
         authorities: []
       };
 
@@ -48,8 +49,18 @@ class Roles extends Component {
     this.setState({ roles });
   }
 
-  putRole = () => {
-    console.log(this.state.roles.find(role => role.id === this.state.currentRoleId));
+  updateRole = () => {
+    const role = this.state.roles.find(role => role.id === this.state.currentRoleId);
+    console.log(role);
+    authService.updateRole(role);
+  }
+
+  createRole = () => {
+    let role = this.state.roles.find(role => role.id === this.state.currentRoleId);
+    role = { ...role, name: this.state.roleNameText };
+    delete role.id;
+    console.log(role);
+    authService.createRole(role);
   }
 
   toggleCreating = () => {
@@ -84,11 +95,11 @@ class Roles extends Component {
         {
           this.state.creatingOrEditing === 'creating'
             ? <Search
-              name="roleName"
+              name="roleNameText"
               placeholder="Enter role name"
               enterButton="Save"
-              onSearch={this.search}
-              value={this.state.roleName}
+              onSearch={this.createRole}
+              value={this.state.roleNameText}
               onChange={this.handleInputChange} /> : (
               <Select
                 style={{ width: '100%' }}
@@ -138,7 +149,7 @@ class Roles extends Component {
       }
 
       {![-1, undefined].includes(this.state.currentRoleId) &&
-        <Button onClick={this.putRole} style={{ width: '100%' }}>Save</Button>
+        <Button onClick={this.updateRole} style={{ width: '100%' }}>Save</Button>
       }
     </div>;
   }

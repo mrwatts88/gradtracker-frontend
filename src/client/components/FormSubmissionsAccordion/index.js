@@ -55,7 +55,7 @@ export class FormSubmissionsAccordion extends Component {
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
                   submission.approved ? '' : '(pending)'
-                }`}
+                  }`}
                 key={submission.id}
               >
                 <SubmissionForm
@@ -80,6 +80,7 @@ export class FormSubmissionsAccordion extends Component {
 const mapStateToProps = ({ formReducer, authReducer }) => ({
   getAllFormsByFormDefStatus: formReducer.getAllFormsByFormDefStatus,
   getAllFormsByUserStatus: formReducer.getAllFormsByUserStatus,
+  approveFormStatus: formReducer.approveFormStatus,
   submissions: formReducer.submissions,
   user: authReducer.currentUser,
 });
