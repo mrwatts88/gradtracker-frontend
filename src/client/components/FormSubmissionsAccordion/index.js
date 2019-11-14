@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   getAllFormSubsByUser,
   putForm,
+  approveForm,
   GET_ALL_FORMS_BY_FORM_DEF,
   GET_ALL_FORMS_BY_USER,
   CLEAR_GET_ALL_FORMS_BY_FORM_DEF_STATUS,
@@ -54,17 +55,18 @@ export class FormSubmissionsAccordion extends Component {
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
                   submission.approved ? '' : '(pending)'
-                  }`}
+                }`}
                 key={submission.id}
               >
                 <SubmissionForm
                   key={submission.id}
                   putForm={this.props.putForm}
+                  approveForm={this.props.approveForm}
                   submission={submission}
                   currentlyEditing={this.state.currentlyEditing.includes(submission.id)}
                   unsetEditing={this.unsetEditing}
                   setEditing={this.setEditing}
-                  userId={this.props.user.id}
+                  user={this.props.user}
                 />
               </Collapse.Panel>
             );
@@ -82,4 +84,4 @@ const mapStateToProps = ({ formReducer, authReducer }) => ({
   user: authReducer.currentUser,
 });
 
-export default connect(mapStateToProps, { getAllFormSubsByUser, putForm, dispatchType })(FormSubmissionsAccordion);
+export default connect(mapStateToProps, { getAllFormSubsByUser, putForm, approveForm, dispatchType })(FormSubmissionsAccordion);

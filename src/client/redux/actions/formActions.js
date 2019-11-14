@@ -21,6 +21,11 @@ export const PUT_FORM_SUCCESS = 'PUT_FORM_SUCCESS';
 export const PUT_FORM_ERROR = 'PUT_FORM_ERROR';
 export const CLEAR_PUT_FORM_STATUS = 'CLEAR_PUT_FORM_STATUS';
 
+export const APPROVE_FORM = 'APPROVE_FORM';
+export const APPROVE_FORM_SUCCESS = 'APPROVE_FORM_SUCCESS';
+export const APPROVE_FORM_ERROR = 'APPROVE_FORM_ERROR';
+export const CLEAR_APPROVE_FORM_STATUS = 'CLEAR_APPROVE_FORM_STATUS';
+
 export function postForm(form) {
   return async dispatch => {
     try {
@@ -73,6 +78,20 @@ export function putForm(form) {
     } catch (error) {
       if (error && error.response && error.response.status === 403) dispatch(logOut());
       dispatch({ type: PUT_FORM_ERROR, payload: 'Error updating form submission.' });
+    }
+  };
+}
+
+export function approveForm(form, approve) {
+  return async dispatch => {
+    try {
+      dispatch({ type: CLEAR_APPROVE_FORM_STATUS });
+      dispatch({ type: APPROVE_FORM });
+      const { data } = await formService.approveForm(form, approve);
+      dispatch({ type: APPROVE_FORM_SUCCESS, payload: data });
+    } catch (error) {
+      if (error && error.response && error.response.status === 403) dispatch(logOut());
+      dispatch({ type: APPROVE_FORM_ERROR, payload: 'Error approving/rejecting form submission.' });
     }
   };
 }

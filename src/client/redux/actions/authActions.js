@@ -1,6 +1,7 @@
 import { authService } from '../../services/AuthService/authService';
 import { push } from 'connected-react-router';
 import * as JWT from 'jwt-decode';
+import { permissions } from '../../helpers/permissionHelper';
 
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
@@ -22,10 +23,13 @@ export function authenticate(email, password) {
       const { data } = await authService.authenticate(email, password);
       const { token } = data;
       const decodedToken = JWT(token);
+      const user = JSON.parse(decodedToken.sub);
+      user.authorities.push(permissions.APPROVE_FORM_REQUEST);
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,
-        payload: { user: JSON.parse(decodedToken.sub) },
+        // payload: { user: JSON.parse(decodedToken.sub) },
+        payload: { user },
       });
 
       localStorage.setItem('userToken', token);

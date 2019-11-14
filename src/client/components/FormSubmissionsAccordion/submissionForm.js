@@ -1,17 +1,18 @@
-import React from 'react';
-import { Form, Input, Icon } from 'antd';
+import React from "react";
+import { Form, Input, Icon } from "antd";
+import { hasPermission, permissions } from "../../helpers/permissionHelper";
 
 export class S extends React.Component {
-  state = { saving: false }
+  state = { saving: false };
 
   renderEdit = submission => {
     if (this.state.saving) {
-      return <Icon style={{ float: 'right' }} spin type="loading-3-quarters" />;
+      return <Icon style={{ float: "right" }} spin type="loading-3-quarters" />;
     }
     return this.props.currentlyEditing ? (
       <React.Fragment>
         <Icon
-          style={{ color: 'red', float: 'right', marginLeft: '3px' }}
+          style={{ color: "red", float: "right", marginLeft: "3px" }}
           type="stop"
           onClick={event => {
             event.stopPropagation();
@@ -20,7 +21,7 @@ export class S extends React.Component {
         />
         <Icon
           type="save"
-          style={{ color: 'green', float: 'right' }}
+          style={{ color: "green", float: "right" }}
           onClick={event => {
             event.stopPropagation();
             this.handleSubmit(event);
@@ -30,12 +31,45 @@ export class S extends React.Component {
     ) : (
       <Icon
         type="edit"
-        style={{ float: 'right' }}
+        style={{ float: "right" }}
         onClick={event => {
           event.stopPropagation();
           this.props.setEditing(submission.id);
         }}
       />
+    );
+  };
+
+  renderApproval = submission => {
+    return (
+      <React.Fragment>
+        <Icon
+          style={{
+            fontSize: "20px",
+            color: "red",
+            float: "right",
+            marginLeft: "3px"
+          }}
+          type="dislike"
+          onClick={event => {
+            event.stopPropagation();
+            this.handleRejection(event);
+          }}
+        />
+        <Icon
+          style={{
+            fontSize: "20px",
+            color: "green",
+            float: "right",
+            marginLeft: "24px"
+          }}
+          type="like"
+          onClick={event => {
+            event.stopPropagation();
+            this.handleApproval(event);
+          }}
+        />
+      </React.Fragment>
     );
   };
 
@@ -52,10 +86,7 @@ export class S extends React.Component {
       this.props
         .putForm({
           form,
-          id: this.props.submission.id,
-          formDefId: this.props.submission.formDefId,
-          approved: false,
-          userId: this.props.userId,
+          id: this.props.submission.id
         })
         .then(() => {
           this.setState({ saving: false });
@@ -64,28 +95,79 @@ export class S extends React.Component {
     }
   };
 
+  handleApproval = e => {
+    e.preventDefault();
+    this.approveForm(true);
+  };
+
+  handleRejection = e => {
+    e.preventDefault();
+    this.approveForm(false);
+  };
+
+  approveForm = (approve) => {
+    this.props.approveForm({ id: this.props.submission.id }, approve);
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
+    console.log(hasPermission(this.props.user, permissions.APPROVE_FORM));
+    console.log(this.props.user);
+    if (hasPermission(this.props.user, permissions.APPROVE_FORM)) {
+      return (
+        <Form className="submission-form">
+          {!this.props.submission.approved &&
+            this.renderApproval(this.props.submission)}
+          {this.props.submission.fields
+            .sort((a, b) => a.fieldIndex - b.fieldIndex)
+            .map(field => {
+              return this.props.currentlyEditing ? (
+                <div key={field.id}>
+                  <div style={{ fontWeight: "bold" }}>{field.label}</div>
+                  <Form.Item key={field.id}>
+                    {getFieldDecorator(String(field.fieldDefId), {
+                      initialValue: field.data,
+                      rules: [
+                        { required: true, message: `${field.label} required.` }
+                      ]
+                    })(<Input />)}
+                  </Form.Item>
+                  <br />
+                </div>
+              ) : (
+                <div key={field.id}>
+                  <div style={{ fontWeight: "bold" }}>{field.label}</div>
+                  <div>{field.data}</div>
+                  <br />
+                </div>
+              );
+            })}
+        </Form>
+      );
+    }
     return (
       <Form className="submission-form">
-        {!this.props.submission.approved && this.renderEdit(this.props.submission)}
+        {!this.props.submission.approved &&
+          this.renderEdit(this.props.submission)}
         {this.props.submission.fields
           .sort((a, b) => a.fieldIndex - b.fieldIndex)
           .map(field => {
             return this.props.currentlyEditing ? (
               <div key={field.id}>
-                <div style={{ fontWeight: 'bold' }}>{field.label}</div>
+                <div style={{ fontWeight: "bold" }}>{field.label}</div>
                 <Form.Item key={field.id}>
                   {getFieldDecorator(String(field.fieldDefId), {
                     initialValue: field.data,
-                    rules: [{ required: true, message: `${field.label} required.` }],
+                    rules: [
+                      { required: true, message: `${field.label} required.` }
+                    ]
                   })(<Input />)}
                 </Form.Item>
                 <br />
               </div>
             ) : (
               <div key={field.id}>
-                <div style={{ fontWeight: 'bold' }}>{field.label}</div>
+                <div style={{ fontWeight: "bold" }}>{field.label}</div>
                 <div>{field.data}</div>
                 <br />
               </div>
@@ -96,4 +178,4 @@ export class S extends React.Component {
   }
 }
 
-export const SubmissionForm = Form.create({ name: 'submission_form' })(S);
+export const SubmissionForm = Form.create({ name: "submission_form" })(S);
