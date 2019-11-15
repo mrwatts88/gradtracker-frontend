@@ -17,7 +17,7 @@ const { SubMenu } = Menu;
 
 class Routes extends Component {
   state = {
-    collapsed: false
+    collapsed: true
   };
 
   onCollapse = collapsed => {
@@ -41,7 +41,7 @@ class Routes extends Component {
               <Menu
                 style={{ height: '100%', borderRight: 0 }}
                 mode="inline"
-                defaultOpenKeys={['forms']}
+                defaultOpenKeys={[]}
                 selectedKeys={[pathname]}
               >
                 <SubMenu
