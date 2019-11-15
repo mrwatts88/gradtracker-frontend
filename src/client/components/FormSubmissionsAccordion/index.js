@@ -54,7 +54,7 @@ export class FormSubmissionsAccordion extends Component {
             return (
               <Collapse.Panel
                 header={`${submission.name} - ${moment(submission.createdDate).format('MM/DD/YYYY')} ${
-                  submission.approved ? '' : '(pending)'
+                  getStatusText(submission.approved)
                   }`}
                 key={submission.id}
               >
@@ -74,6 +74,17 @@ export class FormSubmissionsAccordion extends Component {
         </Collapse>
 
     );
+  }
+}
+
+function getStatusText(status) {
+  switch (status) {
+    case true:
+      return '';
+    case false:
+      return '(REJECTED)';
+    default:
+      return '(pending)';
   }
 }
 
