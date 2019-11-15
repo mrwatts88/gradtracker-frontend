@@ -1,6 +1,6 @@
-import { hasAnyPermissions } from './permissionHelper';
+import { hasAllPermissions } from './permissionHelper';
 
-describe('hasPermissions', () => {
+describe('hasAllPermissions', () => {
   it('returns correct boolean', () => {
     const user = {
       authorities: ['test'],
@@ -8,11 +8,11 @@ describe('hasPermissions', () => {
 
     const permissionsNeeded = ['test'];
 
-    let result = hasAnyPermissions(user, permissionsNeeded);
+    let result = hasAllPermissions(user, permissionsNeeded);
     expect(result).toBeTruthy();
 
     user.authorities = [];
-    result = hasPermissions(user, permissionsNeeded);
+    result = hasAllPermissions(user, permissionsNeeded);
     expect(result).toEqual(false);
   });
 });

@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { formService, FORM_URL } from './formService';
 import { authHeader } from '../../helpers/authHeader';
-import { transformForm } from '../../helpers/transformForm';
+import { transformForm, transformUpdatedForm } from '../../helpers/transformForm';
 jest.mock('../../helpers/authHeader');
 jest.mock('../../helpers/transformForm');
 
@@ -15,6 +15,10 @@ describe('formService', () => {
 
   authHeader.mockImplementation(() => testHeaders);
   transformForm.mockImplementation(() => ({
+    test: 'form'
+  }));
+
+  transformUpdatedForm.mockImplementation(() => ({
     test: 'form'
   }));
 
@@ -62,7 +66,7 @@ describe('formService', () => {
     });
 
     it('should throw error on axios bad response', async () => {
-      const testForm = { test: 'form', id: 1 };
+      const testForm = { form: { test: 'form' }, id: 1 };
       mock.onPut(`${FORM_URL}1`).reply(500);
 
       await expect(formService.putForm(testForm)).rejects.toThrow();
