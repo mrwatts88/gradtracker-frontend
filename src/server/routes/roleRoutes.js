@@ -14,16 +14,14 @@ router.get('/', (req, res, next) =>
 
 router.post('/', (req, res, next) =>
   axios
-    .post(`${serviceUrl}/role/`, { headers: req.headers })
+    .post(`${serviceUrl}/role/`, req.body, { headers: req.headers })
     .then(response => res.send(response.data))
     .catch(err => next(err))
 );
 
 router.put('/:id', (req, res, next) => {
-  console.log(`${serviceUrl}/role/${req.params.id}`);
-  console.log(req.headers);
   return axios
-    .put(`${serviceUrl}/role/${req.params.id}`, { headers: req.headers })
+    .put(`${serviceUrl}/role/${req.params.id}`, req.body, { headers: req.headers })
     .then(response => res.send(response.data))
     .catch(err => next(err));
 }

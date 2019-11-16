@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Input, Form, Checkbox } from 'antd';
+import { Button, Input, Form, Checkbox, AutoComplete } from 'antd';
 import {
   register,
   REGISTER_ERROR,
@@ -39,7 +39,7 @@ export class R extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className="registration-form">
+      <Form onSubmit={this.handleSubmit} className="registration-form" >
         <Form.Item>
           {getFieldDecorator('email', {
             rules: [{ required: true, message: "Please input new user's email." }],
@@ -89,7 +89,7 @@ export class R extends React.Component {
 
         {this.props.registerStatus === REGISTER_ERROR && <div className="error">{this.props.authError}</div>}
         {this.props.registerStatus === REGISTER_SUCCESS && <div className="success">User registered successfully.</div>}
-      </Form>
+      </Form >
     );
   }
 }

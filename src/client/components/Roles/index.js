@@ -51,7 +51,6 @@ class Roles extends Component {
 
   updateRole = () => {
     const role = this.state.roles.find(role => role.id === this.state.currentRoleId);
-    console.log(role);
     authService.updateRole(role);
   }
 
@@ -59,7 +58,6 @@ class Roles extends Component {
     let role = this.state.roles.find(role => role.id === this.state.currentRoleId);
     role = { ...role, name: this.state.roleNameText };
     delete role.id;
-    console.log(role);
     authService.createRole(role);
   }
 
@@ -123,7 +121,11 @@ class Roles extends Component {
             dataSource={addedPermissions}
             renderItem={permission => (
               <List.Item
-                actions={[<Icon onClick={() => this.removePermission(permission)} key={permission} type="minus" />]}>
+                actions={[<Icon
+                  style={{ color: 'red' }}
+                  onClick={() => this.removePermission(permission)}
+                  key={permission}
+                  type="minus" />]}>
                 {permission}
               </List.Item>
             )}
@@ -139,7 +141,11 @@ class Roles extends Component {
             dataSource={removedPermissions}
             renderItem={permission => (
               <List.Item
-                actions={[<Icon onClick={() => this.addPermission(permission)} key={permission} type="plus" />]}>
+                actions={[<Icon
+                  style={{ color: 'green' }}
+                  onClick={() => this.addPermission(permission)}
+                  key={permission}
+                  type="plus" />]}>
                 {permission}
               </List.Item>
             )}
