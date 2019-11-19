@@ -17,7 +17,7 @@ const { SubMenu } = Menu;
 
 class Routes extends Component {
   state = {
-    collapsed: false
+    collapsed: true
   };
 
   onCollapse = collapsed => {
@@ -41,14 +41,14 @@ class Routes extends Component {
               <Menu
                 style={{ height: '100%', borderRight: 0 }}
                 mode="inline"
-                defaultOpenKeys={['forms']}
+                defaultOpenKeys={[]}
                 selectedKeys={[pathname]}
               >
                 <SubMenu
                   key="forms"
                   title={
                     <span>
-                      <Icon type="laptop" />
+                      <Icon type="file-text" />
                       <span>Forms</span>
                     </span>
                   }
@@ -65,23 +65,24 @@ class Routes extends Component {
                     <Link to="/formsubmissions">View Submissions</Link>
                   </Menu.Item>
                 </SubMenu>
-
-                <SubMenu
-                  key="admin"
-                  title={
-                    <span>
-                      <Icon type="laptop" />
-                      <span>Admin</span>
-                    </span>
-                  }
-                >
-                  <Menu.Item key="/milestones">
-                    <Link to="/milestones">Milestones</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/roles">
-                    <Link to="/roles">Roles</Link>
-                  </Menu.Item>
-                </SubMenu>
+                {hasPermission(this.props.currentUser, permissions.CREATE_ROLE) &&
+                  <SubMenu
+                    key="admin"
+                    title={
+                      <span>
+                        <Icon type="user" />
+                        <span>Admin</span>
+                      </span>
+                    }
+                  >
+                    <Menu.Item key="/milestones">
+                      <Link to="/milestones">Milestones</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/roles">
+                      <Link to="/roles">Roles</Link>
+                    </Menu.Item>
+                  </SubMenu>
+                }
               </Menu>
             </Sider>
           )}

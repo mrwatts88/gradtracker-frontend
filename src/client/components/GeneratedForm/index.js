@@ -36,7 +36,6 @@ export class G extends React.Component {
       this.props.postForm({
         form,
         formDefId: this.props.currentFormDef.id,
-        approved: false,
         userId: this.props.user.id,
       }).then(() => { reset(); });
     }

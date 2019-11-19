@@ -15,7 +15,6 @@ describe('transformForm', () => {
     const output = transformForm(input);
 
     expect(output).toEqual({
-      approved: true,
       formDefId: 1,
       userId: 2,
       fields: [{ data: 'matt', fieldDefId: 1 }, { data: 'watts', fieldDefId: 2 }]

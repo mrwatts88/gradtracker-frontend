@@ -12,4 +12,19 @@ router.get('/', (req, res, next) =>
     .catch(err => next(err))
 );
 
+router.post('/', (req, res, next) =>
+  axios
+    .post(`${serviceUrl}/role/`, req.body, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err))
+);
+
+router.put('/:id', (req, res, next) => {
+  return axios
+    .put(`${serviceUrl}/role/${req.params.id}`, req.body, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err));
+}
+);
+
 module.exports = router;

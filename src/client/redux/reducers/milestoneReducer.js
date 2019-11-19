@@ -14,6 +14,15 @@ const milestoneReducer = (state = initialState, action) => {
     case actions.CLEAR_POST_MILESTONE_STATUS:
       return { ...state, postMilestoneStatus: null, errorMessage: null };
 
+    case actions.GET_MILESTONE:
+      return { ...state, getMilestoneStatus: action.type };
+    case actions.GET_MILESTONE_SUCCESS:
+      return { ...state, currentMilestone: action.payload, getMilestoneStatus: action.type };
+    case actions.GET_MILESTONE_ERROR:
+      return { ...state, errorMessage: action.payload, getMilestoneStatus: action.type };
+    case actions.CLEAR_MILESTONE_STATUS:
+      return { ...state, getMilestoneStatus: null, errorMessage: null };
+
     case UNAUTHENTICATE:
       return {};
 
