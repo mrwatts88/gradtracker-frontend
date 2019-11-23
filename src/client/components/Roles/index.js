@@ -92,11 +92,9 @@ class Roles extends Component {
         </Select>
         {
           this.state.creatingOrEditing === 'creating'
-            ? <Search
+            ? <Input
               name="roleNameText"
               placeholder="Enter role name"
-              enterButton="Save"
-              onSearch={this.createRole}
               value={this.state.roleNameText}
               onChange={this.handleInputChange} /> : (
               <Select
@@ -111,6 +109,11 @@ class Roles extends Component {
                 ))}
               </Select>
             )
+        }
+        {
+          this.state.creatingOrEditing === 'creating'
+            ? <Button onClick={this.createRole} style={{ marginLeft: '10px' }}>Create</Button> :
+            <Button onClick={this.updateRole} style={{ marginLeft: '10px' }}>Update</Button>
         }
       </div>
 
@@ -152,10 +155,6 @@ class Roles extends Component {
           />}
           <br />
         </div>
-      }
-
-      {![-1, undefined].includes(this.state.currentRoleId) &&
-        <Button onClick={this.updateRole} style={{ width: '100%' }}>Save</Button>
       }
     </div>;
   }
