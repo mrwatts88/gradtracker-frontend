@@ -7,6 +7,7 @@ describe('CreateMilestone', () => {
 
   const props = {
     postMilestone: jest.fn(),
+    getAllMilestones: jest.fn(),
   };
 
   beforeEach(() => {
