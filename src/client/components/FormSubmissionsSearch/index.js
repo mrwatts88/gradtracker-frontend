@@ -48,7 +48,7 @@ export class FormSubmissionsSearch extends Component {
 
   render() {
     return (
-      hasPermission(this.props.user, permissions.READ_USER_FORMS) &&
+      hasPermission(this.props.user, permissions.READ_ALL_FORMS) &&
       < div style={{ display: 'flex', marginBottom: '15px' }}>
         <Select onChange={this.handleMethodChange} value={this.state.searchMethod} style={{ marginRight: '10px' }}>
           <Option value={SEARCH_METHODS.user}>Panther ID&nbsp;</Option>

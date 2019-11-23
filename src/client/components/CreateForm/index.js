@@ -80,7 +80,6 @@ export class CreateForm extends Component {
         <Row>
           <Col
             style={{
-              borderBottom: '1px solid black',
               paddingBottom: '5px',
               marginBottom: '5px'
             }}

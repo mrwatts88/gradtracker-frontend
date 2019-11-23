@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Input, Form, Checkbox, AutoComplete } from 'antd';
+import { Button, Input, Form, Checkbox } from 'antd';
 import {
   register,
   REGISTER_ERROR,
