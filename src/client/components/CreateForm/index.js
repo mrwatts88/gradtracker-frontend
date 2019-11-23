@@ -9,7 +9,9 @@ import {
 } from '../../redux/actions/formDefActions';
 import { dispatchType } from '../../redux/actions/commonActions';
 import { Button, Input, Row, Col, Form, Icon } from 'antd';
-import RLDD from 'react-list-drag-and-drop/lib/RLDD';
+
+const UP = 'up';
+const DOWN = 'down';
 
 export class CreateForm extends Component {
   state = {
@@ -31,13 +33,11 @@ export class CreateForm extends Component {
         ...this.state.fieldDefs,
         {
           label: this.state.label,
-          id: this.state.nextListId,
           inputType: 'text',
           dataType: 'string'
         }
       ],
       label: '',
-      nextListId: this.state.nextListId + 1
     });
   };
 
@@ -47,7 +47,6 @@ export class CreateForm extends Component {
 
     const fieldDefs = this.state.fieldDefs.map((field, fieldIndex) => {
       const f = { ...field, fieldIndex };
-      delete f.id;
       return f;
     });
 
@@ -70,9 +69,18 @@ export class CreateForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleRLDDChange = newfieldDefs => {
-    this.setState({ fieldDefs: newfieldDefs });
-  };
+  moveInput = (dir, idx) => {
+    const fieldDefs = [...this.state.fieldDefs];
+    const temp = fieldDefs[idx];
+    let otherIdx;
+
+    if (dir === UP) otherIdx = idx - 1;
+    else otherIdx = idx + 1;
+
+    fieldDefs[idx] = fieldDefs[otherIdx];
+    fieldDefs[otherIdx] = temp;
+    this.setState({ fieldDefs });
+  }
 
   render() {
     return (
@@ -134,11 +142,15 @@ export class CreateForm extends Component {
         </Row>
         <Row gutter={24}>
           <Col xs={{ offset: 0, span: 24 }} md={{ offset: 3, span: 18 }} lg={{ offset: 6, span: 12 }}>
-            <RLDD
-              items={this.state.fieldDefs}
-              itemRenderer={item => <Field field={item} deleteField={this.deleteField} />}
-              onChange={this.handleRLDDChange}
-            />
+            {this.state.fieldDefs.map((field, idx) =>
+              <Field
+                first={idx === 0}
+                last={idx === this.state.fieldDefs.length - 1}
+                key={idx}
+                idx={idx}
+                moveInput={this.moveInput}
+                field={field}
+                deleteField={this.deleteField} />)}
           </Col>
         </Row>
       </div>
@@ -155,16 +167,20 @@ export default connect(mapStateToProps, { postFormDef, dispatchType })(CreateFor
 
 class Field extends Component {
   render() {
-    const style = () => ({
-      marginTop: '6px',
+    const { idx, first, last } = this.props;
+
+    const style = dir => ({
+      lineHeight: '2',
       fontSize: '20px',
-      marginRight: '9px',
-      cursor: 'grab'
+      color: dir === UP ? (first ? 'lightgray' : 'black') : (last ? 'lightgray' : 'black'),
+      cursor: dir === UP ? (first ? 'not-allowed' : 'pointer') : (last ? 'not-allowed' : 'pointer'),
     });
+
     return (
       <div style={{ display: 'flex' }}>
-        <Icon style={style()} type="column-height" />
-        <Input disabled value={this.props.field.label} />
+        <Icon onClick={() => !first && this.props.moveInput(UP, idx)} style={style(UP)} type="caret-up" />
+        <Icon onClick={() => !last && this.props.moveInput(DOWN, idx)} style={style(DOWN)} type="caret-down" />
+        <Input style={{ marginLeft: '5px', color: 'black' }} disabled value={this.props.field.label} />
         <Icon
           type="close-circle"
           onClick={() => this.props.deleteField(this.props.field.id)}

@@ -33,7 +33,8 @@ class Roles extends Component {
         id: -1,
         name: '',
         description: 'new role',
-        authorities: []
+        authorities: [],
+        loading: false,
       };
 
       this.setState({ roles: [...data, creatingRole] });
@@ -125,8 +126,8 @@ class Roles extends Component {
         }
         {
           this.state.creatingOrEditing === 'creating'
-            ? <Button onClick={this.createRole} style={{ marginLeft: '10px' }}>Create</Button> :
-            <Button onClick={this.updateRole} style={{ marginLeft: '10px' }}>Update</Button>
+            ? <Button onClick={this.createRole} style={{ marginLeft: '10px' }}>Create</Button>
+            : <Button onClick={this.updateRole} style={{ marginLeft: '10px' }}>Update</Button>
         }
       </div>
 

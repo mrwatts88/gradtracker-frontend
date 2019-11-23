@@ -34,7 +34,7 @@ export function authenticate(email, password) {
       const { token } = data;
       const decodedToken = JWT(token);
       const user = JSON.parse(decodedToken.sub);
-      user.authorities.push(permissions.APPROVE_FORM_REQUEST);
+      // user.authorities.push(permissions.APPROVE_FORM_REQUEST);
 
       dispatch({
         type: AUTHENTICATE_SUCCESS,

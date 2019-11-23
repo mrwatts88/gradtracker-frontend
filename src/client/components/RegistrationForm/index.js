@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Input, Form, Checkbox } from 'antd';
+import { Button, Input, Form, Checkbox, Icon } from 'antd';
 import {
   register,
   REGISTER_ERROR,
@@ -13,11 +13,13 @@ import { dispatchType } from '../../redux/actions/commonActions';
 
 export class R extends React.Component {
   state = {
-    roles: []
+    roles: [],
+    fetchingRoles: false,
   }
 
   componentDidMount() {
-    authService.getAllRoles().then(({ data }) => this.setState({ roles: data }));
+    this.setState({ fetchingRoles: true });
+    authService.getAllRoles().then(({ data }) => this.setState({ roles: data, fetchingRoles: false }));
   }
 
   componentWillUnmount = () => {
@@ -28,12 +30,12 @@ export class R extends React.Component {
     e.preventDefault();
     this.props.dispatchType(CLEAR_REGISTER_STATUS);
     this.props.form.validateFields((err, newUser) => {
-      this.validate(err, newUser);
+      this.register(err, newUser);
     });
   };
 
-  validate = (err, newUser) => {
-    if (!err) this.props.register(newUser).then(() => this.props.form.resetFields());
+  register = (err, newUser) => {
+    if (!err) this.props.register({ ...newUser, password: 'password' }).then(() => this.props.form.resetFields());
   };
 
   render() {
@@ -60,26 +62,27 @@ export class R extends React.Component {
             rules: [{ required: true, message: "Please input new user's pantherId." }],
           })(<Input placeholder="New User's pantherId" />)}
         </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: "Please input new user's password." }],
-          })(<Input type="password" placeholder="New User's password" />)}
-        </Form.Item>
-        <Form.Item label="Role(s)">
-          {getFieldDecorator('roleNames')(
-            <Checkbox.Group style={{ width: '100%' }}>
-              {this.state.roles.map(({ name }) => {
-                return <div key={name}>
-                  <Checkbox value={name} defaultChecked={false} >{name}</Checkbox>
-                  <br />
-                </div>;
-              })}
-            </Checkbox.Group>
-          )}
-        </Form.Item>
+        {this.state.fetchingRoles
+          ? <Icon style={{ fontSize: '40px', width: '100%', marginBottom: '15px' }} spin type="loading-3-quarters" />
+          : <Form.Item label="Role(s)">
+            {getFieldDecorator('roleNames', {
+              rules: [{ required: true, message: 'Please select at least one role.' }],
+            })(
+              <Checkbox.Group style={{ width: '100%' }}>
+                {this.state.roles.map(({ name }) => {
+                  return <div key={name}>
+                    <Checkbox value={name} defaultChecked={false} >{name}</Checkbox>
+                    <br />
+                  </div>;
+                })}
+              </Checkbox.Group>
+            )}
+          </Form.Item>
+        }
         <Form.Item style={{ marginBottom: '0' }}>
           <Button
             loading={this.props.registerStatus === REGISTER}
+            disabled={this.state.fetchingRoles}
             type="primary"
             htmlType="submit"
             className="registration-form__button">
