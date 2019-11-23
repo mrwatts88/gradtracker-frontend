@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { authHeader } from '../../helpers/authHeader';
 
-export const MILESTONE_DEF_URL = `${CONTEXT_ROOT}/api/milestone/`;
+export const MILESTONE_DEF_URL = `${CONTEXT_ROOT}/api/milestones/`;
 
 export const milestoneService = {
   postMilestone: milestone => axios.post(MILESTONE_DEF_URL, milestone, { headers: authHeader() }),

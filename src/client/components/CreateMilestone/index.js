@@ -5,6 +5,8 @@ import { Form, Icon, Input, Button } from 'antd';
 import { dispatchType } from '../../redux/actions/commonActions';
 import {
   postMilestone,
+  deleteMilestone,
+  getAllMilestones,
   CLEAR_POST_MILESTONE_STATUS,
   POST_MILESTONE,
   POST_MILESTONE_SUCCESS,
@@ -13,8 +15,10 @@ import {
 
 export class CreateMilestone extends Component {
   state = {
-
+    milestones: [],
   };
+
+  componentDidMount = () => this.props.getAllMilestones();
 
   componentWillUnmount = () => {
     this.props.dispatchType(CLEAR_POST_MILESTONE_STATUS);
@@ -28,6 +32,14 @@ export class CreateMilestone extends Component {
       .then(() => {
         this.setState({ formName: '', formDescription: '' });
       });
+  };
+
+  deleteMilestone = id => {
+    const milestones = [...this.state.milestones];
+
+    this.setState({
+      milestones: milestones.filter(milestones => milestones.id !== id)
+    });
   };
 
   onTextInputChange = e => {
@@ -69,6 +81,27 @@ export class CreateMilestone extends Component {
         </Form>
         {this.props.postMilestoneStatus === POST_MILESTONE_ERROR && this.props.milestoneError}
         {this.props.postMilestoneStatus === POST_MILESTONE_SUCCESS && 'milestone created.'}
+        <Form>
+          {(this.props.milestones || []).map(milestones => {
+            return (
+              <div key={milestones.id}>
+                <div style={{ fontWeight: 'bold' }}>{milestones.name}</div>
+                <div>{milestones.description}</div>
+                <Icon
+                  type="close-circle"
+                  onClick={() => this.props.deleteMilestone(this.props.milestone.id)}
+                  style={{
+                    float: 'right',
+                    lineHeight: 2.0,
+                    fontSize: '19px',
+                    color: 'red',
+                    marginLeft: '9px'
+                  }}
+                />
+              </div>
+            );
+          })}
+        </Form>
       </div>
     );
   }
@@ -77,6 +110,13 @@ export class CreateMilestone extends Component {
 const mapStateToProps = ({ milestoneReducer }) => ({
   milestoneError: milestoneReducer.errorMessage,
   authenticateStatus: milestoneReducer.authenticateStatus,
+  milestones: milestoneReducer.milestones,
 });
 
-export default connect(mapStateToProps, { authenticate, postMilestone, dispatchType })(CreateMilestone);
+export default connect(mapStateToProps,
+  { authenticate,
+    postMilestone,
+    deleteMilestone,
+    dispatchType,
+    getAllMilestones
+  })(CreateMilestone);
