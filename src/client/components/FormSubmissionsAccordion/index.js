@@ -80,7 +80,7 @@ export class FormSubmissionsAccordion extends Component {
 function getStatusText(status) {
   switch (status) {
     case true:
-      return '';
+      return '(APPROVED)';
     case false:
       return '(REJECTED)';
     default:

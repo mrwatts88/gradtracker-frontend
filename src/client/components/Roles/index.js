@@ -86,6 +86,12 @@ class Roles extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  keyPressed(event) {
+    if (event.key === 'Enter') {
+      this.createRole();
+    }
+  }
+
   render() {
     const addedPermissions = !this.state.currentRoleId
       ? [] : (this.state.roles.find(role => role.id === this.state.currentRoleId))
@@ -110,6 +116,7 @@ class Roles extends Component {
               name="roleNameText"
               placeholder="Enter role name"
               value={this.state.roleNameText}
+              onKeyPress={this.keyPressed.bind(this)}
               onChange={this.handleInputChange} /> : (
               <Select
                 style={{ width: '100%' }}
