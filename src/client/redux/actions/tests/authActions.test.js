@@ -86,4 +86,70 @@ describe('User actions', () => {
       expect(authService.register).toBeCalled();
     });
   });
+
+  describe('createRole', () => {
+    it('should handle success', async () => {
+      authService.createRole = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.createRole({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_CREATE_ROLE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.CREATE_ROLE });
+      expect(store.getActions()[2]).toEqual({ type: actions.CREATE_ROLE_SUCCESS });
+      expect(authService.createRole).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      authService.createRole = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.CREATE_ROLE_ERROR,
+        payload: 'Error creating role.',
+      };
+
+      await store.dispatch(actions.createRole({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_CREATE_ROLE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.CREATE_ROLE });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(authService.createRole).toBeCalled();
+    });
+  });
+
+  describe('updateRole', () => {
+    it('should handle success', async () => {
+      authService.updateRole = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.updateRole({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_UPDATE_ROLE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.UPDATE_ROLE });
+      expect(store.getActions()[2]).toEqual({ type: actions.UPDATE_ROLE_SUCCESS });
+      expect(authService.updateRole).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      authService.updateRole = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.UPDATE_ROLE_ERROR,
+        payload: 'Error updating role.',
+      };
+
+      await store.dispatch(actions.updateRole({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_UPDATE_ROLE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.UPDATE_ROLE });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(authService.updateRole).toBeCalled();
+    });
+  });
 });

@@ -237,4 +237,59 @@ describe('Form actions', () => {
       expect(formService.getAllFormSubsByFormDef).toBeCalled();
     });
   });
+
+  describe('approveForm', () => {
+    it('should handle success', async () => {
+      formService.approveForm = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.approveForm({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_APPROVE_FORM_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.APPROVE_FORM });
+      expect(store.getActions()[2]).toEqual({ type: actions.APPROVE_FORM_SUCCESS });
+      expect(formService.approveForm).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      formService.approveForm = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.APPROVE_FORM_ERROR,
+        payload: 'Error approving/rejecting form submission.'
+      };
+
+      await store.dispatch(actions.approveForm({}));
+
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_APPROVE_FORM_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.APPROVE_FORM });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(formService.approveForm).toBeCalled();
+    });
+
+    it('should log user out on 403', async () => {
+      formService.approveForm = jest.fn(() => {
+        return Promise.reject({ response: { status: 403 } });
+      });
+
+      const expectedAction = {
+        type: actions.APPROVE_FORM_ERROR,
+        payload: 'Error approving/rejecting form submission.'
+      };
+
+      await store.dispatch(actions.approveForm({}));
+
+      expect(store.getActions().length).toEqual(4);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_APPROVE_FORM_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.APPROVE_FORM });
+      expect(store.getActions()[2]).toEqual({ type: UNAUTHENTICATE });
+      expect(store.getActions()[3]).toEqual(expectedAction);
+      expect(formService.approveForm).toBeCalled();
+    });
+  });
 });

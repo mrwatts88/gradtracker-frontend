@@ -65,4 +65,17 @@ describe('Form Routes', () => {
       await request(app).get(`/formDef/1`).expect(500);
     });
   });
+
+  // describe('approve form Id', () => {
+  //   it('should handle success as a 200 response', async () => {
+  //     mock.onPut(`${serviceUrl}/form/approve/1?approve=true`).reply(200, { test: 'response' });
+  //     const response = await request(app).put(`form/approve/1?approve=true`).expect(200);
+  //     expect(response.text).toEqual(JSON.stringify({ test: 'response' }));
+  //   });
+
+  //   it('should handle errors', async () => {
+  //     mock.onPut(`${serviceUrl}/form/approve/1`).reply(400, {});
+  //     await request(app).put(`/form/approve/1`).expect(500);
+  //   });
+  // });
 });

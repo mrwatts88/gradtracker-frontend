@@ -15,7 +15,7 @@ export function hasAllPermissions(user, permissions) {
 export function hasAnyPermission(user, permissions) {
   if (!user) return false;
   for (const p of permissions || []) {
-    if (hasAllPermissions(user, p)) return true;
+    if (hasAllPermissions(user, [p])) return true;
   }
   return false;
 }

@@ -1,7 +1,6 @@
 import { authService } from '../../services/AuthService/authService';
 import { push } from 'connected-react-router';
 import * as JWT from 'jwt-decode';
-import { permissions } from '../../helpers/permissionHelper';
 
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';

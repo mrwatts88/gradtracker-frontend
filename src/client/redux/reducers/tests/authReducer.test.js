@@ -23,5 +23,24 @@ describe('authReducer', () => {
       .toEqual({ errorMessage: 'error', registerStatus: actions.REGISTER_ERROR });
     expect(authReducer({}, { type: actions.CLEAR_REGISTER_STATUS }))
       .toEqual({ errorMessage: null, registerStatus: null });
+
+
+    expect(authReducer({}, { type: actions.CREATE_ROLE }))
+      .toEqual({ createRoleStatus: actions.CREATE_ROLE });
+    expect(authReducer({}, { type: actions.CREATE_ROLE_SUCCESS }))
+      .toEqual({ createRoleStatus: actions.CREATE_ROLE_SUCCESS });
+    expect(authReducer({}, { type: actions.CREATE_ROLE_ERROR, payload: 'error' }))
+      .toEqual({ errorMessage: 'error', createRoleStatus: actions.CREATE_ROLE_ERROR });
+    expect(authReducer({}, { type: actions.CLEAR_CREATE_ROLE_STATUS }))
+      .toEqual({ createRoleStatus: null, errorMessage: null });
+
+    expect(authReducer({}, { type: actions.UPDATE_ROLE }))
+      .toEqual({ updateRoleStatus: actions.UPDATE_ROLE });
+    expect(authReducer({}, { type: actions.UPDATE_ROLE_SUCCESS }))
+      .toEqual({ updateRoleStatus: actions.UPDATE_ROLE_SUCCESS });
+    expect(authReducer({}, { type: actions.UPDATE_ROLE_ERROR, payload: 'error' }))
+      .toEqual({ errorMessage: 'error', updateRoleStatus: actions.UPDATE_ROLE_ERROR });
+    expect(authReducer({}, { type: actions.CLEAR_UPDATE_ROLE_STATUS }))
+      .toEqual({ updateRoleStatus: null, errorMessage: null });
   });
 });

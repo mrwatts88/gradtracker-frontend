@@ -1,18 +1,40 @@
-import { hasAllPermissions } from './permissionHelper';
+import { hasAllPermissions, hasAnyPermission } from './permissionHelper';
 
-describe('hasAllPermissions', () => {
-  it('returns correct boolean', () => {
-    const user = {
-      authorities: ['test'],
-    };
 
-    const permissionsNeeded = ['test'];
+describe('Permission Helper', () => {
 
-    let result = hasAllPermissions(user, permissionsNeeded);
-    expect(result).toBeTruthy();
+  describe('hasAllPermissions', () => {
+    it('returns correct boolean', () => {
+      const user = {
+        authorities: ['test', 'test1', 'test2'],
+      };
 
-    user.authorities = [];
-    result = hasAllPermissions(user, permissionsNeeded);
-    expect(result).toEqual(false);
+      const permissionsNeeded = ['test', 'test1'];
+
+      let result = hasAllPermissions(user, permissionsNeeded);
+      expect(result).toBeTruthy();
+
+      user.authorities = ['test'];
+      result = hasAllPermissions(user, permissionsNeeded);
+      expect(result).toEqual(false);
+    });
+
+
+  });
+  describe('hasAnyPermission', () => {
+    it('returns correct boolean', () => {
+      const user = {
+        authorities: ['test'],
+      };
+
+      const permissionsNeeded = ['test'];
+
+      let result = hasAnyPermission(user, permissionsNeeded);
+      expect(result).toBeTruthy();
+
+      user.authorities = [];
+      result = hasAnyPermission(user, permissionsNeeded);
+      expect(result).toEqual(false);
+    });
   });
 });

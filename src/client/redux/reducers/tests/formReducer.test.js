@@ -45,5 +45,19 @@ describe('formReducer', () => {
       .toEqual({ putFormStatus: null, errorMessage: null });
 
     expect(formReducer({}, { type: UNAUTHENTICATE })).toEqual({});
+
+
+    expect(formReducer({}, { type: actions.APPROVE_FORM }))
+      .toEqual({ approveFormStatus: actions.APPROVE_FORM });
+    expect(formReducer({ submissions }, { type: actions.APPROVE_FORM_SUCCESS, payload: { id: 2, test: true } }))
+      .toEqual({ approveFormStatus: actions.APPROVE_FORM_SUCCESS, submissions: [{ id: 1 }, { id: 2, test: true }, { id: 3 }] });
+    expect(formReducer({ submissions }, { type: actions.APPROVE_FORM_SUCCESS, payload: { id: 4, test: true } }))
+      .toEqual({ approveFormStatus: actions.APPROVE_FORM_SUCCESS, submissions });
+    expect(formReducer({}, { type: actions.APPROVE_FORM_ERROR, payload: 'error' }))
+      .toEqual({ approveFormStatus: actions.APPROVE_FORM_ERROR, errorMessage: 'error' });
+    expect(formReducer({}, { type: actions.CLEAR_APPROVE_FORM_STATUS }))
+      .toEqual({ approveFormStatus: null, errorMessage: null });
+
+
   });
 });
