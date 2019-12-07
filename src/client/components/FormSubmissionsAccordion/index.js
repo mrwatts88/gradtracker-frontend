@@ -21,7 +21,7 @@ export class FormSubmissionsAccordion extends Component {
   };
 
   componentDidMount() {
-    if (!hasAllPermissions(this.props.user, [permissions.READ_USER_FORMS])) {
+    if (!hasAllPermissions(this.props.user, [permissions.READ_ALL_FORMS])) {
       this.props.getAllFormSubsByUser(this.props.user.pantherId);
     }
   }
@@ -49,7 +49,7 @@ export class FormSubmissionsAccordion extends Component {
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
           <Icon style={{ fontSize: '40px' }} spin type="loading-3-quarters" />
         </div>
-        : <Collapse>
+        : !this.props.submissions || this.props.submissions.length === 0 ? <div style={{ textAlign: 'center' }}> No forms to show. </div> : <Collapse>
           {(this.props.submissions || []).map(submission => {
             return (
               <Collapse.Panel
@@ -96,4 +96,5 @@ const mapStateToProps = ({ formReducer, authReducer }) => ({
   user: authReducer.currentUser,
 });
 
-export default connect(mapStateToProps, { getAllFormSubsByUser, putForm, approveForm, dispatchType })(FormSubmissionsAccordion);
+export default connect(mapStateToProps, { getAllFormSubsByUser, putForm, approveForm, dispatchType })
+  (FormSubmissionsAccordion);

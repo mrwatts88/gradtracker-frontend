@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import { Select, Icon, List, Button, Input } from 'antd';
+import {
+  updateRole,
+  UPDATE_ROLE,
+  UPDATE_ROLE_ERROR,
+  UPDATE_ROLE_SUCCESS,
+  CLEAR_UPDATE_ROLE_STATUS,
+  createRole,
+  CREATE_ROLE,
+  CREATE_ROLE_ERROR,
+  CREATE_ROLE_SUCCESS,
+  CLEAR_CREATE_ROLE_STATUS,
+} from '../../redux/actions/authActions';
 import { authService } from '../../services/AuthService/authService';
 import { permissions } from '../../helpers/permissionHelper';
+import { connect } from 'react-redux';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -20,7 +33,8 @@ class Roles extends Component {
         id: -1,
         name: '',
         description: 'new role',
-        authorities: []
+        authorities: [],
+        loading: false,
       };
 
       this.setState({ roles: [...data, creatingRole] });
@@ -51,14 +65,14 @@ class Roles extends Component {
 
   updateRole = () => {
     const role = this.state.roles.find(role => role.id === this.state.currentRoleId);
-    authService.updateRole(role);
+    this.props.updateRole(role);
   }
 
   createRole = () => {
     let role = this.state.roles.find(role => role.id === this.state.currentRoleId);
     role = { ...role, name: this.state.roleNameText };
     delete role.id;
-    authService.createRole(role);
+    this.props.createRole(role);
   }
 
   toggleCreating = () => {
@@ -92,11 +106,9 @@ class Roles extends Component {
         </Select>
         {
           this.state.creatingOrEditing === 'creating'
-            ? <Search
+            ? <Input
               name="roleNameText"
               placeholder="Enter role name"
-              enterButton="Save"
-              onSearch={this.createRole}
               value={this.state.roleNameText}
               onChange={this.handleInputChange} /> : (
               <Select
@@ -111,6 +123,11 @@ class Roles extends Component {
                 ))}
               </Select>
             )
+        }
+        {
+          this.state.creatingOrEditing === 'creating'
+            ? <Button onClick={this.createRole} style={{ marginLeft: '10px' }}>Create</Button>
+            : <Button onClick={this.updateRole} style={{ marginLeft: '10px' }}>Update</Button>
         }
       </div>
 
@@ -153,12 +170,13 @@ class Roles extends Component {
           <br />
         </div>
       }
-
-      {![-1, undefined].includes(this.state.currentRoleId) &&
-        <Button onClick={this.updateRole} style={{ width: '100%' }}>Save</Button>
-      }
     </div>;
   }
 };
 
-export default Roles;
+const mapStateToProps = ({ authReducer }) => ({
+  createRoleError: authReducer.errorMessage,
+  createRoleStatus: authReducer.createRoleStatus
+});
+
+export default connect(mapStateToProps, { createRole, updateRole })(Roles);

@@ -25,6 +25,24 @@ const authReducer = (state = initialState, action) => {
     case actions.CLEAR_REGISTER_STATUS:
       return { ...state, registerStatus: null, errorMessage: null };
 
+    case actions.CREATE_ROLE:
+      return { ...state, createRoleStatus: action.type };
+    case actions.CREATE_ROLE_SUCCESS:
+      return { ...state, createRoleStatus: action.type };
+    case actions.CREATE_ROLE_ERROR:
+      return { ...state, errorMessage: action.payload, createRoleStatus: action.type };
+    case actions.CLEAR_CREATE_ROLE_STATUS:
+      return { ...state, createRoleStatus: null, errorMessage: null };
+
+    case actions.UPDATE_ROLE:
+      return { ...state, updateRoleStatus: action.type };
+    case actions.UPDATE_ROLE_SUCCESS:
+      return { ...state, updateRoleStatus: action.type };
+    case actions.UPDATE_ROLE_ERROR:
+      return { ...state, errorMessage: action.payload, updateRoleStatus: action.type };
+    case actions.CLEAR_UPDATE_ROLE_STATUS:
+      return { ...state, updateRoleStatus: null, errorMessage: null };
+
     default:
       return state;
   }

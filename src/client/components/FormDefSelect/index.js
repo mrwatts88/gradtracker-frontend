@@ -29,7 +29,7 @@ export class FormDefSelect extends Component {
           <Icon style={{ fontSize: '40px' }} spin type="loading-3-quarters" />
         </div>
         : <Select
-          style={{ width: '100%' }}
+          style={{ width: '100%', paddingBottom: 25 }}
           placeholder="Select a form"
           onChange={this.handleChange}
           defaultValue={this.props.currentFormDef && this.props.currentFormDef.id}

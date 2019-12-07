@@ -81,27 +81,25 @@ export class CreateMilestone extends Component {
         </Form>
         {this.props.postMilestoneStatus === POST_MILESTONE_ERROR && this.props.milestoneError}
         {this.props.postMilestoneStatus === POST_MILESTONE_SUCCESS && 'milestone created.'}
-        <Form>
-          {(this.props.milestones || []).map(milestones => {
-            return (
-              <div key={milestones.id}>
-                <div style={{ fontWeight: 'bold' }}>{milestones.name}</div>
-                <div>{milestones.description}</div>
-                <Icon
-                  type="close-circle"
-                  onClick={() => this.props.deleteMilestone(this.props.milestone.id)}
-                  style={{
-                    float: 'right',
-                    lineHeight: 2.0,
-                    fontSize: '19px',
-                    color: 'red',
-                    marginLeft: '9px'
-                  }}
-                />
-              </div>
-            );
-          })}
-        </Form>
+        {(this.props.milestones || []).map(milestones => {
+          return (
+            <div key={milestones.id}>
+              <div style={{ fontWeight: 'bold' }}>{milestones.name}</div>
+              <div>{milestones.description}</div>
+              <Icon
+                type="close-circle"
+                onClick={() => this.props.deleteMilestone(this.props.milestone.id)}
+                style={{
+                  float: 'right',
+                  lineHeight: 2.0,
+                  fontSize: '19px',
+                  color: 'red',
+                  marginLeft: '9px'
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   }

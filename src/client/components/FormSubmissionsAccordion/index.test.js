@@ -32,8 +32,8 @@ describe('FromSubmissionsAccordion', () => {
       expect(props.getAllFormSubsByUser).toBeCalled();
     });
 
-    it('doesnt call getAllFormSubsByUser with READ_USER_FORMS', () => {
-      props.user.authorities = [permissions.READ_USER_FORMS];
+    it('doesnt call getAllFormSubsByUser with READ_ALL_FORMS', () => {
+      props.user.authorities = [permissions.READ_ALL_FORMS];
       component = shallow(<FormSubmissionsAccordion {...props} />);
       expect(props.getAllFormSubsByUser).toBeCalled();
     });
