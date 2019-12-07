@@ -85,11 +85,6 @@ export class S extends React.Component {
   };
 
   putForm = (err, form) => {
-    console.log({
-      form,
-      id: this.props.submission.id
-    });
-
     if (!err) {
       this.setState({ saving: true });
       this.props

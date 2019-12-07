@@ -57,12 +57,10 @@ export class CreateForm extends Component {
       });
   };
 
-  deleteField = id => {
+  deleteField = idx => {
     const fieldDefs = [...this.state.fieldDefs];
-
-    this.setState({
-      fieldDefs: fieldDefs.filter(field => field.id !== id)
-    });
+    fieldDefs.splice(idx, 1);
+    this.setState({ fieldDefs });
   };
 
   onTextInputChange = e => {
@@ -185,7 +183,7 @@ class Field extends Component {
         <Input style={{ marginLeft: '5px', color: 'black' }} disabled value={this.props.field.label} />
         <Icon
           type="close-circle"
-          onClick={() => this.props.deleteField(this.props.field.id)}
+          onClick={() => this.props.deleteField(idx)}
           style={{
             float: 'right',
             lineHeight: 2.0,
