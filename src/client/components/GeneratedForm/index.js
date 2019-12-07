@@ -74,7 +74,7 @@ export class G extends React.Component {
               </Button>
               </Form.Item>
               <div style={{ color: 'green', textAlign: 'center' }}>
-                {this.props.postFormStatus === POST_FORM_ERROR && <span className='error'>this.props.formDefError</span>}
+                {this.props.postFormStatus === POST_FORM_ERROR && <span className='error'>this.props.formError</span>}
                 {this.props.postFormStatus === POST_FORM_SUCCESS && <span className='success'>Form submitted successfully.</span>}
               </div>
             </Form>

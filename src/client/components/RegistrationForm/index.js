@@ -90,7 +90,7 @@ export class R extends React.Component {
           </Button>
         </Form.Item>
         <div style={{ color: 'green', textAlign: 'center' }}>
-          {this.props.registerStatus === REGISTER_ERROR && <span className='error'>this.props.formDefError</span>}
+          {this.props.registerStatus === REGISTER_ERROR && <span className='error'>{this.props.authError}</span>}
           {this.props.registerStatus === REGISTER_SUCCESS && <span className='success'>User registered successfully.</span>}
         </div>
       </Form >
