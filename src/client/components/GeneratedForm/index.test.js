@@ -25,14 +25,14 @@ describe('GeneratedForm', () => {
   describe('ui', () => {
     it('renders without crashing', () => {
       wrapper = shallow(<GeneratedForm {...props} />);
-      expect(wrapper.dive().find('div.error').length).toEqual(0);
-      expect(wrapper.dive().find('div.success').length).toEqual(1);
+      expect(wrapper.dive().find('span.error').length).toEqual(0);
+      expect(wrapper.dive().find('span.success').length).toEqual(1);
     });
 
     it('shows error message', () => {
       props.postFormStatus = POST_FORM_ERROR;
       wrapper = shallow(<GeneratedForm {...props} />);
-      expect(wrapper.dive().find('div.error').length).toEqual(1);
+      expect(wrapper.dive().find('span.error').length).toEqual(1);
     });
 
     it('shows loading icon', () => {

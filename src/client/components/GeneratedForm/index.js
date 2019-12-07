@@ -52,33 +52,33 @@ export class G extends React.Component {
         {this.props.currentFormDef &&
           this.props.getFormDefStatus !== GET_FORM_DEF &&
           this.props.getAllFormDefsStatus !== GET_ALL_FORM_DEFS && (
-          <Form onSubmit={this.handleSubmit} className="generated-form">
-            {this.props.currentFormDef.fieldDefs.map(fieldDef => {
-              return (
-                <Form.Item key={fieldDef.id}>
-                  {getFieldDecorator(String(fieldDef.id), {
-                    rules: [{ required: true, message: `${fieldDef.label} required.` }],
-                  })(<Input placeholder={fieldDef.label} />)}
-                </Form.Item>
-              );
-            })}
+            <Form onSubmit={this.handleSubmit} className="generated-form">
+              {this.props.currentFormDef.fieldDefs.map(fieldDef => {
+                return (
+                  <Form.Item key={fieldDef.id}>
+                    {getFieldDecorator(String(fieldDef.id), {
+                      rules: [{ required: true, message: `${fieldDef.label} required.` }],
+                    })(<Input placeholder={fieldDef.label} />)}
+                  </Form.Item>
+                );
+              })}
 
-            <Form.Item>
-              <Button
-                loading={this.props.postFormStatus === POST_FORM}
-                style={{ width: '100%' }}
-                type="primary"
-                htmlType="submit"
-                className="generated-form__button">
+              <Form.Item>
+                <Button
+                  loading={this.props.postFormStatus === POST_FORM}
+                  style={{ width: '100%' }}
+                  type="primary"
+                  htmlType="submit"
+                  className="generated-form__button">
                   Submit
               </Button>
-            </Form.Item>
-            <div style={{ color: 'green', textAlign: 'center' }}>
-              {this.props.postFormStatus === POST_FORM_ERROR && this.props.formDefError}
-              {this.props.postFormStatus === POST_FORM_SUCCESS && 'Form submitted successfully.'}
-            </div>
-          </Form>
-        )}
+              </Form.Item>
+              <div style={{ color: 'green', textAlign: 'center' }}>
+                {this.props.postFormStatus === POST_FORM_ERROR && <span className='error'>this.props.formDefError</span>}
+                {this.props.postFormStatus === POST_FORM_SUCCESS && <span className='success'>Form submitted successfully.</span>}
+              </div>
+            </Form>
+          )}
 
         {this.props.getFormDefStatus === GET_FORM_DEF &&
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
