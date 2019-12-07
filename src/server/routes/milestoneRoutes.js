@@ -5,9 +5,17 @@ const config = require('config');
 
 const serviceUrl = config.get('serviceUrl');
 
-router.post('/', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   return axios
-    .post(`${serviceUrl}/milestones/`, req.body, { headers: req.headers })
+    .put(`${serviceUrl}/degreeProgram/${req.params.id}`, req.body, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err));
+});
+
+router.get('/', (req, res, next) => {
+  console.log(req.headers);
+  return axios
+    .get(`${serviceUrl}/degreeProgram/1`, { headers: req.headers })
     .then(response => res.send(response.data))
     .catch(err => next(err));
 });

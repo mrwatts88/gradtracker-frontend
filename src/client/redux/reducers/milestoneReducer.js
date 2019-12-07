@@ -25,7 +25,7 @@ const milestoneReducer = (state = initialState, action) => {
 
     case actions.GET_ALL_MILESTONES:
       return { ...state, getAllMilestonesStatus: action.type };
-    case actions.GET_ALL_MILESTONE_SUCCESS:
+    case actions.GET_ALL_MILESTONES_SUCCESS:
       return { ...state, getAllMilestonesStatus: action.type, milestones: action.payload };
     case actions.GET_ALL_MILSTONES_ERROR:
       return { ...state, getAllMilestonesStatus: action.type, errorMessage: action.payload };

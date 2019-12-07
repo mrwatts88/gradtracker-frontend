@@ -55,6 +55,7 @@ export function getAllMilestones() {
       dispatch({ type: CLEAR_GET_ALL_MILESTONES_STATUS });
       dispatch({ type: GET_ALL_MILESTONES });
       const { data } = await milestoneService.getAllMilestones();
+      console.log(data);
       dispatch({ type: GET_ALL_MILESTONES_SUCCESS, payload: data });
     } catch (error) {
       if (error && error.response && error.response.status === 403) dispatch(logOut());

@@ -113,7 +113,6 @@ export class S extends React.Component {
     this.setState({ saving: true });
     this.props.approveForm({ id: this.props.submission.id }, approve).then(() => {
       this.setState({ saving: false });
-
     });
   };
 
