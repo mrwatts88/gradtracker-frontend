@@ -17,6 +17,6 @@ describe('CreateForm', () => {
   });
 
   it('renders', () => {
-    expect(component.find('div').length).toEqual(1);
+    expect(component.find('div').length).toEqual(2);
   });
 });

@@ -21,12 +21,12 @@ export const DELETE_MILESTONE_SUCCESS = 'DELETE_MILESTONE_SUCCESS';
 export const DELETE_MILESTONE_ERROR = 'DELETE_MILESTONE_ERROR';
 export const CLEAR_DELETE_MILESTONE_STATUS = 'CLEAR_DELETE_MILESTONE_STATUS';
 
-export function postMilestone(milestone) {
+export function postMilestone(id, milestone) {
   return async dispatch => {
     try {
       dispatch({ type: CLEAR_POST_MILESTONE_STATUS });
       dispatch({ type: POST_MILESTONE });
-      const { data } = await milestoneService.postMilestone(milestone);
+      const { data } = await milestoneService.postMilestone(id, milestone);
       dispatch({ type: POST_MILESTONE_SUCCESS, payload: data });
     } catch (error) {
       if (error && error.response && error.response.status === 403) dispatch(logOut());

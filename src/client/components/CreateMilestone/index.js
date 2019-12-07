@@ -15,7 +15,7 @@ import {
 
 export class CreateMilestone extends Component {
   state = {
-    milestones: [],
+    milestones: { id: 0 },
   };
 
   componentDidMount = () => this.props.getAllMilestones();
@@ -28,7 +28,10 @@ export class CreateMilestone extends Component {
     e.preventDefault();
 
     this.props
-      .postMilestone({ name: this.state.formName, description: this.state.formDescription })
+      .postMilestone(1, {
+        name: this.state.formName,
+        description: this.state.formDescription,
+        degreeProgramStates: [{ degreeProgramId: 1, description: 'string', name: 'string' }] })
       .then(() => {
         this.setState({ formName: '', formDescription: '' });
       });
