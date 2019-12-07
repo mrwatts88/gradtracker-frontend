@@ -136,8 +136,10 @@ export class CreateForm extends Component {
                 </Col>
               </Row>
             </Form>
-            {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
-            {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
+            <div style={{ color: 'green', textAlign: 'center' }}>
+              {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
+              {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
+            </div>
           </Col>
         </Row>
         <Row gutter={24}>
