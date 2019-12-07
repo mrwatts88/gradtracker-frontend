@@ -18,14 +18,14 @@ describe('LogInForm', () => {
   describe('ui', () => {
     it('renders without crashing', () => {
       wrapper = shallow(<RegistrationForm {...props} />);
-      expect(wrapper.dive().find('div.error').length).toEqual(0);
-      expect(wrapper.dive().find('div.success').length).toEqual(1);
+      expect(wrapper.dive().find('span.error').length).toEqual(0);
+      expect(wrapper.dive().find('span.success').length).toEqual(1);
     });
 
     it('shows error message', () => {
       props.registerStatus = REGISTER_ERROR;
       wrapper = shallow(<RegistrationForm {...props} />);
-      expect(wrapper.dive().find('div.error').length).toEqual(1);
+      expect(wrapper.dive().find('span.error').length).toEqual(1);
     });
   });
 
@@ -50,7 +50,7 @@ describe('LogInForm', () => {
       wrapper = mount(<RegistrationForm {...props} />);
 
       const component = wrapper.find(R);
-      component.instance().validate = mockValidate;
+      component.instance().register = mockValidate;
       component.find(Form).prop('onSubmit')(event);
       expect(event.preventDefault).toBeCalled();
       expect(mockValidate).toBeCalled();
@@ -63,7 +63,7 @@ describe('LogInForm', () => {
       wrapper
         .dive()
         .instance()
-        .validate(undefined, 'test_email@gmail.com');
+        .register(undefined, 'test_email@gmail.com');
       expect(props.register).toBeCalled();
     });
 
@@ -72,7 +72,7 @@ describe('LogInForm', () => {
       wrapper
         .dive()
         .instance()
-        .validate('error', 'test_email@gmail.com');
+        .register('error', 'test_email@gmail.com');
       expect(props.register).not.toBeCalled();
     });
   });
