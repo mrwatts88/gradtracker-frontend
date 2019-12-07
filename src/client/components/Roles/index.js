@@ -12,6 +12,7 @@ import {
   CREATE_ROLE_SUCCESS,
   CLEAR_CREATE_ROLE_STATUS,
 } from '../../redux/actions/authActions';
+import { dispatchType } from '../../redux/actions/commonActions';
 import { authService } from '../../services/AuthService/authService';
 import { permissions } from '../../helpers/permissionHelper';
 import { connect } from 'react-redux';
@@ -41,9 +42,13 @@ class Roles extends Component {
     });
   }
 
-  handleChange = roleId => this.setState({ currentRoleId: roleId });
+  handleChange = roleId => {
+    this.setState({ currentRoleId: roleId });
+    this.clearStatus();
+  }
 
   addPermission = permission => {
+    this.clearStatus();
     const roles = [...this.state.roles];
     const role = roles.find(role => role.id === this.state.currentRoleId);
     role.authorities.push(permission);
@@ -54,6 +59,7 @@ class Roles extends Component {
   }
 
   removePermission = permission => {
+    this.clearStatus();
     const roles = [...this.state.roles];
     const role = roles.find(role => role.id === this.state.currentRoleId);
     role.authorities = role.authorities.filter(p => permission !== p);
@@ -61,6 +67,11 @@ class Roles extends Component {
     roles[idx] = role;
 
     this.setState({ roles });
+  }
+
+  clearStatus = () => {
+    this.props.dispatchType(CLEAR_UPDATE_ROLE_STATUS);
+    this.props.dispatchType(CLEAR_CREATE_ROLE_STATUS);
   }
 
   updateRole = () => {
@@ -80,6 +91,7 @@ class Roles extends Component {
       currentRoleId: this.state.creatingOrEditing === 'creating' ? undefined : -1,
       creatingOrEditing: this.state.creatingOrEditing === 'creating' ? 'editing' : 'creating'
     });
+    this.clearStatus();
   }
 
   handleInputChange = e => {
@@ -138,6 +150,13 @@ class Roles extends Component {
         }
       </div>
 
+      <div style={{ color: 'green', textAlign: 'center' }}>
+        {this.props.createRoleStatus === CREATE_ROLE_ERROR && this.props.createRoleError}
+        {this.props.createRoleStatus === CREATE_ROLE_SUCCESS && 'Role created successfully.'}
+        {this.props.updateRoleStatus === UPDATE_ROLE_ERROR && this.props.updateRoleError}
+        {this.props.updateRoleStatus === UPDATE_ROLE_SUCCESS && 'Role updated successfully.'}
+      </div>
+
       {this.state.currentRoleId &&
         <div><br />
           {addedPermissions.length > 0 && <List
@@ -183,7 +202,9 @@ class Roles extends Component {
 
 const mapStateToProps = ({ authReducer }) => ({
   createRoleError: authReducer.errorMessage,
-  createRoleStatus: authReducer.createRoleStatus
+  createRoleStatus: authReducer.createRoleStatus,
+  updateRoleError: authReducer.errorMessage,
+  updateRoleStatus: authReducer.updateRoleStatus
 });
 
-export default connect(mapStateToProps, { createRole, updateRole })(Roles);
+export default connect(mapStateToProps, { createRole, updateRole, dispatchType })(Roles);
