@@ -63,6 +63,11 @@ class Roles extends Component {
     this.setState({ roles });
   }
 
+  clearStatus = () => {
+    this.props.dispatchType(CLEAR_UPDATE_ROLE_STATUS);
+    this.props.dispatchType(CLEAR_CREATE_ROLE_STATUS);
+  }
+
   updateRole = () => {
     const role = this.state.roles.find(role => role.id === this.state.currentRoleId);
     this.props.updateRole(role);
@@ -80,6 +85,7 @@ class Roles extends Component {
       currentRoleId: this.state.creatingOrEditing === 'creating' ? undefined : -1,
       creatingOrEditing: this.state.creatingOrEditing === 'creating' ? 'editing' : 'creating'
     });
+    this.clearStatus();
   }
 
   handleInputChange = e => {
@@ -138,6 +144,13 @@ class Roles extends Component {
         }
       </div>
 
+      <div style={{ color: 'green', textAlign: 'center' }}>
+        {this.props.createRoleStatus === CREATE_ROLE_ERROR && this.props.createRoleError}
+        {this.props.createRoleStatus === CREATE_ROLE_SUCCESS && 'Role created successfully.'}
+        {this.props.updateRoleStatus === UPDATE_ROLE_ERROR && this.props.createRoleError}
+        {this.props.updateRoleStatus === UPDATE_ROLE_SUCCESS && 'Role updated successfully.'}
+      </div>
+
       {this.state.currentRoleId &&
         <div><br />
           {addedPermissions.length > 0 && <List
@@ -183,7 +196,9 @@ class Roles extends Component {
 
 const mapStateToProps = ({ authReducer }) => ({
   createRoleError: authReducer.errorMessage,
-  createRoleStatus: authReducer.createRoleStatus
+  createRoleStatus: authReducer.createRoleStatus,
+  updateRoleError: authReducer.errorMessage,
+  updateRoleStatus: authReducer.updateRoleStatus
 });
 
 export default connect(mapStateToProps, { createRole, updateRole })(Roles);
