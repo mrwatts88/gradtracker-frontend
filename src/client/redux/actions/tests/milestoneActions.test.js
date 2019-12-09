@@ -72,4 +72,103 @@ describe('Milestone actions', () => {
       expect(milestoneService.postMilestone).toBeCalled();
     });
   });
+
+  describe('getMilestone', () => {
+    it('should handle success', async () => {
+      milestoneService.getMilestone = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.getMilestone({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_MILESTONE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_MILESTONE });
+      expect(store.getActions()[2]).toEqual({ type: actions.GET_MILESTONE_SUCCESS });
+      expect(milestoneService.getMilestone).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      milestoneService.getMilestone = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.GET_MILESTONE_ERROR,
+        payload: 'Error finding form.',
+      };
+
+      await store.dispatch(actions.getMilestone({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_MILESTONE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_MILESTONE });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(milestoneService.getMilestone).toBeCalled();
+    });
+  });
+
+  describe('getAllMilestones', () => {
+    it('should handle success', async () => {
+      milestoneService.getAllMilestones = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.getAllMilestones({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_MILESTONES_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_MILESTONES });
+      expect(store.getActions()[2]).toEqual({ type: actions.GET_ALL_MILESTONES_SUCCESS });
+      expect(milestoneService.getAllMilestones).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      milestoneService.getAllMilestones = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.GET_ALL_MILESTONES_ERROR,
+        payload: 'Error finding milestones.',
+      };
+
+      await store.dispatch(actions.getAllMilestones({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_GET_ALL_MILESTONES_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.GET_ALL_MILESTONES });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(milestoneService.getAllMilestones).toBeCalled();
+    });
+  });
+
+  describe('deleteMilestone', () => {
+    it('should handle success', async () => {
+      milestoneService.deleteMilestone = jest.fn(() => {
+        return Promise.resolve({});
+      });
+
+      await store.dispatch(actions.deleteMilestone({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_DELETE_MILESTONE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.DELETE_MILESTONE });
+      expect(store.getActions()[2]).toEqual({ type: actions.DELETE_MILESTONE_SUCCESS });
+      expect(milestoneService.deleteMilestone).toBeCalled();
+    });
+
+    it('should handle errors', async () => {
+      milestoneService.deleteMilestone = jest.fn(() => {
+        return Promise.reject(new Error('error'));
+      });
+
+      const expectedAction = {
+        type: actions.DELETE_MILESTONE_ERROR,
+        payload: 'Error deleting milestone.',
+      };
+
+      await store.dispatch(actions.deleteMilestone({}));
+      expect(store.getActions().length).toEqual(3);
+      expect(store.getActions()[0]).toEqual({ type: actions.CLEAR_DELETE_MILESTONE_STATUS });
+      expect(store.getActions()[1]).toEqual({ type: actions.DELETE_MILESTONE });
+      expect(store.getActions()[2]).toEqual(expectedAction);
+      expect(milestoneService.deleteMilestone).toBeCalled();
+    });
+  });
 });
