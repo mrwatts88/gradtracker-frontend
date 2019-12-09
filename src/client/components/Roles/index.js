@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { Select, Icon, List, Button, Input } from 'antd';
 import {
   updateRole,
-  UPDATE_ROLE,
   UPDATE_ROLE_ERROR,
   UPDATE_ROLE_SUCCESS,
   CLEAR_UPDATE_ROLE_STATUS,
   createRole,
-  CREATE_ROLE,
   CREATE_ROLE_ERROR,
   CREATE_ROLE_SUCCESS,
   CLEAR_CREATE_ROLE_STATUS,
@@ -18,7 +16,6 @@ import { permissions } from '../../helpers/permissionHelper';
 import { connect } from 'react-redux';
 
 const { Option } = Select;
-const { Search } = Input;
 
 class Roles extends Component {
   state = {
