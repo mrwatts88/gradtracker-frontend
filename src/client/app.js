@@ -18,7 +18,6 @@ if (userToken) {
   const decodedToken = JWT(userToken);
   const user = JSON.parse(decodedToken.sub);
   user.authorities.push(permissions.APPROVE_FORM_REQUEST);
-  // store.dispatch({ type: AUTHENTICATE_SUCCESS, payload: { user: JSON.parse(decodedToken.sub) } });
   store.dispatch(
     {
       type: AUTHENTICATE_SUCCESS,
