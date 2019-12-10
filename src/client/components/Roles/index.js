@@ -47,9 +47,9 @@ class Roles extends Component {
   addPermission = permission => {
     this.clearStatus();
     const roles = [...this.state.roles];
-    const role = roles.find(role => role.id === this.state.currentRoleId);
+    const role = roles.find(r => r.id === this.state.currentRoleId);
     role.authorities.push(permission);
-    const idx = roles.findIndex(role => role.id === this.state.currentRoleId);
+    const idx = roles.findIndex(r => r.id === this.state.currentRoleId);
     roles[idx] = role;
 
     this.setState({ roles });
@@ -58,9 +58,9 @@ class Roles extends Component {
   removePermission = permission => {
     this.clearStatus();
     const roles = [...this.state.roles];
-    const role = roles.find(role => role.id === this.state.currentRoleId);
+    const role = roles.find(r => r.id === this.state.currentRoleId);
     role.authorities = role.authorities.filter(p => permission !== p);
-    const idx = roles.findIndex(role => role.id === this.state.currentRoleId);
+    const idx = roles.findIndex(r => r.id === this.state.currentRoleId);
     roles[idx] = role;
 
     this.setState({ roles });
@@ -72,12 +72,12 @@ class Roles extends Component {
   }
 
   updateRole = () => {
-    const role = this.state.roles.find(role => role.id === this.state.currentRoleId);
+    const role = this.state.roles.find(r => r.id === this.state.currentRoleId);
     this.props.updateRole(role);
   }
 
   createRole = () => {
-    let role = this.state.roles.find(role => role.id === this.state.currentRoleId);
+    let role = this.state.roles.find(r => r.id === this.state.currentRoleId);
     role = { ...role, name: this.state.roleNameText };
     delete role.id;
     this.props.createRole(role);
@@ -195,7 +195,7 @@ class Roles extends Component {
       }
     </div>;
   }
-};
+}
 
 const mapStateToProps = ({ authReducer }) => ({
   createRoleError: authReducer.errorMessage,
