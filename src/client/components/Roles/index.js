@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 const { Option } = Select;
 
-class Roles extends Component {
+export class Roles extends Component {
   state = {
     currentRoleId: undefined,
     roles: [],
