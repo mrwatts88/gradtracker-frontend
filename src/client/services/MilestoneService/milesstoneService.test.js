@@ -19,20 +19,20 @@ describe('milestoneService', () => {
   describe('postMilestone', () => {
     it('should post to correct url with correct body and headers', async () => {
       const testMilestone = { test: 'milestone' };
-      mock.onPost(MILESTONE_DEF_URL).reply(200);
-      await milestoneService.postMilestone(testMilestone);
+      mock.onPut(`${MILESTONE_DEF_URL}1`).reply(200);
+      await milestoneService.postMilestone(1, testMilestone);
     });
 
     it('should throw error on axios bad response', async () => {
       const testMilestone = { test: 'milestone' };
-      mock.onPost(MILESTONE_DEF_URL).reply(500);
+      mock.onPost(`${MILESTONE_DEF_URL}1`).reply(500);
 
-      await expect(milestoneService.postMilestone(testMilestone)).rejects.toThrow();
+      await expect(milestoneService.postMilestone(1, testMilestone)).rejects.toThrow();
 
-      expect(mock.history.post.length).toEqual(1);
-      expect(mock.history.post[0].data).toEqual(JSON.stringify(testMilestone));
-      expect(mock.history.post[0].url).toEqual(MILESTONE_DEF_URL);
-      expect(mock.history.post[0].headers).toEqual(testHeaders);
+      expect(mock.history.put.length).toEqual(1);
+      expect(mock.history.put[0].data).toEqual(JSON.stringify(testMilestone));
+      expect(mock.history.put[0].url).toEqual(`${MILESTONE_DEF_URL}1`);
+      expect(mock.history.put[0].headers).toEqual(testHeaders);
     });
   });
 

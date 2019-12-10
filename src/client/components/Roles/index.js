@@ -12,7 +12,6 @@ import {
 } from '../../redux/actions/authActions';
 import { dispatchType } from '../../redux/actions/commonActions';
 import { authService } from '../../services/AuthService/authService';
-import { permissions } from '../../helpers/permissionHelper';
 import { connect } from 'react-redux';
 
 const { Option } = Select;
@@ -21,6 +20,7 @@ class Roles extends Component {
   state = {
     currentRoleId: undefined,
     roles: [],
+    permissions: [],
     creatingOrEditing: 'editing',
     roleNameText: ''
   }
@@ -36,6 +36,10 @@ class Roles extends Component {
       };
 
       this.setState({ roles: [...data, creatingRole] });
+    });
+
+    authService.getAllPermissions().then(({ data }) => {
+      this.setState({ permissions: data });
     });
   }
 
@@ -104,10 +108,10 @@ class Roles extends Component {
   render() {
     const addedPermissions = !this.state.currentRoleId
       ? [] : (this.state.roles.find(role => role.id === this.state.currentRoleId))
-        .authorities.filter(x => Object.keys(permissions).includes(x)).sort();
+        .authorities.filter(x => this.state.permissions.includes(x)).sort();
 
     const removedPermissions = !this.state.currentRoleId
-      ? [] : (Object.keys(permissions).filter(x => !this.state.roles.find(role => role.id === this.state.currentRoleId)
+      ? [] : (this.state.permissions.filter(x => !this.state.roles.find(role => role.id === this.state.currentRoleId)
         .authorities.includes(x))).sort();
 
     return <div>

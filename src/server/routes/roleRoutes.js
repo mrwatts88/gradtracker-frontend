@@ -5,6 +5,13 @@ const config = require('config');
 
 const serviceUrl = config.get('serviceUrl');
 
+router.get('/authorities', (req, res, next) =>
+  axios
+    .get(`${serviceUrl}/role/authorities/`, { headers: req.headers })
+    .then(response => res.send(response.data))
+    .catch(err => next(err))
+);
+
 router.get('/', (req, res, next) =>
   axios
     .get(`${serviceUrl}/role/`, { headers: req.headers })
