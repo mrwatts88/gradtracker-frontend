@@ -77,7 +77,7 @@ export class C extends Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <div>
+      <div id="create-milestone">
         <Row>
           <Col
             style={{
@@ -129,7 +129,7 @@ export class C extends Component {
                   style={{ width: '100%' }}
                   className="milestone-form__button">
                   Create Milestone
-            </Button>
+                </Button>
               </Form.Item>
             </Form>
             {this.props.postMilestoneStatus === POST_MILESTONE_ERROR && this.props.milestoneError}
@@ -138,25 +138,26 @@ export class C extends Component {
         </Row>
         <Row gutter={24}>
           <Col xs={{ offset: 0, span: 24 }} md={{ offset: 3, span: 18 }} lg={{ offset: 6, span: 12 }}>
-            {this.props.milestones && (this.props.milestones.degreeProgramStates || []).sort((a, b) => a.name - b.name).map(milestone => {
-              return (
-                <div key={milestone.id}>
-                  <Icon
-                    type="close-circle"
-                    onClick={() => this.deleteMilestone(milestone.id)}
-                    style={{
-                      float: 'right',
-                      lineHeight: 2.0,
-                      fontSize: '19px',
-                      color: 'red',
-                      marginLeft: '9px'
-                    }}
-                  />
-                  <div style={{ fontWeight: 'bold' }}>{milestone.name}</div>
-                  <div>{milestone.description}</div>
-                </div>
-              );
-            })}
+            {this.props.milestones &&
+                (this.props.milestones.degreeProgramStates || []).sort((a, b) => a.name - b.name).map(milestone => {
+                  return (
+                    <div key={milestone.id}>
+                      <Icon
+                        type="close-circle"
+                        onClick={() => this.deleteMilestone(milestone.id)}
+                        style={{
+                          float: 'right',
+                          lineHeight: 2.0,
+                          fontSize: '19px',
+                          color: 'red',
+                          marginLeft: '9px'
+                        }}
+                      />
+                      <div style={{ fontWeight: 'bold' }}>{milestone.name}</div>
+                      <div>{milestone.description}</div>
+                    </div>
+                  );
+                })}
           </Col>
         </Row>
       </div >

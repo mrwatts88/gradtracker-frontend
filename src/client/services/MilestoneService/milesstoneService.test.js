@@ -17,21 +17,23 @@ describe('milestoneService', () => {
   beforeEach(() => mock.reset());
 
   describe('postMilestone', () => {
+    const testMilestone = { id: 1, test: 'milestone' };
+    const url = `${MILESTONE_DEF_URL}${testMilestone.id}`;
+    // This test was missing id in url
     it('should post to correct url with correct body and headers', async () => {
-      const testMilestone = { test: 'milestone' };
-      mock.onPost(MILESTONE_DEF_URL).reply(200);
-      await milestoneService.postMilestone(testMilestone);
+      mock.onPost(url).reply(200);
+      await milestoneService.postMilestone(testMilestone.id, testMilestone);
     });
 
+    // This test was missing id in url
     it('should throw error on axios bad response', async () => {
-      const testMilestone = { test: 'milestone' };
-      mock.onPost(MILESTONE_DEF_URL).reply(500);
+      mock.onPost(url).reply(500);
 
-      await expect(milestoneService.postMilestone(testMilestone)).rejects.toThrow();
+      await expect(milestoneService.postMilestone(testMilestone.id, testMilestone)).rejects.toThrow();
 
       expect(mock.history.post.length).toEqual(1);
       expect(mock.history.post[0].data).toEqual(JSON.stringify(testMilestone));
-      expect(mock.history.post[0].url).toEqual(MILESTONE_DEF_URL);
+      expect(mock.history.post[0].url).toEqual(url);
       expect(mock.history.post[0].headers).toEqual(testHeaders);
     });
   });
