@@ -17,14 +17,13 @@ describe('milestoneService', () => {
   beforeEach(() => mock.reset());
 
   describe('postMilestone', () => {
-    // This test was missing id in url
+    //   Shouldn't this be a post request?
     it('should post to correct url with correct body and headers', async () => {
       const testMilestone = { test: 'milestone' };
       mock.onPut(`${MILESTONE_DEF_URL}1`).reply(200);
       await milestoneService.postMilestone(1, testMilestone);
     });
 
-    // This test was missing id in url
     it('should throw error on axios bad response', async () => {
       const testMilestone = { test: 'milestone' };
       mock.onPost(`${MILESTONE_DEF_URL}1`).reply(500);
