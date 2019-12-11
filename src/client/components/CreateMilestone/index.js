@@ -141,7 +141,7 @@ export class C extends Component {
             {this.props.milestones &&
                 (this.props.milestones.degreeProgramStates || []).sort((a, b) => a.name - b.name).map(milestone => {
                   return (
-                    <div key={milestone.id}>
+                    <div key={milestone.id} id={`${milestone.name}-${milestone.id}`}>
                       <Icon
                         type="close-circle"
                         onClick={() => this.deleteMilestone(milestone.id)}
