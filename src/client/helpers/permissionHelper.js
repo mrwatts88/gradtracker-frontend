@@ -3,18 +3,18 @@ export function hasPermission(user, permission) {
   return (user.authorities || []).includes(permission);
 }
 
-export function hasAllPermissions(user, permissions) {
+export function hasAllPermissions(user, userPermissions) {
   if (!user) return false;
-  for (const p of permissions || []) {
+  for (const p of userPermissions || []) {
     if (!hasPermission(user, p)) return false;
   }
 
   return true;
 }
 
-export function hasAnyPermission(user, permissions) {
+export function hasAnyPermission(user, userPermissions) {
   if (!user) return false;
-  for (const p of permissions || []) {
+  for (const p of userPermissions || []) {
     if (hasAllPermissions(user, [p])) return true;
   }
   return false;

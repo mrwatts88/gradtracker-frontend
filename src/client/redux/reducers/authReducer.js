@@ -2,7 +2,7 @@ import * as actions from '../actions/authActions';
 
 const initialState = {};
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case actions.AUTHENTICATE:
       return { ...state, authenticateStatus: action.type };

@@ -17,24 +17,24 @@ describe('milestoneService', () => {
   beforeEach(() => mock.reset());
 
   describe('postMilestone', () => {
-    const testMilestone = { id: 1, test: 'milestone' };
-    const url = `${MILESTONE_DEF_URL}${testMilestone.id}`;
     // This test was missing id in url
     it('should post to correct url with correct body and headers', async () => {
-      mock.onPost(url).reply(200);
-      await milestoneService.postMilestone(testMilestone.id, testMilestone);
+      const testMilestone = { test: 'milestone' };
+      mock.onPut(`${MILESTONE_DEF_URL}1`).reply(200);
+      await milestoneService.postMilestone(1, testMilestone);
     });
 
     // This test was missing id in url
     it('should throw error on axios bad response', async () => {
-      mock.onPost(url).reply(500);
+      const testMilestone = { test: 'milestone' };
+      mock.onPost(`${MILESTONE_DEF_URL}1`).reply(500);
 
-      await expect(milestoneService.postMilestone(testMilestone.id, testMilestone)).rejects.toThrow();
+      await expect(milestoneService.postMilestone(1, testMilestone)).rejects.toThrow();
 
-      expect(mock.history.post.length).toEqual(1);
-      expect(mock.history.post[0].data).toEqual(JSON.stringify(testMilestone));
-      expect(mock.history.post[0].url).toEqual(url);
-      expect(mock.history.post[0].headers).toEqual(testHeaders);
+      expect(mock.history.put.length).toEqual(1);
+      expect(mock.history.put[0].data).toEqual(JSON.stringify(testMilestone));
+      expect(mock.history.put[0].url).toEqual(`${MILESTONE_DEF_URL}1`);
+      expect(mock.history.put[0].headers).toEqual(testHeaders);
     });
   });
 

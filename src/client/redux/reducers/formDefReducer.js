@@ -3,7 +3,7 @@ import { UNAUTHENTICATE } from '../actions/authActions';
 
 const initialState = {};
 
-const formDefReducer = (state = initialState, action) => {
+const formDefReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case actions.POST_FORM_DEF:
       return { ...state, postFormDefStatus: action.type };

@@ -3,7 +3,7 @@ import { UNAUTHENTICATE } from '../actions/authActions';
 
 const initialState = {};
 
-const milestoneReducer = (state = initialState, action) => {
+const milestoneReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case actions.POST_MILESTONE:
       return { ...state, postMilestoneStatus: action.type };

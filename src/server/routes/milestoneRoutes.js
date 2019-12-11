@@ -13,7 +13,6 @@ router.put('/:id', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  console.log(req.headers);
   return axios
     .get(`${serviceUrl}/degreeProgram/1`, { headers: req.headers })
     .then(response => res.send(response.data))
