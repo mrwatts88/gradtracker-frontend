@@ -4,8 +4,8 @@ import { shallow, mount } from 'enzyme';
 import { Form } from 'antd';
 import { REGISTER_SUCCESS, REGISTER_ERROR } from '../../redux/actions/authActions';
 
-describe('LogInForm', () => {
-  let wrapper, props;
+describe('RegistrationForm', () => {
+  let wrapper, props, warn, error;
 
   beforeEach(() => {
     props = {
@@ -13,6 +13,13 @@ describe('LogInForm', () => {
       dispatchType: jest.fn(),
       registerStatus: REGISTER_SUCCESS,
     };
+    warn = jest.spyOn(console, 'warn').mockImplementation();
+    error = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterAll(() => {
+    warn.mockRestore();
+    error.mockRestore();
   });
 
   describe('ui', () => {
