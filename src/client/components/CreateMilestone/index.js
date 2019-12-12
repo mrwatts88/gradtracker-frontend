@@ -139,31 +139,31 @@ export class C extends Component {
         <Row gutter={24}>
           <Col xs={{ offset: 0, span: 24 }} md={{ offset: 3, span: 18 }} lg={{ offset: 6, span: 12 }}>
             {this.props.milestones &&
-                (this.props.milestones.degreeProgramStates || []).sort((a, b) => a.name - b.name).map(milestone => {
-                  return (
-                    <div key={milestone.id} id={`${milestone.name}-${milestone.id}`}>
-                      <Icon
-                        type="close-circle"
-                        onClick={() => this.deleteMilestone(milestone.id)}
-                        style={{
-                          float: 'right',
-                          lineHeight: 2.0,
-                          fontSize: '19px',
-                          color: 'red',
-                          marginLeft: '9px'
-                        }}
-                      />
-                      <div style={{ fontWeight: 'bold' }}>{milestone.name}</div>
-                      <div>{milestone.description}</div>
-                    </div>
-                  );
-                })}
+              (this.props.milestones.degreeProgramStates || []).sort((a, b) => a.name - b.name).map(milestone => {
+                return (
+                  <div key={milestone.id} id={`${milestone.name}-${milestone.id}`}>
+                    <Icon
+                      type="close-circle"
+                      onClick={() => this.deleteMilestone(milestone.id)}
+                      style={{
+                        float: 'right',
+                        lineHeight: 2.0,
+                        fontSize: '19px',
+                        color: 'red',
+                        marginLeft: '9px'
+                      }}
+                    />
+                    <div style={{ fontWeight: 'bold' }}>{milestone.name}</div>
+                    <div>{milestone.description}</div>
+                  </div>
+                );
+              })}
           </Col>
         </Row>
       </div >
     );
   }
-};
+}
 
 export const CreateMilestone = Form.create({ name: 'milestone_form' })(C);
 

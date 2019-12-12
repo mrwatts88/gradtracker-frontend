@@ -81,10 +81,10 @@ export class Roles extends Component {
   }
 
   createRole = () => {
-    let role = this.state.roles.find(r => r.id === this.state.currentRoleId);
-    role = { ...role, name: this.state.roleNameText };
-    delete role.id;
-    this.props.createRole(role).then(() => {
+    let currentRole = this.state.roles.find(r => r.id === this.state.currentRoleId);
+    currentRole = { ...currentRole, name: this.state.roleNameText };
+    delete currentRole.id;
+    this.props.createRole(currentRole).then(() => {
       const roles = [...this.state.roles];
       const role = roles.find(r => r.id === -1);
       role.authorities = [];
