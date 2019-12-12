@@ -17,6 +17,7 @@ describe('milestoneService', () => {
   beforeEach(() => mock.reset());
 
   describe('postMilestone', () => {
+    //   Shouldn't this be a post request?
     it('should post to correct url with correct body and headers', async () => {
       const testMilestone = { test: 'milestone' };
       mock.onPut(`${MILESTONE_DEF_URL}1`).reply(200);
