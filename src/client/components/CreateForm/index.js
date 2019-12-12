@@ -134,9 +134,13 @@ export class CreateForm extends Component {
                 </Col>
               </Row>
             </Form>
-            <div style={{ color: 'green', textAlign: 'center' }}>
-              {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
-              {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
+            <div style={{ textAlign: 'center' }}>
+              <span style={{ color: 'red' }}>
+                {this.props.postFormDefStatus === POST_FORM_DEF_ERROR && this.props.formDefError}
+              </span>
+              <span style={{ color: 'green' }}>
+                {this.props.postFormDefStatus === POST_FORM_DEF_SUCCESS && 'Form created.'}
+              </span>
             </div>
           </Col>
         </Row>
@@ -153,7 +157,7 @@ export class CreateForm extends Component {
                 deleteField={this.deleteField} />)}
           </Col>
         </Row>
-      </div>
+      </div >
     );
   }
 }

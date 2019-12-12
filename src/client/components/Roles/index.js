@@ -84,7 +84,15 @@ export class Roles extends Component {
     let role = this.state.roles.find(r => r.id === this.state.currentRoleId);
     role = { ...role, name: this.state.roleNameText };
     delete role.id;
-    this.props.createRole(role);
+    this.props.createRole(role).then(() => {
+      const roles = [...this.state.roles];
+      const role = roles.find(r => r.id === -1);
+      role.authorities = [];
+      const idx = roles.findIndex(r => r.id === -1);
+      roles[idx] = role;
+
+      this.setState({ roles, roleNameText: '' });
+    });
   }
 
   toggleCreating = () => {
@@ -151,11 +159,19 @@ export class Roles extends Component {
         }
       </div>
 
-      <div style={{ color: 'green', textAlign: 'center' }}>
-        {this.props.createRoleStatus === CREATE_ROLE_ERROR && this.props.createRoleError}
-        {this.props.createRoleStatus === CREATE_ROLE_SUCCESS && 'Role created successfully.'}
-        {this.props.updateRoleStatus === UPDATE_ROLE_ERROR && this.props.updateRoleError}
-        {this.props.updateRoleStatus === UPDATE_ROLE_SUCCESS && 'Role updated successfully.'}
+      <div style={{ textAlign: 'center' }}>
+        <span style={{ color: 'red' }}>
+          {this.props.createRoleStatus === CREATE_ROLE_ERROR && this.props.createRoleError}
+        </span>
+        <span style={{ color: 'green' }}>
+          {this.props.createRoleStatus === CREATE_ROLE_SUCCESS && 'Role created successfully.'}
+        </span>
+        <span style={{ color: 'red' }}>
+          {this.props.updateRoleStatus === UPDATE_ROLE_ERROR && this.props.updateRoleError}
+        </span>
+        <span style={{ color: 'green' }}>
+          {this.props.updateRoleStatus === UPDATE_ROLE_SUCCESS && 'Role updated successfully.'}
+        </span>
       </div>
 
       {this.state.currentRoleId &&

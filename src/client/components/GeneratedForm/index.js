@@ -73,9 +73,9 @@ export class G extends React.Component {
                   Submit
               </Button>
               </Form.Item>
-              <div style={{ color: 'green', textAlign: 'center' }}>
-                {this.props.postFormStatus === POST_FORM_ERROR && <span className='error'>this.props.formError</span>}
-                {this.props.postFormStatus === POST_FORM_SUCCESS && <span className='success'>Form submitted successfully.</span>}
+              <div style={{ textAlign: 'center' }}>
+                {this.props.postFormStatus === POST_FORM_ERROR && <span style={{ color: 'red' }} className='error'>{this.props.formError}</span>}
+                {this.props.postFormStatus === POST_FORM_SUCCESS && <span style={{ color: 'green' }} className='success'>Form submitted successfully.</span>}
               </div>
             </Form>
           )}

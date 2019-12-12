@@ -78,7 +78,7 @@ describe('LogInForm', () => {
 
   it('createRole', () => {
     const props = {
-      createRole: jest.fn()
+      createRole: jest.fn(() => Promise.resolve())
     };
 
     wrapper = shallow(<Roles {...props} />);
